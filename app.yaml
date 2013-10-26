@@ -1,0 +1,28 @@
+application: gcdc2013-know-your-gov
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: false
+
+#libraries:
+#- name: flask
+#  version: latest
+#
+#- name: jinja2
+#  version: latest
+
+handlers:
+- url: /images/
+  static_dir: static/images/
+  expiration: 1000d
+
+- url: /js/
+  static_dir: static/js/
+  expiration: 1s
+
+- url: /css/
+  static_dir: static/css/
+  expiration: 1s
+
+- url: /.*
+  script: main.py
