@@ -6,3 +6,10 @@ class User(db.Model):
   email = db.StringProperty(default = '')
   created = db.DateTimeProperty(auto_now_add = True)
   updated = db.DateTimeProperty(auto_now = True)
+
+class Politician(db.Model):
+  name = db.StringProperty(required = True)
+  party = db.StringProperty(required = True)
+  category = db.StringProperty(required = True)
+  constituency = db.StringProperty(required = True)
+  state = db.StringProperty(required = True)
