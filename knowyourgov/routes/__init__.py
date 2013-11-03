@@ -8,7 +8,7 @@ from knowyourgov.scripts import update_politicians
 # test route
 @app.route('/')
 def hello_world():
-  return 'Hello!'
+  return render_template('home.html')
 
 """JSON response containing information for a particular politician
 """
