@@ -2,10 +2,10 @@ from flask import Flask, url_for, render_template, request, make_response
 
 from knowyourgov import app
 from knowyourgov.models import Politician
-from knowyourgov.scripts import update_politicians
+from knowyourgov.scripts import insert_politicians_in_db
 # import errors
 
-# test route
+# landing page
 @app.route('/')
 def hello_world():
   return render_template('home.html')
@@ -16,10 +16,10 @@ def hello_world():
 def display_politician(politician):
   return '{"message":"success"}';
 
+
 """Creates entry for loksabha politicians in the db
     *Note* : Do not run it more than once, will create multiple entries
 """
 @app.route('/politicians/update')
 def update_all():
-  update_politicians()
-  return 'Done'
+  return insert_politicians_in_db()
