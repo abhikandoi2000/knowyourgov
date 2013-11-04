@@ -7,7 +7,7 @@ from knowyourgov.scripts import insert_politicians_in_db
 
 # landing page
 @app.route('/')
-def hello_world():
+def homepage():
   return render_template('home.html')
 
 """JSON response containing information for a particular politician
