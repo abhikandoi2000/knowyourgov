@@ -1,0 +1,33 @@
+ body{
+        background-color: #FFF;
+      }
+
+      div.center{
+        text-align:center;
+        margin-top: 20%;
+      }
+   
+      .span4{
+        
+      }
+
+      .pane3 div{
+        min-height: 200px !important;
+       
+      }
+      .main-wrap div{
+        min-height: 200px !important;
+       
+      }
+      header{
+        min-height : 50px;
+        border-bottom: 2px solid #BBB39F;
+        padding: 10px;
+      }
+
+      div.title{
+        font-size:25px;
+      }
+      div.search-wrap{
+        margin-top: 80px;
+      }
