@@ -1,28 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
+        
         <div class="row main-wrap">
           <div class = "col-md-12">
-          { Main Content }
+         
             <div class="row search-wrap">
-              <div class="col-md-4 col-md-offset-4">
-                <div class="form-group">
-                  <input type="text" placeholder="Search" class="form-control">                  
+               <form action="/search">
+              <div class="col-md-5 col-md-offset-3">
+               
+                  <div class="form-group">
+                    <input type="text" placeholder="Search" class="form-control" id="q" name="q">   
+                  </div>  
+               
+               </div> 
+
+                <div class="col-md-3">
+                     <input type="submit" class="btn btn-primary"> 
                 </div>
-              </div>
-              <div class="col-md-2">
-                <a class="btn btn-primary">Search</a>
-              </div>
+               
             </div>
+               </form>   
           </div>
         </div> 
 
         <div class="row pane3">
           <div class="col-md-4">
-            <h6 class="demo-panel-title"> Left Column </h6>
+            <h6 class="demo-panel-title"> Locate </h6>
+            <div id="map-canvas"></div>
           </div>
 
           <div class="col-md-4">
-            <h6 class="demo-panel-title"> Center Column </h6>
+            <h6 class="demo-panel-title"> Introduction </h6>
           </div>
 
           <div class="col-md-4">
@@ -36,4 +44,9 @@
            </div>
           </div>
         </div>
+
+       <!-- <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt302Eg6wtngduThQ9jEmcGQfHmn1XNQg&sensor=true">
+        </script> -->
+        <script src= "{{ url_for('static', filename='js/home.js')}}" ></script> 
 {% endblock %}

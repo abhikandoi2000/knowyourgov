@@ -11,11 +11,14 @@
         
       }
 
-      .pane3 div{
+      .pane3 > div{
         min-height: 200px !important;
        
       }
-      .main-wrap div{
+      #map-canvas{
+        min-height:180px;
+      }
+      .main-wrap{
         min-height: 200px !important;
        
       }

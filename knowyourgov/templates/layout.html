@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flat-ui.css') }}" />
+    <script src="http://code.jquery.com/jquery.min.js"></script>
     {% if title %}
     <title>Know Your Government : {{ title }}</title>    
     {% else %}
@@ -20,7 +21,7 @@
         <header>
           <div class="row">
             <div class="col-md-6 title">
-              knowYourGov
+              <a href="/">  knowYourGov </a>
             </div>
             <div class="col-md-3 col-md-offset-3">
               <a href= "#" class="btn btn-block btn-lg btn-danger"> Button! </a>
