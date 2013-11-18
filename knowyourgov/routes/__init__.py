@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, make_response
+from flask import Flask, url_for, render_template, request, make_response, jsonify
 
 from knowyourgov import app
 from knowyourgov.models import Politician
@@ -17,8 +17,13 @@ def homepage():
 @app.route('/search', methods= ['POST', 'GET'] )
 def search():
  # query = request.form['q']
-  query = request.args.get('q')
-  return render_template('politican.html', q = query)
+  query = request.args.get('q').lower()
+  politicians = Politician.all()
+  politicians.filter("name =", query)
+  politician = None
+  for p in politicians:
+    politician = p
+  return render_template('politican.html', q = query, politician = politician)
 
 
 """ 404 - Page
@@ -37,8 +42,17 @@ def page_not_found(error):
 """
 @app.route('/politicians/<politician>')
 def display_politician(politician):
-  return '{"message":"success"}';
-
+  politicians = Politician.all()
+  politicians.filter("name =", politician)
+  politician = None
+  for p in politicians:
+    politician = p
+  return jsonify(name=politician.name,
+    state = politician.state,
+    party = politician.party,
+    constituency = politician.constituency
+    wiki = politician.wiki_link
+    )
 
 """Creates entry for loksabha politicians in the db
     *Note* : Do not run it more than once, will create multiple entries

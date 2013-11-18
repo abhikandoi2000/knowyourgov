@@ -10,10 +10,10 @@ def insert_politicians_in_db():
   for index in range( len(politicians) ):
     # new politician
     politician = Politician(
-      name = politicians[index],
-      party = parties[index],
-      state = states[index],
-      constituency = constituencies[index],
+      name = politicians[index].lower(),
+      party = parties[index].lower(),
+      state = states[index].lower(),
+      constituency = constituencies[index].lower(),
       wiki_link = wiki_links[index]
     )
     politician.put()
