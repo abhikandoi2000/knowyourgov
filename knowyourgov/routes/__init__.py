@@ -50,7 +50,7 @@ def display_politician(politician):
   return jsonify(name=politician.name,
     state = politician.state,
     party = politician.party,
-    constituency = politician.constituency
+    constituency = politician.constituency,
     wiki = politician.wiki_link
     )
 
