@@ -1,21 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h3> Politican Page -  {{ politician.name }} </h3>
-    <div class="info row pane3">
-      <div class="col-md-4">
+    <h3> Politican Page</h3>
+    <div class="row pane3">
+      <div class="col-md-4 info" id="info">
         <h6 class="demo-pane-title">Info</h6>
-        <h6>{{ politician.name }}</h6>
+        <h6 class="politician-name"><!-- {{ politician.name }} --></h6>
         <ul>
-          <li>{{ politician.party }}</li>
+          <!-- <li>{{ politician.party }}</li>
           <li>{{ politician.state }}</li>
-          <li>{{ politician.constituency }}</li>
+          <li>{{ politician.constituency }}</li> -->
         </ul>
       </div>
       <div class="col-md-4">
-        <h6 class="demo-pane-title">Bio</h6>
+        <h6 class="demo-pane-title">Articles</h6>
       </div>
       <div class="col-md-4">
         <h6 class="demo-pane-title">Sentiment Analysis</h6>
       </div>
     </div>
+
 {% endblock %}
+
+{% block scripts %}
+    <script>
+      q = "{{ politician.name }}";
+    </script>
+    <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
+    <script src= "{{ url_for('static', filename='js/politician.js')}}" ></script>
+{% endblock %}
+

@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flat-ui.css') }}" />
-    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nprogress.css') }}" />
+    <script src= "{{ url_for('static', filename='js/jquery.js')}}" ></script>
     {% if title %}
     <title>Know Your Government : {{ title }}</title>    
     {% else %}
@@ -31,5 +32,6 @@
         {% block content %}{% endblock %}
       </div>
     </div>
+    {% block scripts %}{% endblock %}
   </body>
 </html>
