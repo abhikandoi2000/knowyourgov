@@ -35,5 +35,43 @@ class HinduScraper(Scraper):
 	def getArticles(self):
 		return self.articles
 
+class toiScraper(Scraper):
+	gcsUrl = scraperconfig.customSearchUrl + scraperconfig.searchId['toi']
+
+	def addArticleContent(self):
+		self.articles.pop(0)
+		for article in self.articles:
+			htmlResponse = urllib2.urlopen(article["url"])
+			soup = BeautifulSoup(htmlResponse)
+			title = soup.find("h1", class_="multi-line-title-1")
+			if title:
+				article["title"] = title.text
+			article["content"] = "";
+			content = soup.select("div.mod-articletext p")
+			if content:
+				for para in content:
+					article["content"] += para.text
+
+			article["comments"] = []
+			containerDiv = soup.find("div", id="mod-readers-comment")
+			if containerDiv:
+				commentsUrl = containerDiv.iframe['src']
+				if commentsUrl:
+					commentsUrl = commentsUrl.replace('pmcomment', 'opinions')
+					htmlResponse = urllib2.urlopen(commentsUrl)
+					soup = BeautifulSoup(htmlResponse)
+					comments = soup.find_all("span", class_="replybtn")
+					if comments:
+						for comment in comments:
+							article["comments"].append(comment.previousSibling.text)
+				break	
+
+
+
+
+	def getArticles(self):
+		return self.articles
+
 scrapers = {}
 scrapers['hindu'] = HinduScraper()
+scrapers['toi'] = toiScraper()
