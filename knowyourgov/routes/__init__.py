@@ -68,5 +68,5 @@ def test(newspaper, query):
 	hinduscraper.getArticleLinks(query)
 	hinduscraper.addArticleContent()
 	articles = hinduscraper.getArticles()
-	return json.dumps(articles)
+	return jsonify(articles=articles)
 
