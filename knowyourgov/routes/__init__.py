@@ -1,8 +1,9 @@
-from flask import Flask, url_for, render_template, request, make_response, jsonify
+from flask import Flask, url_for, render_template, request, make_response, jsonify, json
 
 from knowyourgov import app
 from knowyourgov.models import Politician
 from knowyourgov.scripts import insert_politicians_in_db
+from knowyourgov.scripts.scraping import scrapers
 # import errors
 
 # landing page
@@ -60,3 +61,12 @@ def display_politician(politician):
 @app.route('/politicians/update')
 def update_all():
   return insert_politicians_in_db()
+
+@app.route('/json/<newspaper>/<query>')
+def test(newspaper, query):
+	hinduscraper = scrapers[newspaper]
+	hinduscraper.getArticleLinks(query)
+	hinduscraper.addArticleContent()
+	articles = hinduscraper.getArticles()
+	return json.dumps(articles)
+
