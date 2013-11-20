@@ -13,6 +13,12 @@ from knowyourgov.scripts.scraping import scrapers
 def homepage():
   return render_template('home.html')
 
+"""Location Based Search
+"""
+@app.route('/locate', methods=['GET'])
+def locate():
+  return render_template('locate.html')
+
 """Search -> Politician Page
 """
 @app.route('/search', methods= ['POST', 'GET'] )

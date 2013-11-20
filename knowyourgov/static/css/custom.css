@@ -34,3 +34,7 @@
       div.search-wrap{
         margin-top: 80px;
       }
+
+      div#geoloc-success{
+        display:none;
+      }

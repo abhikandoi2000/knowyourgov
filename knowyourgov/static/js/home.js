@@ -56,23 +56,25 @@
 // // }
 
 // window.onload = initialize;
-
+  
 if(navigator.geolocation) {
-    browserSupportFlag = true;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var lat = position.coords.latitude,
-          lng = position.coords.longitude;
-      // map.setCenter(initialLocation);
+  $('#geoloc-success').show()
+    // var msg = "Your browser supports location detection, Sweet!"
+    // browserSupportFlag = true;
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   var lat = position.coords.latitude,
+    //       lng = position.coords.longitude;
+    //   // map.setCenter(initialLocation);
 
-       $.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
-          console.log(response);
-          $('#map-canvas').html('Current Location : ' +  response['results'][0]['formatted_address']);
-        })
-    }, function() {
+    //    $.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
+    //       console.log(response);
+    //       $('#map-canvas').html('Current Location : ' +  response['results'][0]['formatted_address']);
+    //     })
+    // }, function() {
         
 
 
-    });
+    // });
 
 
   }

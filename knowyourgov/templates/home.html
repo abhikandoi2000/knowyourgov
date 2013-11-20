@@ -26,7 +26,14 @@
         <div class="row pane3">
           <div class="col-md-4">
             <h6 class="demo-panel-title"> Locate </h6>
-            <div id="map-canvas"></div>
+             <div>
+             <img src="{{  url_for('static', filename='img/gmaps.png') }}" height="150">
+               </div>
+              Use our <a href="/locate">location service</a> to find our about politicans from your region!
+             
+             <div id="geoloc-success">
+               Your browser supports location detection, Sweet!
+             </div>
           </div>
 
           <div class="col-md-4">
@@ -47,8 +54,9 @@
 {% endblock %}
 
 {% block scripts %}
+
+  <script src= "{{ url_for('static', filename='js/home.js')}}" ></script>
        <!-- <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt302Eg6wtngduThQ9jEmcGQfHmn1XNQg&sensor=true">
         </script> -->
-        <script src= "{{ url_for('static', filename='js/home.js')}}" ></script>
 {% endblock %}
