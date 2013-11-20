@@ -78,10 +78,10 @@ def json_politician(politician):
     wiki = politician.wiki_link
     )
 
-"""Creates entry for loksabha politicians in the db
+"""Creates entry for politicians in the db
     *Note* : Do not run it more than once, will create multiple entries
 """
-@app.route('/politicians/update')
+@app.route('/updatedb/politicians')
 def update_all():
   return insert_politicians_in_db()
 
