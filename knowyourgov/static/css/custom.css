@@ -38,3 +38,11 @@
       div#geoloc-success{
         display:none;
       }
+
+      div#personal {
+        font-size: 15px;
+      }
+
+      h6.politician-name {
+        font-size: 28px;
+      }

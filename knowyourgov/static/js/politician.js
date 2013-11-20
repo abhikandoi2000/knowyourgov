@@ -25,7 +25,7 @@ $(function() {
   $.ajax({
     url:"/json/politicians/" + name,
     success: function(data, status) {
-      $("#info h5.politician-name").html(toTitleCase(data.name));
+      $("#info h6.politician-name").html('<a href="/politicians/id/' + data.name + '">' + toTitleCase(data.name) + "</a>");
       $("#personal").append("<div><b>Party: </b>" + toTitleCase(data.party) + "</div>");
       $("#personal").append("<div><b>State: </b>" + toTitleCase(data.state) + "</div>");
       $("#personal").append("<div><b>Constituency: </b>" + toTitleCase(data.constituency) + "</div>");
