@@ -12,21 +12,23 @@ $(function() {
   NProgress.set(fractionComplete);
 
   // var name = "meghe datta";
-  $.ajax({
-    url: "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + name,
-    success: function(data, status) {
-      var imageUrl = data.responseData.results[0].url;
-      $("#politician-image").attr('src', imageUrl);
-    }
-  });
+
+  // fetch image from Google Image API (Deprecated)
+  // $.ajax({
+  //   url: "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + name,
+  //   success: function(data, status) {
+  //     var imageUrl = data.responseData.results[0].url;
+  //     $("#politician-image").attr('src', imageUrl);
+  //   }
+  // });
 
   $.ajax({
     url:"/json/politicians/" + name,
     success: function(data, status) {
       $("#info h5.politician-name").html(toTitleCase(data.name));
-      $("#personal").append("<div>" + toTitleCase(data.party) + "</div>");
-      $("#personal").append("<div>" + toTitleCase(data.state) + "</div>");
-      $("#personal").append("<div>" + toTitleCase(data.constituency) + "</div>");
+      $("#personal").append("<div><b>Party: </b>" + toTitleCase(data.party) + "</div>");
+      $("#personal").append("<div><b>State: </b>" + toTitleCase(data.state) + "</div>");
+      $("#personal").append("<div><b>Constituency: </b>" + toTitleCase(data.constituency) + "</div>");
 
       fractionComplete += 0.2;
       NProgress.set(fractionComplete);

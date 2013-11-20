@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h3> Politican Page</h3>
+    <h3> Politician Page</h3>
     <div class="row pane3">
       <div class="col-md-4 info" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
-        <img id="politician-image" src="" height="200" width="200">
+        <img id="politician-image" title="placeholder" src="{{ url_for('static', filename='img/anon.jpg') }}" height="200" width="200">
         <h5 class="politician-name"><!-- {{ politician.name }} --></h5>
         <div id="personal">
           <!-- <li>{{ politician.party }}</li>

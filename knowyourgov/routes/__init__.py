@@ -85,6 +85,10 @@ def json_politician(politician):
 def update_all():
   return insert_politicians_in_db()
 
+# @app.route('/updatedb/images')
+# def update_images():
+#   return fetch_images()
+
 @app.route('/json/<newspaper>/<query>')
 def test(newspaper, query):
 	hinduscraper = scrapers[newspaper]
