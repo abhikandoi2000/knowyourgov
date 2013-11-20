@@ -26,8 +26,17 @@
             <div class="col-md-6 title">
               <a href="/">  knowYourGov </a>
             </div>
-            <div class="col-md-3 col-md-offset-3">
-              <a href= "#" class="btn btn-block btn-lg btn-danger"> Button! </a>
+            <div class="col-md-2 col-md-offset-4">
+             <span id="signinButton">
+              <span
+                class="g-signin"
+                data-callback="signinCallback"
+                data-clientid="1018660632134.apps.googleusercontent.com"
+                data-cookiepolicy="single_host_origin"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-scope="https://www.googleapis.com/auth/plus.login">
+              </span>
+            </span>
             </div>
           </div>
         </header> 
@@ -35,5 +44,13 @@
       </div>
     </div>
     {% block scripts %}{% endblock %}
+    <!-- Required for G+ Sign In -->
+    <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
   </body>
 </html>

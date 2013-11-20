@@ -58,7 +58,23 @@
 // window.onload = initialize;
   
 if(navigator.geolocation) {
-  $('#geoloc-success').show()
+  $('#geoloc-success').show();
+}
+
+function signinCallback(authResult) {
+  if (authResult['access_token']) {
+    // Update the app to reflect a signed in user
+    // Hide the sign-in button now that the user is authorized, for example:
+    document.getElementById('signinButton').setAttribute('style', 'display: none');
+  } else if (authResult['error']) {
+    // Update the app to reflect a signed out user
+    // Possible error values:
+    //   "user_signed_out" - User is signed-out
+    //   "access_denied" - User denied access to your app
+    //   "immediate_failed" - Could not automatically log in the user
+    console.log('Sign-in state: ' + authResult['error']);
+  }
+}
     // var msg = "Your browser supports location detection, Sweet!"
     // browserSupportFlag = true;
     // navigator.geolocation.getCurrentPosition(function(position) {
@@ -77,4 +93,4 @@ if(navigator.geolocation) {
     // });
 
 
-  }
+
