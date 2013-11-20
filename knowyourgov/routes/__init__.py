@@ -24,6 +24,18 @@ def homepage():
       break
   return render_template('home.html', politicians=politicians)
 
+"""User page
+"""
+@app.route('/user')
+def userpage():
+  return render_template('user.html')
+
+"""Detects Location
+"""
+@app.route('/getlocation')
+def currentlocation():
+  return render_template('getlocation.html')
+
 """Politician Page
 """
 @app.route('/politicians/id/<name>')

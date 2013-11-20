@@ -9,8 +9,8 @@ function signinCallback(authResult) {
     request.execute(function(profile){
 
       console.log(profile.name.givenName, profile.placesLived);
-      
-      $('#userinfo').html('Welcome, ' + profile.name.givenName);
+
+      $('#userinfo').html('Welcome, <a href="/user">' + profile.name.givenName +"</a>");
 
     });
 
