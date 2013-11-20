@@ -1,6 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h3> Politician Page</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <h3> Politician Page</h3>
+      </div>
+      <div class="col-md-8">
+        <div style="padding-top:25px;">
+          <form action="/search">
+            <div class="col-md-5 col-md-offset-5" style="padding:0 2px;">
+              <div class="form-group">
+                <input type="text" placeholder="Search for politicians" class="form-control" id="q" name="q">
+              </div>
+            </div>
+            <div class="col-md-2" style="padding:0 2px;">
+                 <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="row pane3">
       <div class="col-md-3 info" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
