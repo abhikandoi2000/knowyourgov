@@ -24,5 +24,19 @@ $(function() {
       NProgress.set(fractionComplete);
     }
   });
+
+  $.ajax({
+    url: "/json/hindu/" + name,
+    success: function(data, status) {
+      for(index in data.articles) {
+        article = data.articles[index];
+        console.log(article);
+        $("#articles").append('<div><b><a href="' + article.url + '">' + article.title + '</a></b><p>' + article.content.substr(0,150) + '...</p></div>');
+      }
+
+      fractionComplete += 0.2;
+      NProgress.set(fractionComplete);
+    }
+  });
   // NProgress.done();
 });

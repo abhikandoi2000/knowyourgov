@@ -1,11 +1,11 @@
 import scraperconfig
-import urllib2, json
+import urllib2, json, urllib
 from bs4 import BeautifulSoup
 
 class Scraper:
 	articles = []
 	def getArticleLinks(self, search):
-		url = self.gcsUrl+'&q='+search
+		url = self.gcsUrl+'&q='+urllib.quote(search)
 		response = urllib2.urlopen(url)
 		jsonResponse = json.loads(response.read())
 
