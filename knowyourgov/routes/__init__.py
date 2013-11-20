@@ -11,7 +11,18 @@ from knowyourgov.scripts.scraping import scrapers
 """
 @app.route('/')
 def homepage():
-  return render_template('home.html')
+  q = Politician.all()
+  q.order('-search_count')
+
+  politicians = []
+
+  count = 0
+  for politician in q:
+    politicians.append(politician)
+    count = count + 1
+    if count == 8:
+      break
+  return render_template('home.html', politicians=politicians)
 
 """Politician Page
 """
@@ -23,6 +34,10 @@ def politician_page(name):
   politician = None
   for p in politicians:
     politician = p
+
+  # increment search count by one
+  politician.search_count = politician.search_count + 1
+  politician.put()
   return render_template('politician.html', name = name, politician = politician)
 
 
@@ -47,6 +62,10 @@ def search():
   politician = None
   for p in politicians:
     politician = p
+
+  # increment search count by one
+  politician.search_count = politician.search_count + 1
+  politician.put()
   return render_template('politician.html', q = query, politician = politician)
 
 

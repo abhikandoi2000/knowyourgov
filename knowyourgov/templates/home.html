@@ -41,12 +41,12 @@
           </div>
 
           <div class="col-md-4">
-           <h6 class="demo-panel-title"> Tags! </h6>
+           <h6 class="demo-panel-title"> Most Debated Politician </h6>
            <div class="share mrl">
             <ul>
-              <li> Tag </li>
-              <li> Tag </li>
-              <li> Tag </li>
+              {% for politician in politicians %}
+              <li> <a href="/politicians/id/{{ politician.name }}">{{ politician.name.title() }}</a> </li>
+              {% endfor %}
             </ul>
            </div>
           </div>

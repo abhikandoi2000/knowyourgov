@@ -39,7 +39,8 @@ def insert_politicians_in_db():
       party = parties[index].lower(),
       state = states[index].lower(),
       constituency = constituencies[index].lower(),
-      wiki_link = wiki_links[index]
+      wiki_link = wiki_links[index],
+      search_count = 0
     )
     politician.put()
   return 'Inserted ' + str(len(politicians)) + ' entries in the database.'

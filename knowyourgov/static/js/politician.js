@@ -38,6 +38,9 @@ $(function() {
   $.ajax({
     url: "/json/hindu/" + name,
     success: function(data, status) {
+
+      $("#article-spinner").css('display', 'none');
+
       for(index in data.articles) {
         article = data.articles[index];
         console.log(article);
@@ -46,8 +49,8 @@ $(function() {
 
       fractionComplete += 0.2;
       NProgress.set(fractionComplete);
+      NProgress.done();
     }
   });
 
-  NProgress.done();
 });
