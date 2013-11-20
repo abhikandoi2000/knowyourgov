@@ -11,9 +11,9 @@ $(function() {
   NProgress.start();
   NProgress.set(fractionComplete);
 
-  // var q = "meghe datta";
+  // var name = "meghe datta";
   $.ajax({
-    url:"/politicians/" + q,
+    url:"/json/politicians/" + name,
     success: function(data, status) {
       $("#info h6.politician-name").html(toTitleCase(data.name));
       $("#info ul").append("<li>" + toTitleCase(data.party) + "</li>");

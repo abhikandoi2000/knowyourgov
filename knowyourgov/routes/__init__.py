@@ -13,11 +13,28 @@ from knowyourgov.scripts.scraping import scrapers
 def homepage():
   return render_template('home.html')
 
+"""Politician Page
+"""
+@app.route('/politicians/id/<name>')
+def politician_page(name):
+  name = name.lower()
+  politicians = Politician.all()
+  politicians.filter("name =", name)
+  politician = None
+  for p in politicians:
+    politician = p
+  return render_template('politician.html', name = name, politician = politician)
+
+
 """Location Based Search
 """
-@app.route('/locate', methods=['GET'])
+@app.route('/locate', methods= ['POST' ,'GET'] )
 def locate():
-  return render_template('locate.html')
+  query = request.args.get('q').lower()
+  politicians = Politician.all()
+  politicians.filter("state =", query)
+  return render_template('locate.html', politicians=politicians, state=query)
+
 
 """Search -> Politician Page
 """
@@ -30,7 +47,7 @@ def search():
   politician = None
   for p in politicians:
     politician = p
-  return render_template('politican.html', q = query, politician = politician)
+  return render_template('politician.html', q = query, politician = politician)
 
 
 """ 404 - Page
@@ -47,8 +64,8 @@ def page_not_found(error):
 
 """JSON response containing information for a particular politician
 """
-@app.route('/politicians/<politician>')
-def display_politician(politician):
+@app.route('/json/politicians/<politician>')
+def json_politician(politician):
   politicians = Politician.all()
   politicians.filter("name =", politician)
   politician = None
