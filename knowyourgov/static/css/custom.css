@@ -39,6 +39,9 @@
         display:none;
       }
 
+      div#locations-wrap{
+        display:none;
+      }
       div#personal {
         font-size: 15px;
       }

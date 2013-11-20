@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<div id="locations-wrap">
-	You've lived in <span id="locations"></span>
+
+	<div class="loggedin" style="display:none" id="locations-wrap">
+		<div class = "tile" > You've lived in <span id="locations"></span> </div>
+		<div class="pallete-item results"></div>
+	</div>
+<div class="center">
+	<div class="notloggedin">
+		You neet to sign in to experience the goodness!
+	</div>
 </div>
-<div id="notloggedin">
-	You neet to sign in to experience the goodness!
-</div>
-{% endblock %}
-{% block scripts %}
-<script src="getlocation.js"></script>
 {% endblock %}
