@@ -101,15 +101,9 @@ function signinCallback(authResult) {
 }
 
 $(function(){
-  $('.typeahead').typeahead([]
-  {
+  $('.typeahead').typeahead({
     name: 'politicians',
     prefetch: '/json/politicians/all'
-  },
-  {
-    name: 'states',
-    prefetch: '/json/states/all'
-  }
-  ]);
+  });
 
 });
