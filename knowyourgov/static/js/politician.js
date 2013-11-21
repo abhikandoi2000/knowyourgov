@@ -6,6 +6,8 @@ var toTitleCase = function(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+showLoading('.tweets');
+
 $(function() {
   var fractionComplete = 0.4;
   NProgress.start();
@@ -52,5 +54,26 @@ $(function() {
       NProgress.done();
     }
   });
+
+  var name = $('.politician-name').text();
+
+  cb.__call(
+    "search_tweets",
+    "q="+ name,
+    function (reply) {
+
+        $('.tweets').html('')
+
+        var tweets = reply['statuses'];
+
+        for(var i =0; i < 5; i++){
+          var status = tweets[i].text;
+           $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
+        }
+
+        
+    },
+    true // this parameter required
+  );
 
 });

@@ -74,6 +74,7 @@ def search():
   politicians = Politician.all()
   politicians.filter("name =", query)
   politician = None
+  
   for p in politicians:
     politician = p
 

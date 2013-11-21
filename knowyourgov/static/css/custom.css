@@ -1,3 +1,4 @@
+
 body{
   background-color: #FFF;
 }
@@ -62,6 +63,23 @@ div.location-options{
 div.locate-home{
   text-align:center;
 }
+
+ul.tweets{
+        list-style:none;
+        padding:0px;
+        margin:0px;
+      }
+      ul.tweets > li {
+        margin-top: 10px;
+        font-size: 0.7em;
+        border-bottom: 1px solid #e3e3e3;
+      }
+      ul.tweets li a {
+         color : #222;
+      }
+      ul.tweets li a:hover {
+         color : #000;
+      }
 
 /**
  * Typeahead dropdown style

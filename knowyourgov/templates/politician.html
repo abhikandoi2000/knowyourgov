@@ -1,24 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="row">
-      <div class="col-md-4">
-        <h3> Politician Page</h3>
-      </div>
-      <div class="col-md-8">
-        <div style="padding-top:25px;">
-          <form action="/search">
-            <div class="col-md-5 col-md-offset-5" style="padding:0 2px;">
-              <div class="form-group">
-                <input type="text" placeholder="Search for politicians" class="form-control typeahead" id="q" name="q">
-              </div>
-            </div>
-            <div class="col-md-2" style="padding:0 2px;">
-                 <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+
     <div class="row pane3">
       <div class="col-md-3 info tile" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
@@ -31,14 +13,37 @@
         </div>
       </div>
       <div class="col-md-5">
-        <h5 class="demo-pane-title">Articles</h5>
+        <h6 class="demo-pane-title">Articles</h5>
         <div class="row" id="articles">
           <!-- articles -->
           <img src="{{ url_for('static', filename='img/spinner.gif') }}" id="article-spinner">
         </div>
       </div>
       <div class="col-md-4">
-        <h5 class="demo-pane-title">Sentiment Analysis</h5>
+
+        <h6 class="demo-pane-title">Sentiment Analysis</h5>
+         <div id="sentiment-wrap"></div>
+
+        <h6 class="demo-pane-title">Social Updates <img src= "/static/img/twitter.png" style="float:right"> </h5> 
+          <div id="tweet-container">
+            <ul class="tweets"></ul>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div style="padding-top:25px;">
+          <form action="/search">
+            <div class="col-md-5 col-md-offset-5" style="padding:0 2px;">
+              <div class="form-group">
+                <input type="text" placeholder="Search for politicians" class="form-control" id="q" name="q">
+              </div>
+            </div>
+            <div class="col-md-2" style="padding:0 2px;">
+                 <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -49,6 +54,9 @@
       name = "{{ politician.name }}";
     </script>
     <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
+    <script src= "{{ url_for('static', filename='js/sha1.js')}}" ></script>
+    <script src= "{{ url_for('static', filename='js/codebird.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/politician.js')}}" ></script>
+
 {% endblock %}
 
