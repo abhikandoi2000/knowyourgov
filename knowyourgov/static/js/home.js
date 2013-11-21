@@ -110,7 +110,7 @@ function signinCallback(authResult) {
     //       lng = position.coords.longitude;
     //   // map.setCenter(initialLocation);
 
-    //    $.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
+    //    $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
     //       console.log(response);
     //       $('#map-canvas').html('Current Location : ' +  response['results'][0]['formatted_address']);
     //     })

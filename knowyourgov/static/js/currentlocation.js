@@ -17,7 +17,7 @@ var getState = function(city){
   var state, country;
 
   $.ajax({
-      url :'http://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&sensor=true',
+      url :'https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&sensor=true',
       async : false
   }).done(function(response){
     // 1 - locality, 2 - Admin[2], 3 - Admin[1], 4 - Country
@@ -110,7 +110,7 @@ var geolocation = function(){
         // map.setCenter(initialLocation);
           console.log(lat,lng)
 
-         $.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
+         $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
             var state = response['results'][response['results'].length - 2]['address_components'][0].long_name;
             searchState(state);
             $('#geo').html('<small>Current Location : ' +  response['results'][0]['formatted_address'] + '</small>');

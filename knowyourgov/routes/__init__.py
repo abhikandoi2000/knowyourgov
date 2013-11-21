@@ -47,11 +47,13 @@ def politician_page(name):
   for p in politicians:
     politician = p
 
-  # increment search count by one
-  politician.search_count = politician.search_count + 1
-  politician.put()
-  return render_template('politician.html', name = name, politician = politician)
-
+  if politician != None:
+    # increment search count by one
+    politician.search_count = politician.search_count + 1
+    politician.put()
+    return render_template('politician.html', q = name, politician = politician)
+  else:
+    return render_template('politician_notfound.html', q = name)
 
 """Location Based Search
 """
@@ -75,10 +77,13 @@ def search():
   for p in politicians:
     politician = p
 
-  # increment search count by one
-  politician.search_count = politician.search_count + 1
-  politician.put()
-  return render_template('politician.html', q = query, politician = politician)
+  if politician != None:
+    # increment search count by one
+    politician.search_count = politician.search_count + 1
+    politician.put()
+    return render_template('politician.html', q = query, politician = politician)
+  else:
+    return render_template('politician_notfound.html', q = query)
 
 
 """ 404 - Page
@@ -129,6 +134,21 @@ def politicians_by_state(state):
     }
 
     politicians.append(politician)
+
+  return jsonify(politicians = politicians)
+
+@app.route('/json/politicians/all')
+def all_politicians():
+  pols = Politician.all()
+
+  politicians = []
+
+  for pol in pols:
+    # politician = {
+    #   'name': pol.name
+    # }
+
+    politicians.append(pol.name)
 
   return jsonify(politicians = politicians)
 

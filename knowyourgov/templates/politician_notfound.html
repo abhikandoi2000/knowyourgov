@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+      <div class="col-md-6 col-md-offset-4">
+        <h5 class="demo-pane-title">Politician {{ q }} not found</h5>
+      </div>
+    </div>
+    <div class="row search-wrap">
+      <div class="col-md-12">
+        <div>
+          <form action="/search">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="form-group">
+                <input type="text" placeholder="Search for politicians" class="form-control" id="q" name="q">
+              </div>
+            </div>
+            <div class="col-md-3" style="padding:0 2px;">
+              <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
