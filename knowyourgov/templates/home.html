@@ -21,13 +21,18 @@
         <div class="row pane3">
           <div class="col-md-4">
             <h6 class="demo-panel-title"> Locate </h6>
+            <div class="locate-home">
              <div>
-             <img src="{{  url_for('static', filename='img/gmaps.png') }}" height="150">
-               </div>
+                <a href="/getlocation"><img src="{{  url_for('static', filename='img/gmaps.png') }}" height="150"></a>
+              </div>
+
               Use our <a href="/getlocation">location service</a> to find our about politicans from your region!
              
              <div id="geoloc-success">
-               Your browser supports location detection, Sweet!
+                <p class="palette-paragraph">
+                  Your browser supports location detection, <span style="color:#E74C3C">Sweet!</span>
+               </p>
+             </div>
              </div>
           </div>
 
