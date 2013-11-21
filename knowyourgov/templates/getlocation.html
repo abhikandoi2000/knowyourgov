@@ -6,6 +6,19 @@
 		<p class="lead">
 			Import location data from G+
 		</p>
+		<div class="center">
+			 <div id="gplusinfo"></div>
+			 <span id="signinButton">
+              <span
+                class="g-signin"
+                data-callback="signinCallback"
+                data-clientid="1018660632134.apps.googleusercontent.com"
+                data-cookiepolicy="single_host_origin"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-scope="https://www.googleapis.com/auth/plus.login">
+              </span>
+            </span>
+		</div>
 	</div>
 
 	<div class = "col-md-4">
@@ -42,10 +55,17 @@
 
 </div>
 
+<!-- Required for G+ Sign In -->
+    <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
 
 {% endblock %}
 {% block scripts %}
-
 
 <script src= "{{ url_for('static', filename='js/currentlocation.js')}}" ></script>
 
