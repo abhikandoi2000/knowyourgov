@@ -101,10 +101,15 @@ function signinCallback(authResult) {
 }
 
 $(function(){
-  $('.typeahead').typeahead({
+  $('.typeahead').typeahead([]
+  {
     name: 'politicians',
     prefetch: '/json/politicians/all'
-    /*local: ['Sonia Gandhi', 'Sonia Nehru']*/
-  });
+  },
+  {
+    name: 'states',
+    prefetch: '/json/states/all'
+  }
+  ]);
 
 });

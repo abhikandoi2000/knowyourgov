@@ -115,6 +115,9 @@ def json_politician(politician):
     search_count = politician.search_count
     )
 
+"""Politicians from a particular state
+   Format: JSON
+"""
 @app.route('/json/politicians/state/<state>')
 def politicians_by_state(state):
   pols = Politician.all()
@@ -137,6 +140,9 @@ def politicians_by_state(state):
 
   return jsonify(politicians = politicians)
 
+"""Array of datums for politicians
+   Format: JSON
+"""
 @app.route('/json/politicians/all')
 def all_politicians():
   pols = Politician.all()
