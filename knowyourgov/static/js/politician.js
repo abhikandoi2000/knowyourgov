@@ -76,4 +76,9 @@ $(function() {
     true // this parameter required
   );
 
+  /***
+   Filler for Sentiment Analysis
+   ***/
+   $('#sentiment-wrap span').html('<center> Performing Sentiment Analysis... </center>')
+
 });

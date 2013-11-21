@@ -87,6 +87,7 @@ def search():
     return render_template('politician_notfound.html', q = query)
 
 
+
 """ 404 - Page
 """
 @app.errorhandler(404)

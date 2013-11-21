@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="row pane3">
-      <div class="col-md-3 info tile" id="info">
+      <div class="col-md-2 info tile" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
         <img id="politician-image" title="placeholder" src="{{ url_for('static', filename='img/anon.jpg') }}" height="180" width="180">
         <h6 class="politician-name"><!-- {{ politician.name }} --></h6>
@@ -12,7 +12,7 @@
           <li>{{ politician.constituency }}</li> -->
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
         <h6 class="demo-pane-title">Articles</h5>
         <div class="row" id="articles">
           <!-- articles -->
@@ -22,7 +22,10 @@
       <div class="col-md-4">
 
         <h6 class="demo-pane-title">Sentiment Analysis</h5>
-         <div id="sentiment-wrap"></div>
+         <div id="sentiment-wrap">
+            <div class="progress"></div>
+            <span class="palette-paragraph"></span>
+         </div>
 
         <h6 class="demo-pane-title">Social Updates <img src= "/static/img/twitter.png" style="float:right"> </h5> 
           <div id="tweet-container">
