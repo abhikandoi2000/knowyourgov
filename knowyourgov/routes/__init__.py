@@ -106,8 +106,31 @@ def json_politician(politician):
     state = politician.state,
     party = politician.party,
     constituency = politician.constituency,
-    wiki = politician.wiki_link
+    wiki = politician.wiki_link,
+    search_count = politician.search_count
     )
+
+@app.route('/json/politicians/state/<state>')
+def politicians_by_state(state):
+  pols = Politician.all()
+  pols.filter("state =", state.lower())
+  pols.order('-search_count')
+
+  politicians = []
+
+  for pol in pols:
+    politician = {
+      'name': pol.name,
+      'party': pol.party,
+      'state': pol.state,
+      'constituency': pol.constituency,
+      'wiki': pol.wiki_link,
+      'search_count': pol.search_count
+    }
+
+    politicians.append(politician)
+
+  return jsonify(politicians = politicians)
 
 """Creates entry for politicians in the db
     *Note* : Do not run it more than once, will create multiple entries

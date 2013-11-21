@@ -1,3 +1,11 @@
+/**
+ * Capitalize first character of each word
+ * Eg: "meghe datta" => "Meghe Datta"
+ */
+var toTitleCase = function(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 /***
 
     getState -
@@ -31,7 +39,29 @@ var getState = function(city){
     Given a state populate results in tabular form 
 ***/
 var searchState = function(state){
-  //ToDo - format & display
+  $.ajax({
+    url: '/json/politicians/state/' + state.toLowerCase(),
+    success: function(data, success) {
+      var table = $('<table class="table table-hover"></table>');
+      var tbody = $('<tbody></tbody>');
+      var head_row = $('<tr><th>Name</th><th>Party</th><th>Constituency</th><th>State</th></tr>');
+
+      tbody.append(head_row);
+      // populate the table
+      for(index in data.politicians) {
+        politician = data.politicians[index];
+
+        tbody.append('<tr><td><a href="/politicians/id/' + politician.name + '">' + toTitleCase(politician.name) + '</a></td><td>' + toTitleCase(politician.party) + '</td><td>' + (politician.constituency == '' ? '-' : toTitleCase(politician.constituency) ) + '</td><td>' + toTitleCase(politician.state) + '</td></tr>');
+      }
+
+      table.append(tbody);
+
+      // clear the results
+      $('.results').html('');
+      // append the table
+      $('.results').append(table);
+    }
+  });
   console.log(state);
 }
 /***
