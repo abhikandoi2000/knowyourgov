@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, make_response, jsonify, json
+from flask import Flask, url_for, render_template, request, make_response, jsonify, json, Response
 
 from knowyourgov import app
 from knowyourgov.models import Politician
@@ -144,13 +144,22 @@ def all_politicians():
   politicians = []
 
   for pol in pols:
-    # politician = {
-    #   'name': pol.name
-    # }
+    tokens = pol.name.title().split(' ')
+    politician = {
+      'value': pol.name.title(),
+      'tokens': tokens
+    }
 
-    politicians.append(pol.name)
+    politicians.append(politician)
 
-  return jsonify(politicians = politicians)
+  # create JSON response
+  resp = Response(
+    response=json.dumps(politicians),
+    status=200,
+    mimetype="application/json"
+  )
+
+  return resp
 
 """Creates entry for politicians in the db
     *Note* : Do not run it more than once, will create multiple entries

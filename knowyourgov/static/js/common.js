@@ -9,7 +9,7 @@ var getState = function(city){
   var state, country;
 
   $.ajax({
-      url :'http://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&sensor=true',
+      url :'https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&sensor=true',
       async : false
   }).done(function(response){
     // 1 - locality, 2 - Admin[2], 3 - Admin[1], 4 - Country
@@ -99,3 +99,12 @@ function signinCallback(authResult) {
   });
 
 }
+
+$(function(){
+  $('.typeahead').typeahead({
+    name: 'politicians',
+    prefetch: '/json/politicians/all'
+    /*local: ['Sonia Gandhi', 'Sonia Nehru']*/
+  });
+
+});
