@@ -26,11 +26,15 @@
             <div class="col-md-6 title">
               <a href="/">  Know Your Government </a>
             </div>
-            <div class="col-md-2 col-md-offset-4">
+            <div class="col-md-3 col-md-offset-3">
             
             <small>
               <span id="userinfo">
               </span>
+              <!--+1. -->
+              <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+
             </small>
             </div>
           </div>
@@ -41,6 +45,14 @@
     
     
     <script src= "{{ url_for('static', filename='js/common.js')}}" ></script>
+    <!-- Place this tag after the last +1 button tag. -->
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
     {% block scripts %}{% endblock %}
   </body>
 </html>
