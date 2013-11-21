@@ -1,7 +1,17 @@
+/***
+    Given a state populate results in tabular form 
+***/
 var searchState = function(state){
   console.log(state);
 }
-
+/***
+  Used for Custom Search
+****/
+var searchbyLocation = function(){
+  var l = $('#l').val(),
+      state = getState(l);
+      searchState(state);
+}
 var geolocation = function(){
 
   if(navigator.geolocation) {
@@ -40,9 +50,17 @@ if(!navigator.geolocation){
 }
 
 $('#btn-detect').on('click', function(){
-  
-  
   geolocation();
   $('#btn-detect').hide();
   showLoading('#geo')
 })
+
+$('#l-form').on('submit', function(e){
+  e.preventDefault();
+})
+
+$('#l').on('keyup', function(e){
+    if( e.keyCode == 13 )
+      searchbyLocation();
+})
+$('#l-search').on('click', searchbyLocation)
