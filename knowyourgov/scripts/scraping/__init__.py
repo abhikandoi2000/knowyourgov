@@ -10,7 +10,7 @@ class Scraper:
 		jsonResponse = json.loads(response.read())
 
 		for item in jsonResponse["items"]:
-			self.articles.append({'url':item["link"]})
+			self.articles.append({'url':item["link"], 'imageUrl':item["pagemap"]["cse_image"][0], 'snippet':item["snippet"]})
 	def getArticleContent(self):
 		pass
 
@@ -18,6 +18,7 @@ class HinduScraper(Scraper):
 	gcsUrl = scraperconfig.customSearchUrl + scraperconfig.searchId['hindu']
 
 	def addArticleContent(self):
+		print self.articles
 		for article in self.articles:
 			htmlResponse = urllib2.urlopen(article["url"])
 			soup = BeautifulSoup(htmlResponse)
@@ -31,6 +32,7 @@ class HinduScraper(Scraper):
 			article["comments"] = [];
 			for comment in soup.select("div#comment-section h4"):
 				article["comments"].append(comment.text)
+			break
 
 	def getArticles(self):
 		return self.articles
