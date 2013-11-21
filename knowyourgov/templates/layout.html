@@ -47,7 +47,7 @@
         {% block content %}{% endblock %}
       </div>
     </div>
-    {% block scripts %}{% endblock %}
+    
     <!-- Required for G+ Sign In -->
     <script type="text/javascript">
       (function() {
@@ -57,6 +57,6 @@
      })();
     </script>
     <script src= "{{ url_for('static', filename='js/common.js')}}" ></script>
-
+    {% block scripts %}{% endblock %}
   </body>
 </html>

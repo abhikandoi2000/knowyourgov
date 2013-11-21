@@ -58,6 +58,13 @@ $('#locations').delegate('a','click', function(e){
 
 })
 
+/***
+  A common loader
+****/
+function showLoading(e){
+  $(e).html('<center><img src="/static/img/spinner.gif"></center>')
+}
+
 function signinCallback(authResult) {
 
   gapi.client.load('plus','v1', function(){

@@ -49,3 +49,13 @@
       h6.politician-name {
         font-size: 28px;
       }
+      div#geo{
+        text-align:center;
+      }
+
+      div.location-options > div{
+        min-height : 300px;      
+      }
+      div.location-options{
+         border-bottom: 1px solid #efefef;
+      }

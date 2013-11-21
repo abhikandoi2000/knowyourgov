@@ -1,7 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-<div id="map-canvas">
+
+<div class = "row location-options">
+	<div class = "col-md-4">
+		<p class="lead">
+			Import location data from G+
+		</p>
+	</div>
+
+	<div class = "col-md-4">
+		<p class="lead">
+			Use Search
+		</p>
+	</div>
+
+	<div class = "col-md-4">
+		<p class="lead">
+
+			Using Browser Location 
+
+			<div id="geo">
+
+				<a class="btn btn-info" id="btn-detect"> Detect Location </a>
+
+			</div>
+
+			<div class = "geo-info">
+			</div>
+		</p>
+	</div>
+
 </div>
+
 
 {% endblock %}
 {% block scripts %}
