@@ -55,7 +55,7 @@ $(function() {
     }
   });
 
-  var name = $('.politician-name').text();
+  // var name = $('.politician-name').text();
 
   cb.__call(
     "search_tweets",
