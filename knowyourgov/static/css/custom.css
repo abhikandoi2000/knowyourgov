@@ -89,6 +89,10 @@ ul.tweets{
   background-position: center;
 }
 
+span.tag a {
+  color: white;
+}
+
 /**
  * Typeahead dropdown style
  */

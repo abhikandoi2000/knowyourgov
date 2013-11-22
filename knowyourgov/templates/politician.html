@@ -5,7 +5,7 @@
       <div class="col-md-2 info tile" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
 
-        <img id="politician-image" title="placeholder" src="{{ url_for('static', filename='img/anon.jpg') }}" height="150" width="150">
+        <div id="politician-image" title="{{ politician.name }}"></div>
 
         <h6 class="politician-name"><!-- {{ politician.name }} --></h6>
         <div id="personal">
@@ -18,7 +18,7 @@
         <h6 class="demo-pane-title">News Updates<img style="float:right" src="/static/img/gnews.png" height="24" width="24" title="Google News"></h5>
         <div class="row" id="news-wrap">
           <!-- news -->
-
+          <div style="text-align:center;"><img src="{{ url_for('static', filename='img/spinner.gif') }}"></div>
         </div>
         
         <div class="row" id="articles-wrap">
@@ -74,14 +74,20 @@
       var newsSearch;
 
      function searchComplete(){
+      $('#news-wrap').html('');
       var html = '';
       var res = newsSearch['results'];
       if(res.length > 0){
-        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="float:right">' + res[0].content + '</div>';
+        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="width:150px;float:right">' + res[0].content + '</div>';
+        if(res.length > 1) {
+          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">'+ res[1].title +'</a></div><div class="news-desc"><img src="'+res[1].image.url+'" style="width:150px;float:right">' + res[1].content + '</div>';
+        }
             for(i in res){
+              if(i != 0 && i != 1) {
               html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+              }
             }
-        $('#news-wrap').html(html)
+        $('#news-wrap').html(html);
       }
     }
 

@@ -10,9 +10,9 @@ var toTitleCase = function(str) {
 showLoading('.tweets');
 
 $(function() {
-  var fractionComplete = 0.4;
-  NProgress.start();
-  NProgress.set(fractionComplete);
+  // var fractionComplete = 0.4;
+  // NProgress.start();
+  // NProgress.set(fractionComplete);
 
   // var name = "meghe datta";
 
@@ -75,7 +75,6 @@ $(function() {
       $("#personal").append("<div><b>Constituency</b><br>" + ( data.constituency == '' ? '-' : toTitleCase(data.constituency) ) + "</div>");
 
       fractionComplete += 0.2;
-      NProgress.set(fractionComplete);
     }
   });
 
