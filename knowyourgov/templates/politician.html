@@ -30,7 +30,9 @@
 
         <h6 class="demo-pane-title">Sentiment Analysis</h5>
          <div id="sentiment-wrap">
-            <div class="progress"></div>
+            <div class="progress">
+              <div class="progress-bar" style="width: 0%;"></div>
+            </div>
             <span class="palette-paragraph"></span>
          </div>
 
@@ -62,6 +64,7 @@
 {% block scripts %}
     <script>
       name = "{{ politician.name }}";
+      analysis_content = '';
     </script>
     <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/sha1.js')}}" ></script>
@@ -79,16 +82,22 @@
       var res = newsSearch['results'];
       if(res.length > 0){
         html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="width:150px;float:right">' + res[0].content + '</div>';
+        analysis_content += res[0].title + res[0].content;
         if(res.length > 1) {
           html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">'+ res[1].title +'</a></div><div class="news-desc"><img src="'+res[1].image.url+'" style="width:150px;float:right">' + res[1].content + '</div>';
+          analysis_content += res[0].title + res[0].content;
         }
             for(i in res){
               if(i != 0 && i != 1) {
               html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+              analysis_content += res[i].title;
               }
             }
         $('#news-wrap').html(html);
+      } else {
+        $('#news-wrap').html('<div style="text-align:center;">Sorry, no relevant articles.</div>');
       }
+      news_done = true;
     }
 
       function onLoad() {
