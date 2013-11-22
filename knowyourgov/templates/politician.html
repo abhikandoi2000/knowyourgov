@@ -65,7 +65,9 @@
 
 {% block scripts %}
     <script>
+      // @global - name of politician
       name = "{{ politician.name }}";
+      // @global - content for sentiment analysis
       analysis_content = '';
     </script>
     <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
@@ -105,9 +107,13 @@
         $('#news-wrap').html(html);
       } else {
         // no relevant news articles
-        $('#news-wrap').html('<div style="text-align:center;">Sorry, no relevant articles.</div>');
+        var html = '<div style="text-align:center;">Sorry, no relevant articles.';
+        {% if not politician.wiki_link == "undefined" %}
+        html += ' Visit <a href="{{ politician.wiki_link }}">wiki</a> for more info';
+        {% endif %}
+        html += '</div>';
+        $('#news-wrap').html(html);
       }
-      news_done = true;
     }
 
       function onLoad() {

@@ -96,63 +96,66 @@ $(function() {
     "q="+ name,
     function (reply) {
 
-        $('.tweets').html('');
+      // empty tweets section (just in case)
+      $('.tweets').html('');
 
-        var tweets = reply['statuses'];
+      var tweets = reply['statuses'];
 
-        console.log(tweets);
+      console.log('tweets');
+      console.log(tweets);
 
-        if(typeof tweets == "undefined"){
-          $('.tweets').append('<small>Sorry, no relvant social activity.</small>');
-        }
-        else {
-          for(var i = 0; i < 5; i++){
+      if(typeof tweets == "undefined" || tweets.length == 0){
+        $('.tweets').append('<small>Sorry, no relevant social activity.</small>');
+      }
+      else {
+        for(var i = 0; i < Math.min(5, tweets.length); i++){
+          try {
             var status = tweets[i].text;
-             $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
+            $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
+
+             // append tweet for sentiment analysis
              analysis_content += status;
 
-              if (tweets.length == 0) {
-                $('.tweets').append('Sorry, no relvant social activity.');
-              }
+            if (tweets.length == 0) {
+              $('.tweets').append('Sorry, no relevant social activity.');
+            }
+          } catch(e) {
+            console.log('Problem with tweet:');
+            console.log(tweets[i]);
           }
         }
-        
+      }
 
-        $('#sentiment-wrap span').css('color','#2980B9');
-        console.log('Request Sent');
+      $('#sentiment-wrap span').css('color','#2980B9');
+      console.log('Request Sent');
 
-        if(analysis_content == '') {
-          $('#sentiment-wrap .progress-bar').css('display','none');
-          $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
-        } else {
-          $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
-            function(response) {
-              console.log(response);
-              for(index in response.entities) {
-                if(response.entities[index].text.toLowerCase().substr(0,name.length) == name.substr(0,name.length)) {
-                  console.log(response.entities[index].sentiment.type);
-                  $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
-                  if(response.entities[index].sentiment.type == "neutral") {
-                    $('#sentiment-wrap .progress-bar').css('width','50%');
-                  } else if(response.entities[index].sentiment.type == "positive") {
-                    $('#sentiment-wrap .progress-bar').css('width','75%');
-                  } else if(response.entities[index].sentiment.type == "negative") {
-                    $('#sentiment-wrap .progress-bar').css('width','25%');
-                  } else {
-                    $('#sentiment-wrap .progress-bar').css('width','50%');
-                    break;
-                  }
+      if(analysis_content == '') {
+        $('#sentiment-wrap .progress-bar').css('display','none');
+        $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
+
+      } else {
+        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
+          function(response) {
+            console.log(response);
+            for(index in response.entities) {
+              if(response.entities[index].text.toLowerCase().substr(0,name.length) == name.substr(0,name.length)) {
+                console.log(response.entities[index].sentiment.type);
+                $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
+                if(response.entities[index].sentiment.type == "neutral") {
+                  $('#sentiment-wrap .progress-bar').css('width','50%');
+                } else if(response.entities[index].sentiment.type == "positive") {
+                  $('#sentiment-wrap .progress-bar').css('width','75%');
+                } else if(response.entities[index].sentiment.type == "negative") {
+                  $('#sentiment-wrap .progress-bar').css('width','25%');
+                } else {
+                  $('#sentiment-wrap .progress-bar').css('width','50%');
+                  break;
                 }
               }
-            });
-        }
-        // $.ajax({
-        //   url: 'http://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&html=' + analysis_content,
-        //   success: function(data, status) {
-        //     console.log(data);
-        //   }
-        // });
-        
+            }
+          });
+
+      } // end else
     },
     true // this parameter required
   );
