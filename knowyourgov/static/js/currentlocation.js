@@ -132,7 +132,7 @@ var geolocation = function(){
       },
 
         function(error){
-          $('#geo').html('<small>Geolocation service seems to have some issues, please try other methods</small>')
+          $('#geo').html('<small>Your location cannot be mapped precisely, please try other methods</small>')
         },
 
         {timeout : 10000}

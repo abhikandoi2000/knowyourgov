@@ -102,15 +102,25 @@ $(function() {
 
         console.log(tweets);
 
-        for(var i = 0; i < 5; i++){
-          var status = tweets[i].text;
-           $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
-           analysis_content += status;
+        if(typeof tweets == "undefined"){
+          $('.tweets').append('<small>Sorry, no relvant social activity.</small>');
         }
+        else {
+          for(var i = 0; i < 5; i++){
+            var status = tweets[i].text;
+             $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
+             analysis_content += status;
 
-        if (tweets.length == 0) {
+             if (tweets.length == 0) {
           $('.tweets').append('Sorry, no relvant social activity.');
         };
+          }
+        }
+        
+
+        $('#sentiment-wrap span').css('color','#2980B9');
+        console.log('Request Sent');
+        
         $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
           function(response) {
             console.log(response);
@@ -145,6 +155,6 @@ $(function() {
   /***
    Filler for Sentiment Analysis
    ***/
-   $('#sentiment-wrap span').html('<center> Performing Sentiment Analysis... </center>')
+   $('#sentiment-wrap span').html('Performing Sentiment Analysis...')
 
 });
