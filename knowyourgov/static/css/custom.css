@@ -162,6 +162,7 @@ div.news-title{
 }
 div.tagsinput{
   min-height:200px;
+  border:0px !important;
 }
 div.tagsinput a{
     color: #FFF;
