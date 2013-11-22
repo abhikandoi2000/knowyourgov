@@ -130,16 +130,21 @@ $(function() {
       console.log('Request Sent');
 
       if(analysis_content == '') {
-        $('#sentiment-wrap .progress-bar').css('display','none');
+        $('#sentiment-wrap .progress').css('display','none');
         $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
 
       } else {
         $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
           function(response) {
             console.log(response);
+            var entityFound = false;
             for(index in response.entities) {
               if(response.entities[index].text.toLowerCase().substr(0,name.length) == name.substr(0,name.length)) {
+                // found entity for current politician
+                entityFound = true;
+
                 console.log(response.entities[index].sentiment.type);
+
                 $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
                 if(response.entities[index].sentiment.type == "neutral") {
                   $('#sentiment-wrap .progress-bar').css('width','50%');
@@ -152,6 +157,11 @@ $(function() {
                   break;
                 }
               }
+            }
+
+            if(!entityFound) {
+              $('#sentiment-wrap .progress').css('display','none');
+              $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
             }
           });
 

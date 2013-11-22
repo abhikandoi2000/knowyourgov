@@ -2,15 +2,21 @@
 
 Know your Government, entry for Google Cloud Developer Challenge
 
-#Deploy URL
-[http://gcdc2013-know-your-gov.appspot.com/](http://gcdc2013-know-your-gov.appspot.com/)
+# Deploy URL
+[https://gcdc2013-know-your-gov.appspot.com/](https://gcdc2013-know-your-gov.appspot.com/)
 
 # Tech Stack
 
 * Google App Engine
+* Google Data Store
 * Python
-* flask
-* jinja2
+* Flask, Jinja2
+* Google Maps API
+* Google+ Signin
+* Google News API
+* Twitter API
+* Alchemy Sentiment API
+* Google Custom Search API
 
 # Development
 
@@ -20,3 +26,5 @@ Know your Government, entry for Google Cloud Developer Challenge
 * Change directory to project directory (`cd ~/path/to/knowyourgov`)
 * Run the application locally (`~/path/to/sdk/dev_appserver.py .`)
 * Visit `http://localhost:8080/` using your browser to see it in action.
+
+# 
