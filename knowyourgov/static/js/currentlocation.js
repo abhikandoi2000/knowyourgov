@@ -103,6 +103,15 @@ $('#gplusinfo').delegate('a','click', function(e){
 
 })
 
+var plotOnMap = function(lat,lng){
+    var mapOptions = {
+          center: new google.maps.LatLng(lat,lng),
+          zoom: 8
+    };
+       
+     var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+}
 
 var geolocation = function(){
 
@@ -112,18 +121,18 @@ var geolocation = function(){
         var lat = position.coords.latitude,
             lng = position.coords.longitude;
         // map.setCenter(initialLocation);
-          console.log(lat,lng)
+          plotOnMap(lat,lng)
 
          $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false', function(response){
             var state = response['results'][response['results'].length - 2]['address_components'][0].long_name;
             searchState(state);
-            $('#geo').html('<small>Current Location : ' +  response['results'][0]['formatted_address'] + '</small>');
+            $('#geo').removeClass('center').html('<small>Current Location : ' +  response['results'][0]['formatted_address'] + '</small>');
           })
       
       },
 
         function(error){
-          console.log(error)
+          $('#geo').html('<small>Geolocation service seems to have some issues, please try other methods</small>')
         },
 
         {timeout : 10000}
@@ -138,7 +147,7 @@ var geolocation = function(){
 
 if(!navigator.geolocation){
   $('#btn-detect').prop('disabled', true).addClass('disabled');
-  $('.geo-info').html('<small>Your Browser doesn\'t support browser location')
+  $('#map-canvas').html('<small>Your Browser doesn\'t support browser location')
 }
 
 $('#btn-detect').on('click', function(){

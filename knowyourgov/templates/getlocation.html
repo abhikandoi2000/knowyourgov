@@ -53,7 +53,7 @@
 
 			</div>
 
-			<div class = "geo-info">
+			<div id="map-canvas">
 			</div>
 		</p>
 	</div>
@@ -79,6 +79,7 @@
 {% endblock %}
 {% block scripts %}
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt302Eg6wtngduThQ9jEmcGQfHmn1XNQg&sensor=true">
 <script src= "{{ url_for('static', filename='js/currentlocation.js')}}" ></script>
 
 {% endblock %}
