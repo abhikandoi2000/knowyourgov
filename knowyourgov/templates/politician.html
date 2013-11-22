@@ -76,11 +76,13 @@
      function searchComplete(){
       var html = '';
       var res = newsSearch['results'];
-      html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="float:right">' + res[0].content + '</div>';
-          for(i in res){
-            html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
-          }
-      $('#news-wrap').html(html)
+      if(res.length > 0){
+        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="float:right">' + res[0].content + '</div>';
+            for(i in res){
+              html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+            }
+        $('#news-wrap').html(html)
+      }
     }
 
       function onLoad() {

@@ -6,16 +6,6 @@ var toTitleCase = function(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
-var newsSearch;
-
-function searchComplete(){
-      var html = '';
-      var res = newsSearch['results'];
-          for(i in res){
-            html += '<h6><a href="'+ res[i].url +'">'+ res[i].title +'</a></h6><div> ' + res[i].content + '</div>';
-          }
-      $('#news-wrap').html(html)
-    }
 
 showLoading('.tweets');
 
