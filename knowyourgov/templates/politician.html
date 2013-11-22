@@ -80,21 +80,29 @@
       $('#news-wrap').html('');
       var html = '';
       var res = newsSearch['results'];
+      console.log(res);
       if(res.length > 0){
-        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="width:150px;float:right">' + res[0].content + '</div>';
+        // first news article
+        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc">' + (typeof res[0].image == "undefined" ? '' : '<img src="'+res[0].image.url+'" style="width:150px;float:right">') + res[0].content + '</div>';
         analysis_content += res[0].title + res[0].content;
+
+        // second news article if it exists
         if(res.length > 1) {
-          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">'+ res[1].title +'</a></div><div class="news-desc"><img src="'+res[1].image.url+'" style="width:150px;float:right">' + res[1].content + '</div>';
-          analysis_content += res[0].title + res[0].content;
+          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">'+ res[1].title +'</a></div><div class="news-desc">' + (typeof res[1].image == "undefined" ? '' : '<img src="'+res[1].image.url+'" style="width:150px;float:right">') + res[1].content + '</div>';
+          analysis_content += res[1].title + res[1].content;
         }
-            for(i in res){
-              if(i != 0 && i != 1) {
-              html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
-              analysis_content += res[i].title;
-              }
-            }
+
+        // archive(other) articles
+        for(i in res){
+          if(i != 0 && i != 1) {
+          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+          analysis_content += res[i].title;
+          }
+        }
+
         $('#news-wrap').html(html);
       } else {
+        // no relevant news articles
         $('#news-wrap').html('<div style="text-align:center;">Sorry, no relevant articles.</div>');
       }
       news_done = true;
