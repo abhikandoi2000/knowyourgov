@@ -81,6 +81,14 @@ ul.tweets{
          color : #000;
       }
 
+#politician-image {
+  min-height: 220px;
+  width: 180px;
+  background-image: url('/static/img/anon.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 /**
  * Typeahead dropdown style
  */

@@ -14,3 +14,4 @@ class Politician(db.Model):
   state = db.StringProperty()
   wiki_link = db.StringProperty(required = True)
   search_count = db.IntegerProperty(default = 0)
+  image_url = db.StringProperty()

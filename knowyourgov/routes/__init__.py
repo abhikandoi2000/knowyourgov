@@ -114,6 +114,7 @@ def json_politician(politician):
     party = politician.party,
     constituency = politician.constituency,
     wiki = politician.wiki_link,
+    imageUrl = politician.image_url,
     search_count = politician.search_count
     )
 
