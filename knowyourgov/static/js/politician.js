@@ -111,7 +111,7 @@ $(function() {
         if (tweets.length == 0) {
           $('.tweets').append('Sorry, no relvant social activity.');
         };
-        $.getJSON('http://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
+        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
           function(response) {
             console.log(response);
             for(index in response.entities) {
