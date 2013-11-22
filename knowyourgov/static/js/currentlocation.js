@@ -39,9 +39,12 @@ var getState = function(city){
     Given a state populate results in tabular form 
 ***/
 var searchState = function(state){
+    showLoading('.results');
   $.ajax({
     url: '/json/politicians/state/' + state.toLowerCase(),
-    success: function(data, success) {
+    success: function(data, success) {  
+
+      $('#res-title').show();
       var table = $('<table class="table table-hover"></table>');
       var tbody = $('<tbody></tbody>');
       var head_row = $('<tr><th>Name</th><th>Party</th><th>Constituency</th><th>State</th></tr>');
@@ -84,6 +87,7 @@ function addLocations(locations){
    for(i in locations){
       $('#gplusinfo').append('<a rel="'+ locations[i].value +'" href="#"> ' + locations[i].value + ' </a> , ');
    }
+   $('#gplusinfo').append('<p class="palette-paragraph">Click on the region whose search you want</p> ')
 }
 /***
   Handler for clicks on cities imported from G+

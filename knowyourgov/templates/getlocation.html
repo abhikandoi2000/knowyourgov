@@ -1,11 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="row" style="border-bottom:1px solid #e3e3e3">
+	<div class="col-md-12">
+		<p class="lead" style="text-align:center"> Location - Choose your method </p>
+	</div>
+</div>
 <div class = "row location-options">
 	<div class = "col-md-4">
-		<p class="lead">
+		<h6>
 			Import location data from G+
-		</p>
+		</h6>
 		<div class="center">
 			 <div id="gplusinfo"></div>
 			 <span id="signinButton">
@@ -22,8 +27,9 @@
 	</div>
 
 	<div class = "col-md-4">
-		<p class="lead">
-			Use Search
+		<h6>
+			Use Search 
+		</h6>
 			<div class="center">
 				<form class="form-inline" role="form" id="l-form">
 					<div class="form-group">
@@ -38,10 +44,9 @@
 	</div>
 
 	<div class = "col-md-4">
-		<p class="lead">
-
+		<h6>
 			Using Browser Location 
-
+		</h6>
 			<div id="geo" class="center">
 
 				<a class="btn btn-info" id="btn-detect"> Detect Location </a>
@@ -56,6 +61,7 @@
 </div>
 
 <div class="row">
+  <p class="lead" style="text-align:center" id="res-title"> Results </p>
   <div class="col-md-12 results">
     <!-- Populate results here -->
   </div>

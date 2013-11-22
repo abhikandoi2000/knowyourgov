@@ -59,6 +59,7 @@ div.location-options > div{
 }
 div.location-options{
    border-bottom: 1px solid #efefef;
+   text-align:center;
 }
 div.locate-home{
   text-align:center;
@@ -171,4 +172,8 @@ div.tagsinput a{
 p.lead{
   margin-bottom: 0px !important;
   margin-top: 20px !important;
+}
+#res-title{
+  text-align:center;
+  display:none;
 }
