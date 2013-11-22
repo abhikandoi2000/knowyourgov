@@ -3,17 +3,13 @@
 
     <div class="row pane3">
       <div class="col-md-2 info tile" id="info">
-        <!-- <h4 class="demo-pane-title">Info</h4> -->
-
         <div id="politician-image" title="{{ politician.name }}"></div>
 
-        <h6 class="politician-name"><!-- {{ politician.name }} --></h6>
+        <h6 class="politician-name"></h6>
         <div id="personal">
-          <!-- <li>{{ politician.party }}</li>
-          <li>{{ politician.state }}</li>
-          <li>{{ politician.constituency }}</li> -->
         </div>
       </div>
+
       <div class="col-md-6 col-md-offset-1">
         <h6 class="demo-pane-title">News Updates<img style="float:right" src="/static/img/gnews.png" height="24" width="24" title="Google News"></h5>
         <div class="row" id="news-wrap">
@@ -23,22 +19,20 @@
         
         <div class="row" id="articles-wrap">
           <!-- articles -->
-
         </div>
       </div>
+
       <div class="col-md-3">
 
         <h6 class="demo-pane-title">Sentiment Analysis</h5>
          <div id="sentiment-wrap">
             <div class="progress">
-              <div class="progress-bar" style="width: 0%;"></div>
+              <div class="progress-bar"></div>
             </div>
-            <center>
-             <span class="palette-paragraph"></span>
-            </center>
+            <span class="palette-paragraph">Performing Sentiment Analysis...</span>
          </div>
 
-        <h6 class="demo-pane-title">Social Updates <img src= "/static/img/twitter.png" style="float:right"> </h5> 
+        <h6 class="demo-pane-title">Social Updates<img src= "/static/img/twitter.png" style="float:right"> </h5> 
           <div id="tweet-container">
             <ul class="tweets"></ul>
           </div>
@@ -48,7 +42,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div style="padding-top:25px;">
           <form action="/search">
-            <div class="col-md-5 col-md-offset-5" style="padding:0 2px;">
+            <div class="col-md-6 col-md-offset-2" style="padding:0 2px;">
               <div class="form-group">
                 <input type="text" placeholder="Search for politicians" class="form-control typeahead" id="q" name="q">
               </div>
@@ -70,7 +64,6 @@
       // @global - content for sentiment analysis
       analysis_content = '';
     </script>
-    <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/sha1.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/codebird.js')}}" ></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -78,62 +71,95 @@
     <script>
     google.load('search', '1');
 
-      var newsSearch;
+    var newsSearch;
 
-     function searchComplete(){
+    function searchComplete(){
+      // empty news section
       $('#news-wrap').html('');
+
       var html = '';
       var res = newsSearch['results'];
-      console.log(res);
+
+      // console.log(res);
+
       if(res.length > 0){
         // first news article
-        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc">' + (typeof res[0].image == "undefined" ? '' : '<img src="'+res[0].image.url+'" style="width:150px;float:right">') + res[0].content + '</div>';
+        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">';
+        html += res[0].title + '</a></div><div class="news-desc">';
+
+        // load image, only if present
+        html += (typeof res[0].image == "undefined" ? '' : '<img src="'+res[0].image.url+'" style="width:150px;float:right">');
+
+        html += res[0].content + '</div>';
+
+        // update content for sentiment analysis
         analysis_content += res[0].title + res[0].content;
 
         // second news article if it exists
         if(res.length > 1) {
-          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">'+ res[1].title +'</a></div><div class="news-desc">' + (typeof res[1].image == "undefined" ? '' : '<img src="'+res[1].image.url+'" style="width:150px;float:right">') + res[1].content + '</div>';
+          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">';
+          html += res[1].title +'</a></div><div class="news-desc">';
+
+          // load image, only if present
+          html += (typeof res[1].image == "undefined" ? '' : '<img src="'+res[1].image.url+'" style="width:150px;float:right">');
+
+          html += res[1].content + '</div>';
+
+          // update content for sentiment analysis
           analysis_content += res[1].title + res[1].content;
         }
 
         // archive(other) articles
-        for(i in res){
+        for(var i = 2; i < res.length; ++i){
+
           if(i != 0 && i != 1) {
-          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
-          analysis_content += res[i].title;
+
+            html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+
+            // update content for sentiment analysis
+            analysis_content += res[i].title;
           }
+
         }
 
+        // update news section
         $('#news-wrap').html(html);
+
       } else {
+
         // no relevant news articles
         var html = '<div style="text-align:center;">Sorry, no relevant articles.';
+
         {% if not politician.wiki_link == "undefined" %}
         html += ' Visit <a href="{{ politician.wiki_link }}">wiki</a> for more info';
         {% endif %}
+
         html += '</div>';
+
+        // update news section
         $('#news-wrap').html(html);
-      }
+        
+      } // end else
     }
 
-      function onLoad() {
+    function onLoad() {
 
-        // Create a News Search instance.
-        newsSearch = new google.search.NewsSearch();
-  
-        // Set searchComplete as the callback function when a search is 
-        // complete.  The newsSearch object will have results in it.
-        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+      // Create a News Search instance.
+      newsSearch = new google.search.NewsSearch();
 
-        // Specify search quer(ies)
-        newsSearch.execute(name);
+      // Set searchComplete as the callback function when a search is 
+      // complete.  The newsSearch object will have results in it.
+      newsSearch.setSearchCompleteCallback(this, searchComplete, null);
 
-        // Include the required Google branding
-        google.search.Search.getBranding('branding');
-      }
+      // Specify search quer(ies)
+      newsSearch.execute(name);
 
-      // Set a callback to call your code when the page loads
-      google.setOnLoadCallback(onLoad);
+      // Include the required Google branding
+      google.search.Search.getBranding('branding');
+    }
+
+    // Set a callback to call your code when the page loads
+    google.setOnLoadCallback(onLoad);
     </script>
 
 {% endblock %}

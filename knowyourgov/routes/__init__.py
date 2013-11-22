@@ -6,7 +6,6 @@ from knowyourgov.scripts import insert_politicians_in_db
 from knowyourgov.scripts.scraping import scrapers
 # import errors
 
-# landing page
 """Home page
 """
 @app.route('/')
@@ -55,16 +54,6 @@ def politician_page(name):
   else:
     return render_template('politician_notfound.html', q = name)
 
-"""Location Based Search
-"""
-@app.route('/locate', methods= ['POST' ,'GET'] )
-def locate():
-  query = request.args.get('q').lower()
-  politicians = Politician.all()
-  politicians.filter("state =", query)
-  return render_template('locate.html', politicians=politicians, state=query)
-
-
 """Search -> Politician Page
 """
 @app.route('/search', methods= ['POST', 'GET'] )
@@ -78,15 +67,19 @@ def search():
   for p in politicians:
     politician = p
 
-  # if politician != None:
+  if politician != None:
     # increment search count by one
-    # politician.search_count = politician.search_count + 1
-    # politician.put()
-  return render_template('politician.html', q = query, politician = politician)
-  # else:
-    # return render_template('politician_notfound.html', q = query)
+    politician.search_count = politician.search_count + 1
+    politician.put()
+    return render_template('politician.html', q = query, politician = politician)
+  else:
+    return render_template('politician_notfound.html', q = query)
 
 
+"""
+   ** Error Handlers **
+   404, 500 and other errors
+"""
 
 """ 404 - Page
 """
@@ -100,12 +93,17 @@ def page_not_found(error):
 def page_not_found(error):
 	return render_template('500.html'), 500
 
+
+"""
+   ** JSON response routes **
+"""
+
 """JSON response containing information for a particular politician
 """
 @app.route('/json/politicians/<politician>')
 def json_politician(politician):
   politicians = Politician.all()
-  politicians.filter("name =", politician)
+  politicians.filter("name =", politician.lower())
   politician = None
   for p in politicians:
     politician = p
@@ -156,7 +154,8 @@ def all_politicians():
     tokens = pol.name.title().split(' ')
     politician = {
       'value': pol.name.title(),
-      'tokens': tokens
+      'tokens': tokens,
+      'search_count': pol.search_count
     }
 
     politicians.append(politician)
@@ -170,17 +169,9 @@ def all_politicians():
 
   return resp
 
-"""Creates entry for politicians in the db
-    *Note* : Do not run it more than once, will create multiple entries
+"""News articles from various news sources
+   Format: JSON
 """
-@app.route('/updatedb/politicians')
-def update_all():
-  return insert_politicians_in_db()
-
-# @app.route('/updatedb/images')
-# def update_images():
-#   return fetch_images()
-
 @app.route('/json/<newspaper>/<query>')
 def test(newspaper, query):
 	hinduscraper = scrapers[newspaper]
@@ -189,3 +180,14 @@ def test(newspaper, query):
 	articles = hinduscraper.getArticles()
 	return jsonify(articles=articles)
 
+"""
+   **Database errands**
+
+"""
+
+"""Creates entry for politicians in the db
+    *Note* : Do not run it more than once, will create multiple entries
+"""
+@app.route('/updatedb/politicians')
+def update_all():
+  return insert_politicians_in_db()

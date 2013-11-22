@@ -4,13 +4,6 @@ runtime: python27
 api_version: 1
 threadsafe: false
 
-#libraries:
-#- name: flask
-#  version: latest
-#
-#- name: jinja2
-#  version: latest
-
 handlers:
 - url: /images/
   static_dir: static/images/

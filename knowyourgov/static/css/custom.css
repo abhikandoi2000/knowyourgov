@@ -1,88 +1,102 @@
 
-body{
+body {
   background-color: #FFF;
 }
 
-div.center{
+div.center {
   text-align:center;
   margin-top: 20%;
 }
 
-.span4{
+.span4 {
   
 }
 
-.pane3 > div{
+.pane3 > div {
   min-height: 200px !important;
  
 }
-#map-canvas{
+#map-canvas {
   min-height:180px;
 }
-.main-wrap{
+.main-wrap {
   min-height: 200px !important;
  
 }
-header{
+
+header {
   min-height : 50px;
   border-bottom: 2px solid #BBB39F;
   padding: 10px;
 }
 
-div.title{
+span.tag a {
+  color: white;
+}
+
+div.title  {
   font-size:25px;
 }
-div.search-wrap{
+div.search-wrap {
   margin-top: 80px;
 }
 
-div#geoloc-success{
+div#geoloc-success {
   display:none;
 }
 
-div#locations-wrap{
+div#locations-wrap {
   display:none;
 }
-div#personal {
-  font-size: 15px;
+
+div#geo {
+  text-align:center;
 }
+
+div.location-options > div {
+  min-height : 300px;      
+}
+div.location-options {
+   border-bottom: 1px solid #efefef;
+   text-align:center;
+}
+div.locate-home {
+  text-align:center;
+}
+
+
+/**
+ * Tweets section
+ */
+
+ul.tweets {
+  list-style:none;
+  padding:0px;
+  margin:0px;
+}
+ul.tweets > li {
+  margin-top: 10px;
+  font-size: 0.7em;
+  border-bottom: 1px solid #e3e3e3;
+}
+ul.tweets li a {
+   color : #222;
+}
+ul.tweets li a:hover {
+   color : #000;
+}
+
+
+/**
+ * Politician's image and personal info
+ */
 
 h6.politician-name {
   font-size: 28px;
 }
-div#geo{
-  text-align:center;
-}
-
-div.location-options > div{
-  min-height : 300px;      
-}
-div.location-options{
-   border-bottom: 1px solid #efefef;
-   text-align:center;
-}
-div.locate-home{
-  text-align:center;
-}
-
-ul.tweets{
-        list-style:none;
-        padding:0px;
-        margin:0px;
-      }
-      ul.tweets > li {
-        margin-top: 10px;
-        font-size: 0.7em;
-        border-bottom: 1px solid #e3e3e3;
-      }
-      ul.tweets li a {
-         color : #222;
-      }
-      ul.tweets li a:hover {
-         color : #000;
-      }
 
 #politician-image {
+  margin: auto;
   min-height: 220px;
   width: 180px;
   background-image: url('/static/img/anon.jpg');
@@ -90,9 +104,23 @@ ul.tweets{
   background-position: center;
 }
 
-span.tag a {
-  color: white;
+div#personal {
+  font-size: 15px;
 }
+
+
+/**
+ * Sentiment Analysis
+ */
+
+.progress .progress-bar {
+  width: 0%;
+}
+
+.palette-paragraph {
+  text-align: center;
+}
+
 
 /**
  * Typeahead dropdown style
@@ -154,26 +182,42 @@ span.tag a {
   margin: 0;
 }
 
-div.news-desc{
+/**
+ * News section
+ */
+
+div.news-desc {
   font-size:0.8em;
 }
-div.news-title{
+
+div.news-title {
   margin-top:5px;
   font-size: 0.9em;
 }
-div.tagsinput{
+
+/**
+ * Tags - Homepage
+ */
+
+div.tagsinput {
   min-height:200px;
   border:0px !important;
 }
-div.tagsinput a{
+div.tagsinput a {
     color: #FFF;
     min-height:200px;
 }
-p.lead{
+
+/**
+ * Geolocation Page
+ */
+
+p.lead {
   margin-bottom: 0px !important;
   margin-top: 20px !important;
 }
-#res-title{
+
+#res-title {
   text-align:center;
   display:none;
 }

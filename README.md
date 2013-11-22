@@ -2,7 +2,7 @@
 
 Know your Government, entry for Google Cloud Developer Challenge
 
-# Deploy URL
+#Deploy URL
 [https://gcdc2013-know-your-gov.appspot.com/](https://gcdc2013-know-your-gov.appspot.com/)
 
 # Tech Stack
@@ -27,4 +27,8 @@ Know your Government, entry for Google Cloud Developer Challenge
 * Run the application locally (`~/path/to/sdk/dev_appserver.py .`)
 * Visit `http://localhost:8080/` using your browser to see it in action.
 
-# 
+# Populating the datastore
+
+A `GET` request to `/updatedb/politicians` will populate the database.
+
+*Make sure that the website is up and running before you do so.*
