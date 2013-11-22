@@ -163,3 +163,11 @@ div.news-title{
 div.tagsinput{
   min-height:200px;
 }
+div.tagsinput a{
+    color: #FFF;
+    min-height:200px;
+}
+p.lead{
+  margin-bottom: 0px !important;
+  margin-top: 20px !important;
+}

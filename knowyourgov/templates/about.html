@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class = "about-wrap col-md-9 col-md-offset-2">
+		<p class="lead"> About </p>
+		<p>
+			Know Your Government is an attempt to raise awareness about political leaders in India in common person. 
+		</p>
+		<p class="lead">Usage</p>
+		<p>
+			You can go ahead and type the name of a the politican or you can use location services to track leaders nearby your location. In location service, you can, enter the name of your region / connect this application with Google+ to help us track your past locations / Share your current location if your browser supports geolocation 
+		</p>
+		<p class="lead">Politician Information</p>
+		<p>
+			On a politican's page, you can view basic information about him/her, updates about their activities from twitter, recent news updates involving them and finally a sentiment analysis. Sentiment analysis is done on weighted factors involving updates from social circles, news articles from national dailies(currently TOI and Hindu) and Reader comments on those Websites
+		</p>
+		<p class="lead"> Tech Stack </p>
+		<ul class="tech-stack">
+			<li> Google App Engine </li>
+			<li> Google Data Store </li>
+			<li> Flask, Jinja2 </li>
+			<li> Google Maps API </li>
+			<li> Google+ Signin </li>
+			<li> Google News API </li>
+			<li> Twitter API </li>
+			<li> Alchemy Sentiment API </li>
+			<li> Google Custom Search API </li>
+		</ul>
+		<p class="lead"><a name="feedback"> Feedback </a></p>
+		<script src="https://apis.google.com/js/plusone.js">
+		</script>
+		<div class="g-comments"
+		    data-href="https://gcdc2013-know-your-gov.appspot.com/about"
+		    data-width="642"
+		    data-first_party_property="BLOGGER"
+		    data-view_type="FILTERED_POSTMOD">
+		</div>
+
+	</div>
+{% endblock %}

@@ -24,11 +24,11 @@ def homepage():
       break
   return render_template('home.html', politicians=politicians)
 
-"""User page
+"""About Page + Feedback
 """
-@app.route('/user')
-def userpage():
-  return render_template('user.html')
+@app.route('/about')
+def aboutpage():
+  return render_template('about.html')
 
 """Detects Location
 """
