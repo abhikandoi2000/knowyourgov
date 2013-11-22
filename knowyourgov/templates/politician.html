@@ -4,7 +4,9 @@
     <div class="row pane3">
       <div class="col-md-2 info tile" id="info">
         <!-- <h4 class="demo-pane-title">Info</h4> -->
-        <div id="politician-image" title="{{ politician.name }}"></div>
+
+        <img id="politician-image" title="placeholder" src="{{ url_for('static', filename='img/anon.jpg') }}" height="150" width="150">
+
         <h6 class="politician-name"><!-- {{ politician.name }} --></h6>
         <div id="personal">
           <!-- <li>{{ politician.party }}</li>
@@ -12,14 +14,19 @@
           <li>{{ politician.constituency }}</li> -->
         </div>
       </div>
-      <div class="col-md-6">
-        <h6 class="demo-pane-title">Articles</h5>
-        <div class="row" id="articles">
+      <div class="col-md-6 col-md-offset-1">
+        <h6 class="demo-pane-title">News Updates<img style="float:right" src="/static/img/gnews.png" height="24" width="24" title="Google News"></h5>
+        <div class="row" id="news-wrap">
+          <!-- news -->
+
+        </div>
+        
+        <div class="row" id="articles-wrap">
           <!-- articles -->
-          <img src="{{ url_for('static', filename='img/spinner.gif') }}" id="article-spinner">
+
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
 
         <h6 class="demo-pane-title">Sentiment Analysis</h5>
          <div id="sentiment-wrap">
@@ -59,7 +66,42 @@
     <script src= "{{ url_for('static', filename='js/nprogress.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/sha1.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/codebird.js')}}" ></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src= "{{ url_for('static', filename='js/politician.js')}}" ></script>
+    <script>
+    google.load('search', '1');
+
+      var newsSearch;
+
+     function searchComplete(){
+      var html = '';
+      var res = newsSearch['results'];
+      html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">'+ res[0].title +'</a></div><div class="news-desc"><img src="'+res[0].image.url+'" style="float:right">' + res[0].content + '</div>';
+          for(i in res){
+            html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title +'</a></div>';
+          }
+      $('#news-wrap').html(html)
+    }
+
+      function onLoad() {
+
+        // Create a News Search instance.
+        newsSearch = new google.search.NewsSearch();
+  
+        // Set searchComplete as the callback function when a search is 
+        // complete.  The newsSearch object will have results in it.
+        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+
+        // Specify search quer(ies)
+        newsSearch.execute(name);
+
+        // Include the required Google branding
+        google.search.Search.getBranding('branding');
+      }
+
+      // Set a callback to call your code when the page loads
+      google.setOnLoadCallback(onLoad);
+    </script>
 
 {% endblock %}
 

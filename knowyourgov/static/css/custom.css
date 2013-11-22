@@ -148,3 +148,11 @@ ul.tweets{
 .tt-suggestion p {
   margin: 0;
 }
+
+div.news-desc{
+  font-size:0.8em;
+}
+div.news-title{
+  margin-top:5px;
+  font-size: 0.9em;
+}

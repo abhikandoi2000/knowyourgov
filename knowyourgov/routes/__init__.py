@@ -78,13 +78,13 @@ def search():
   for p in politicians:
     politician = p
 
-  if politician != None:
+  # if politician != None:
     # increment search count by one
-    politician.search_count = politician.search_count + 1
-    politician.put()
-    return render_template('politician.html', q = query, politician = politician)
-  else:
-    return render_template('politician_notfound.html', q = query)
+    # politician.search_count = politician.search_count + 1
+    # politician.put()
+  return render_template('politician.html', q = query, politician = politician)
+  # else:
+    # return render_template('politician_notfound.html', q = query)
 
 
 

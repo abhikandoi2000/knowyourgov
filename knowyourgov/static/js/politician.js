@@ -6,6 +6,17 @@ var toTitleCase = function(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+var newsSearch;
+
+function searchComplete(){
+      var html = '';
+      var res = newsSearch['results'];
+          for(i in res){
+            html += '<h6><a href="'+ res[i].url +'">'+ res[i].title +'</a></h6><div> ' + res[i].content + '</div>';
+          }
+      $('#news-wrap').html(html)
+    }
+
 showLoading('.tweets');
 
 $(function() {
@@ -23,6 +34,37 @@ $(function() {
   //     $("#politician-image").attr('src', imageUrl);
   //   }
   // });
+
+  /***
+    News Updates For Center Section
+   ***/
+
+    // google.load('search',1);  
+
+    // function onGLoad(){
+        
+    //   newsSearch = new google.search.NewsSearch();
+    //   newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+
+    //   newsSearch.execute(name);
+    // }
+
+    // google.setOnLoadCallback(onGLoad);
+
+   // $.ajax({
+   //    url :'https://news.google.com/news/feeds?q=' +name+'&output=rss',
+   //    dataType : "xml"
+
+   // }).done(function(xml){
+   //    var html  = '';
+   //    console.log($(xml))
+   //    var e = $(xml).find('item').filter('first');
+   //    html += '<div><a href="' + e.find('link').text() + '" target="_blank"> ' + e.find('title').text() +'</a></div>';
+   //    html += '<div> ' + e.find('description').text()+ ' </div>';
+
+   //    $('#news-wrap').html(html);
+
+   // })
 
   $.ajax({
     url:"/json/politicians/" + name,
@@ -47,23 +89,23 @@ $(function() {
     }
   });
 
-  $.ajax({
-    url: "/json/hindu/" + name,
-    success: function(data, status) {
+  // $.ajax({
+  //   url: "/json/hindu/" + name,
+  //   success: function(data, status) {
 
-      $("#article-spinner").css('display', 'none');
+  //     $("#article-spinner").css('display', 'none');
 
-      for(index in data.articles) {
-        article = data.articles[index];
-        console.log(article);
-        $("#articles").append('<div><b><a href="' + article.url + '">' + article.title + '</a></b><p>' + article.content.substr(0,150) + '...</p></div>');
-      }
+  //     for(index in data.articles) {
+  //       article = data.articles[index];
+  //       console.log(article);
+  //       $("#articles").append('<div><b><a href="' + article.url + '">' + article.title + '</a></b><p>' + article.content.substr(0,150) + '...</p></div>');
+  //     }
 
-      fractionComplete += 0.2;
-      NProgress.set(fractionComplete);
-      NProgress.done();
-    }
-  });
+  //     fractionComplete += 0.2;
+  //     NProgress.set(fractionComplete);
+  //     NProgress.done();
+  //   }
+  // });
 
   cb.__call(
     "search_tweets",
