@@ -22,7 +22,7 @@ handlers:
 
 - url: /css/
   static_dir: static/css/
-  expiration: 1000d
+  expiration: 1s
 
 - url: /.*
   script: main.py
