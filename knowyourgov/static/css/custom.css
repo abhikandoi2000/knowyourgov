@@ -30,6 +30,10 @@ header {
   padding: 10px;
 }
 
+div.content-wrap {
+  margin-top: 20px;
+}
+
 span.tag a {
   color: white;
 }
@@ -113,12 +117,12 @@ div#personal {
  * Sentiment Analysis
  */
 
-.progress .progress-bar {
-  width: 0%;
+#sentiment-wrap {
+  text-align: center;
 }
 
-.palette-paragraph {
-  text-align: center;
+.progress .progress-bar {
+  width: 0%;
 }
 
 
@@ -185,6 +189,10 @@ div#personal {
 /**
  * News section
  */
+
+div.news {
+  margin: 0 20px;
+}
 
 div.news-desc {
   font-size:0.8em;

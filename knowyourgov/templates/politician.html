@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <div class="row pane3">
-      <div class="col-md-2 info tile" id="info">
+    <div class="row pane3 content-wrap">
+      <div class="col-md-3 info tile" id="info">
         <div id="politician-image" title="{{ politician.name }}"></div>
 
         <h6 class="politician-name"></h6>
@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 col-md-offset-1">
+      <div class="col-md-5 news">
         <h6 class="demo-pane-title">News Updates<img style="float:right" src="/static/img/gnews.png" height="24" width="24" title="Google News"></h5>
         <div class="row" id="news-wrap">
           <!-- news -->

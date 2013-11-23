@@ -88,41 +88,40 @@ $(function() {
   /**
    * Fetch and display tweets (if any)
    */
-  cb.__call(
-    "search_tweets",
-    "q="+ name,
-    function (reply) {
+  $.ajax({
+    url: '/json/tweets/search/' + encodeURIComponent(name),
+    success: function(data, status) {
+      var tweets = data.statuses;
+      console.table(tweets);
 
-      // empty tweets section (just in case)
+      // remove spinner
       $('.tweets').html('');
 
-      var tweets = reply['statuses'];
-
-      // console.log('tweets');
-      // console.log(tweets);
-
-      if(typeof tweets == "undefined" || tweets.length == 0){
-        $('.tweets').append('<small>Sorry, no relevant social activity.</small>');
-      }
-      else {
-        for(var i = 0; i < Math.min(5, tweets.length); i++){
-          try {
-            var status = tweets[i].text;
-            $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
-
-             // append tweet for sentiment analysis
-             analysis_content += status;
-
-            if (tweets.length == 0) {
-              $('.tweets').append('Sorry, no relevant social activity.');
-            }
-          } catch(e) {
-            // console.log('Problem with tweet:');
-            // console.log(tweets[i]);
-          }
+      for(index in tweets) {
+        // at max 5 tweets
+        if(index == 5) {
+          break;
         }
+
+        var tweet = tweets[index];
+        var status = tweet.text;
+        var screen_name = tweet.user.screen_name;
+        var id_str= tweet.id_str;
+
+        $('.tweets').append('<li><a href="https://twitter.com/'+ screen_name +'/status/' + id_str + '" target="_blank"> '+ status +' </a></li>');
+
+        // append tweet for sentiment analysis
+        analysis_content += status;
       }
 
+      if(tweets.length == 0) {
+        $('.tweets').append('Sorry, no relevant social activity.');
+      }
+    },
+    error: function(xhr, error) {
+      $('.tweets').append('Sorry, unable to fetch tweets.');
+    },
+    complete: function(xhr, status) {
       $('#sentiment-wrap span').css('color','#2980B9');
       // console.log('Request Sent');
 
@@ -137,7 +136,9 @@ $(function() {
             console.log(response);
             var entityFound = false;
             for(index in response.entities) {
-              if(response.entities[index].text.toLowerCase().substr(0,name.length) == name.substr(0,name.length)) {
+              rKeywords = response.entities[index].text.toLowerCase().split(" ");
+              keywords = name.split(" ");
+              if(rKeywords[rKeywords.length-1] == keywords[keywords.length-1]) {
                 // found entity for current politician
                 entityFound = true;
 
@@ -177,10 +178,50 @@ $(function() {
             }
 
           });
-
       } // end else
+    }
+  });
+
+/*
+  cb.__call(
+    "search_tweets",
+    "q="+ name,
+    function (reply) {
+
+      // empty tweets section (removes loader)
+      $('.tweets').html('');
+
+      var tweets = reply['statuses'];
+
+      // console.log('tweets');
+      // console.log(tweets);
+
+      if(typeof tweets == "undefined" || tweets.length == 0){
+        $('.tweets').append('<small>Sorry, no relevant social activity.</small>');
+      }
+      else {
+        for(var i = 0; i < Math.min(5, tweets.length); i++){
+          try {
+            var status = tweets[i].text;
+            $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
+
+             // append tweet for sentiment analysis
+             analysis_content += status;
+
+            if (tweets.length == 0) {
+              $('.tweets').append('Sorry, no relevant social activity.');
+            }
+          } catch(e) {
+            // console.log('Problem with tweet:');
+            // console.log(tweets[i]);
+          }
+        }
+      }
+
+      
     },
     true // this parameter required
   );
+*/
 
 });
