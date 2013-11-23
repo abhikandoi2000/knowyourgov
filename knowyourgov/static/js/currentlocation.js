@@ -106,7 +106,7 @@ $('#gplusinfo').delegate('a','click', function(e){
 var plotOnMap = function(lat,lng){
     var mapOptions = {
           center: new google.maps.LatLng(lat,lng),
-          zoom: 8
+          zoom: 10
     };
        
      var map = new google.maps.Map(document.getElementById("map-canvas"),
