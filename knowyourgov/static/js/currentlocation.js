@@ -62,7 +62,11 @@ var searchState = function(state){
       // clear the results
       $('.results').html('');
       // append the table
-      $('.results').append(table);
+      if(data.politicians.length == 0)
+        $('.results').append('<center> Sorry, no results found!. Our database is of Indian politicians only. <p> <small> Are we missing on anyone important? <a href="/about#feedback"> Report it </a> </small></p></center>');
+      else
+        $('.results').append(table);
+    
     }
   });
   console.log(state);
@@ -80,9 +84,6 @@ var searchbyLocation = function(){
  ***/
 function addLocations(locations){
 
-   if(locations.length === 0){
-      $('#gplusinfo').append('<br><small>No past information on your locations from G+. Go add some!</small>')
-   }
    $('#gplusinfo').append('<br>We see you have lived in ')
    for(i in locations){
       $('#gplusinfo').append('<a rel="'+ locations[i].value +'" href="#"> ' + locations[i].value + ' </a> , ');
@@ -179,6 +180,10 @@ function signinCallback(authResult) {
 
     request.execute(function(profile){
       $('#gplusinfo').html('Welcome, ' + profile.name.givenName + ".");
+
+      if(typeof profile.placesLived == "undefined")
+        $('#gplusinfo').append('<br><small>No past information on your locations from G+. Go add some!</small>');
+      else
        addLocations(profile.placesLived);
 
     });
