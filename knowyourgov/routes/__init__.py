@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, make_response, jsonify, json, Response
+from flask import Flask, url_for, render_template, request, make_response, jsonify, json, Response, redirect
 import requests
 from requests_oauthlib import OAuth1
 
@@ -41,18 +41,17 @@ def currentlocation():
 """
 @app.route('/politicians/id/<name>')
 def politician_page(name):
-  name = name.lower()
+  name = name.lower().replace('-',' ')
   politicians = Politician.all()
   politicians.filter("name =", name)
-  politician = None
-  for p in politicians:
-    politician = p
-
-  if politician != None:
+  politician = list(politicians[:1])
+  if politician:
+    politician = politicians[0]
     # increment search count by one
     politician.search_count = politician.search_count + 1
     politician.put()
-    return render_template('politician.html', q = name, politician = politician)
+    politician.first_name, politician.last_name = politician.name.split(' ')[0:2]
+    return render_template('politician.html', q = name, politician = politician, title = name)
   else:
     return render_template('politician_notfound.html', q = name)
 
@@ -61,19 +60,14 @@ def politician_page(name):
 @app.route('/search', methods= ['POST', 'GET'] )
 def search():
  # query = request.form['q']
-  query = request.args.get('q').lower()
+  query = request.args.get('q').lower().replace('-',' ')
   politicians = Politician.all()
   politicians.filter("name =", query)
-  politician = None
-  
-  for p in politicians:
-    politician = p
-
-  if politician != None:
-    # increment search count by one
-    politician.search_count = politician.search_count + 1
-    politician.put()
-    return render_template('politician.html', q = query, politician = politician)
+  politician = list(politicians[:1])
+  if politician:
+    politician = politicians[0]
+    name = query.replace(' ','-')
+    return redirect('/politicians/id/'+name)
   else:
     return render_template('politician_notfound.html', q = query)
 

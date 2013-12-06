@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flat-ui.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
-</head>
+    <meta property="og:image" content="https://gcdc2013-know-your-gov.appspot.com/static/img/logo-big.png">
+    <meta property="og:site_name" content="Know Your Government">
+    {% block head %}{% endblock %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     {% if title %}
-    <title>Know Your Government : {{ title }}</title>    
+    <title>{{ title|title }} | Know Your Government</title>
     {% else %}
     <title>Know Your Government</title>
     {% endif %}
-
   </head>
   <body>
    <div class="container">

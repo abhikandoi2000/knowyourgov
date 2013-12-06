@@ -60,7 +60,7 @@ $(function() {
       // update image and other personal information for politician
       $("#politician-image").css('background-image', "url('" + data.imageUrl + "')");
 
-      $("#info h6.politician-name").html('<a href="/politicians/id/' + data.name + '">' + toTitleCase(data.name) + "</a>");
+      $("#info h6.politician-name").html('<a href="/politicians/id/' + data.name.replace(' ','-') + '">' + toTitleCase(data.name) + "</a>");
 
       $("#personal").append("<div><i>" + special + "</i></div>");
       $("#personal").append("<div><b>Party       </b><br>" + toTitleCase(data.party) + "</div>");

@@ -1,4 +1,8 @@
 {% extends "layout.html" %}
+{% block head %}
+    <meta property="og:profile:first_name" content="{{ politician.first_name|title }}">
+    <meta property="og:profile:last_name" content="{{ politician.last_name|title }}">
+{% endblock %}
 {% block content %}
 
     <div class="row pane3 content-wrap">
@@ -60,7 +64,7 @@
 {% block scripts %}
     <script>
       // @global - name of politician
-      name = "{{ politician.name }}";
+      name = "{{ politician.name |title }}";
       // @global - content for sentiment analysis
       analysis_content = '';
     </script>
