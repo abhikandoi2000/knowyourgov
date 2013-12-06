@@ -14,15 +14,7 @@ from knowyourgov.scripts.scraping import scrapers
 def homepage():
   q = Politician.all()
   q.order('-search_count')
-
-  politicians = []
-
-  count = 0
-  for politician in q:
-    politicians.append(politician)
-    count = count + 1
-    if count == 8:
-      break
+  politicians = list(q[:8]) or []
   return render_template('home.html', politicians=politicians)
 
 """About Page + Feedback

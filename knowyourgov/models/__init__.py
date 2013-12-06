@@ -15,3 +15,5 @@ class Politician(db.Model):
   wiki_link = db.StringProperty(required = True)
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()
+  def url_slug(self):
+    return self.name.replace(' ','-').lower()
