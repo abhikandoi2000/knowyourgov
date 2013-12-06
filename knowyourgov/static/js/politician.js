@@ -137,7 +137,7 @@ $(function() {
             var entityFound = false;
             for(index in response.entities) {
               rKeywords = response.entities[index].text.toLowerCase().split(" ");
-              keywords = name.split(" ");
+              keywords = name.toLowerCase().split(" ");
               if(rKeywords[rKeywords.length-1] == keywords[keywords.length-1]) {
                 // found entity for current politician
                 entityFound = true;
