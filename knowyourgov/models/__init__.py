@@ -10,8 +10,9 @@ class User(db.Model):
 class Politician(db.Model):
   name = db.StringProperty(required = True)
   party = db.StringProperty(required = True)
-  constituency = db.StringProperty()
   state = db.StringProperty()
+  constituency = db.StringProperty()
+  position = db.StringProperty()
   wiki_link = db.StringProperty(required = True)
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()

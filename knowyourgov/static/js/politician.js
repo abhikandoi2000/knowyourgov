@@ -39,38 +39,6 @@ $(function() {
    // })
 
   /**
-   * Fetch and update information about politician
-   * includes image, name, party, state and constituency
-   */
-  $.ajax({
-    url:"/json/politicians/" + name,
-    success: function(data, status) {
-
-      var special = '';
-      if( data.state == '' && data.constituency == '' ) {
-
-        special = 'Cabinet Minister';
-
-      } else if( data.constituency == '' ) {
-
-        special = 'CM of ' + toTitleCase(data.state);
-
-      }
-
-      // update image and other personal information for politician
-      $("#politician-image").css('background-image', "url('" + data.imageUrl + "')");
-
-      $("#info h6.politician-name").html('<a href="/politicians/id/' + data.name.replace(' ','-') + '">' + toTitleCase(data.name) + "</a>");
-
-      $("#personal").append("<div><i>" + special + "</i></div>");
-      $("#personal").append("<div><b>Party       </b><br>" + toTitleCase(data.party) + "</div>");
-      $("#personal").append("<div><b>State       </b><br>" + ( data.state == '' ? '-' : toTitleCase(data.state) ) + "</div>");
-      $("#personal").append("<div><b>Constituency</b><br>" + ( data.constituency == '' ? '-' : toTitleCase(data.constituency) ) + "</div>");
-
-    } // end success
-  });
-
-  /**
    * Fetch news articles from 'The Hindu'
    */
   // $.ajax({
@@ -181,47 +149,5 @@ $(function() {
       } // end else
     }
   });
-
-/*
-  cb.__call(
-    "search_tweets",
-    "q="+ name,
-    function (reply) {
-
-      // empty tweets section (removes loader)
-      $('.tweets').html('');
-
-      var tweets = reply['statuses'];
-
-      // console.log('tweets');
-      // console.log(tweets);
-
-      if(typeof tweets == "undefined" || tweets.length == 0){
-        $('.tweets').append('<small>Sorry, no relevant social activity.</small>');
-      }
-      else {
-        for(var i = 0; i < Math.min(5, tweets.length); i++){
-          try {
-            var status = tweets[i].text;
-            $('.tweets').append('<li><a href="https://twitter.com/'+ tweets[i].user.screen_name +'/status/'+tweets[i].id_str+'" target="_blank"> '+ status +' </a></li>');
-
-             // append tweet for sentiment analysis
-             analysis_content += status;
-
-            if (tweets.length == 0) {
-              $('.tweets').append('Sorry, no relevant social activity.');
-            }
-          } catch(e) {
-            // console.log('Problem with tweet:');
-            // console.log(tweets[i]);
-          }
-        }
-      }
-
-      
-    },
-    true // this parameter required
-  );
-*/
 
 });
