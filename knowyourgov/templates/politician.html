@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
+    <meta property="og:type" content="profile">
+    <meta property="og:image" content="{{ politician.image_url }}">
     <meta property="og:profile:first_name" content="{{ politician.first_name|title }}">
     <meta property="og:profile:last_name" content="{{ politician.last_name|title }}">
 {% endblock %}
