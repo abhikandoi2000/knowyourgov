@@ -5,6 +5,7 @@ from requests_oauthlib import OAuth1
 from knowyourgov import app
 from knowyourgov.models import Politician
 from knowyourgov.scripts import insert_politicians_in_db
+from knowyourgov.scripts.data import update_data_from_csv
 from knowyourgov.scripts.scraping import scrapers
 # import errors
 
@@ -217,3 +218,7 @@ def tweets_search(query):
 @app.route('/updatedb/politicians')
 def update_all():
   return insert_politicians_in_db()
+
+@app.route('/updatedb/moredata')
+def update_data():
+  return update_data_from_csv()

@@ -15,5 +15,7 @@ class Politician(db.Model):
   wiki_link = db.StringProperty(required = True)
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()
+  dob = db.StringProperty()
+  gender = db.IntegerProperty(default= 1) #True=1=Male
   def url_slug(self):
     return self.name.replace(' ','-').lower()
