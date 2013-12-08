@@ -52,7 +52,9 @@
            <div class="tagsinput">
            
               {% for politician in politicians %}
-              <span class="tag"> <a href="/politicians/id/{{ politician.url_slug() }}">{{ politician.name.title() }}</a> </span>
+              <a href="/politicians/id/{{ politician.url_slug() }}">
+                <span class="tag">{{ politician.name.title() }}</span>
+              </a> 
               {% endfor %}
            
            </div>
