@@ -2,6 +2,21 @@
 {% block content %}
 <center>
    <img src="{{ url_for('static', filename='img/404.jpg') }}"></img>
-   <form action="/search"><input type="text" id="q" name="q" placeholder="Your Search Ends here"><input type="submit"</form>
+   <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div style="padding-top:25px;">
+          <form action="/search">
+            <div class="col-md-6 col-md-offset-2" style="padding:0 2px;">
+              <div class="form-group">
+                <input type="text" placeholder="Search for politicians" class="form-control typeahead" id="q" name="q">
+              </div>
+            </div>
+            <div class="col-md-2" style="padding:0 2px;">
+                 <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
  </center>
 {% endblock %}
