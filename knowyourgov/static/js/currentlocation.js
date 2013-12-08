@@ -40,8 +40,11 @@ var getState = function(city){
 ***/
 var searchState = function(state){
     showLoading('.results');
+
   $.ajax({
+    
     url: '/json/politicians/state/' + state.toLowerCase(),
+
     success: function(data, success) {  
 
       $('#res-title').show();
@@ -54,7 +57,7 @@ var searchState = function(state){
       for(index in data.politicians) {
         politician = data.politicians[index];
 
-        tbody.append('<tr><td><a href="/politicians/id/' + politician.name + '">' + toTitleCase(politician.name) + '</a></td><td>' + toTitleCase(politician.party) + '</td><td>' + (politician.constituency == '' ? '-' : toTitleCase(politician.constituency) ) + '</td><td>' + toTitleCase(politician.state) + '</td></tr>');
+        tbody.append('<tr><td><a href="/politicians/id/' + politician.name.replace(' ','-') + '">' + toTitleCase(politician.name) + '</a></td><td>' + toTitleCase(politician.party) + '</td><td>' + (politician.constituency == '' ? '-' : toTitleCase(politician.constituency) ) + '</td><td>' + toTitleCase(politician.state) + '</td></tr>');
       }
 
       table.append(tbody);
