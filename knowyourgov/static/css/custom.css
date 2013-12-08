@@ -229,3 +229,13 @@ p.lead {
   text-align:center;
   display:none;
 }
+
+/**
+  * Footer
+  */
+div.footer div a{
+  color: #7f8c8d;
+}
+div.footer div ul.nav{
+  margin-left: 25%;
+}
