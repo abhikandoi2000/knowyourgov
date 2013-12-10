@@ -89,9 +89,52 @@ function addLocations(locations){
 
    $('#gplusinfo').append('<br>We see you have lived in ')
    for(i in locations){
-      $('#gplusinfo').append('<a rel="'+ locations[i].value +'" href="#"> ' + locations[i].value + ' </a> , ');
+      $('#gplusinfo').append('<a rel="'+ locations[i].value +'" href="#"> ' + capitalizeFirstLetter(locations[i].value) + ' </a>');
+      if(i == locations.length - 1)
+        break;
+      $('#gplusinfo').append(', ');
    }
    $('#gplusinfo').append('<p class="palette-paragraph">Click on the region whose search you want</p> ')
+}
+/***
+  Callback for G+ Sign-In
+ ***/
+function signinCallback(authResult) {
+
+  gapi.client.load('plus','v1', function(){
+
+  if (authResult['access_token']) {
+
+    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+
+    request.execute(function(profile){
+      $('#gplusinfo').html('Welcome, ' + profile.name.givenName + ".");
+
+      if(typeof profile.placesLived == "undefined")
+        $('#gplusinfo').append('<br><small>No past information on your locations from G+. Go add some!</small>');
+      else
+       addLocations(profile.placesLived);
+
+    });
+
+    // Update the app to reflect a signed in user
+    // Hide the sign-in button now that the user is authorized, for example:
+    document.getElementById('signinButton').setAttribute('style', 'display: none');
+
+    $('.notloggedin').hide();
+    $('.loggedin').show();
+
+    } else if (authResult['error']) {
+      // Update the app to reflect a signed out user
+      // Possible error values:
+      //   "user_signed_out" - User is signed-out
+      //   "access_denied" - User denied access to your app
+      //   "immediate_failed" - Could not automatically log in the user
+      // console.log('Sign-in state: ' + authResult['error']);
+    }
+
+  });
+
 }
 /***
   Handler for clicks on cities imported from G+
@@ -170,43 +213,3 @@ $('#l').on('keyup', function(e){
 })
 $('#l-search').on('click', searchbyLocation)
 
-/***
-  Callback for G+ Sign-In
- ***/
-function signinCallback(authResult) {
-
-  gapi.client.load('plus','v1', function(){
-
-  if (authResult['access_token']) {
-
-    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
-
-    request.execute(function(profile){
-      $('#gplusinfo').html('Welcome, ' + profile.name.givenName + ".");
-
-      if(typeof profile.placesLived == "undefined")
-        $('#gplusinfo').append('<br><small>No past information on your locations from G+. Go add some!</small>');
-      else
-       addLocations(profile.placesLived);
-
-    });
-
-    // Update the app to reflect a signed in user
-    // Hide the sign-in button now that the user is authorized, for example:
-    document.getElementById('signinButton').setAttribute('style', 'display: none');
-
-    $('.notloggedin').hide();
-    $('.loggedin').show();
-
-    } else if (authResult['error']) {
-      // Update the app to reflect a signed out user
-      // Possible error values:
-      //   "user_signed_out" - User is signed-out
-      //   "access_denied" - User denied access to your app
-      //   "immediate_failed" - Could not automatically log in the user
-      // console.log('Sign-in state: ' + authResult['error']);
-    }
-
-  });
-
-}
