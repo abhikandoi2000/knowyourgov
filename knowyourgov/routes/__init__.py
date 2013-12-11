@@ -42,7 +42,11 @@ def politician_page(name):
     # increment search count by one
     politician.search_count = politician.search_count + 1
     politician.put()
-    politician.first_name, politician.last_name = politician.name.split(' ')[0:2]
+    try:
+      politician.first_name, politician.last_name = politician.name.split(' ')[0:2]
+    except:
+      politician.first_name = politician.name
+      politician.last_name = ''
     return render_template('politician.html', q = name, politician = politician, title = name)
   else:
     return render_template('politician_notfound.html', q = name)
