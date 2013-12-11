@@ -64,6 +64,22 @@ def search():
     return render_template('politician_notfound.html', q = query)
 
 
+@app.route('/state/<state>')
+def state(state):
+  state = state.lower().replace('-',' ')
+  pols = Politician.all()
+  pols.filter("state =", state)
+  pols.order('-search_count')
+  return render_template('politician_list.html', politicians = pols, title="List of politicians in "+state)
+
+@app.route('/party/<party>')
+def party(party):
+  party = party.lower().replace('-',' ')
+  pols = Politician.all()
+  pols.filter("party =", party)
+  pols.order('-search_count')
+  return render_template('politician_list.html', politicians = pols, title=party)
+
 """
    ** Error Handlers **
    404, 500 and other errors

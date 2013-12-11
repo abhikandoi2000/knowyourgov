@@ -10,27 +10,21 @@
 
     <div class="row pane3 content-wrap">
       <div class="col-md-3 info tile" id="info">
-        <div id="politician-image" title="{{ politician.name }}" style="background-image:url({{ politician.image_url }});"></div>
+        {# Using img src is better for SEO #}
+        <div id="politician-image" title="{{ politician.name }}" alt="Image of {{politician.name}}">
+          <img src="{{politician.image_url}}" width="180">
+        </div>
 
-        <h6 class="politician-name"><a href="/politicians/id/{{ politician.name.replace(' ', '-') }}">{{ politician.name.title() }}</a></h6>
+        <h6 class="politician-name">
+          <a href="/politicians/id/{{politician.name.replace(' ','-')}}">{{politician.name|title}}</a>
+        </h6>
         <div id="personal">
           <div>
             <i>{{ politician.position }}</i>
           </div>
-          <div>
-            <b>Party</b><br>{{ politician.party.title() }}
-          </div>
-          {% if politician.state != "" %}
-          <div>
-            <b>State</b><br>{{ politician.state.title() }}
-          </div>
-          {% endif %}
-          {% if politician.constituency != "" %}
-          <div>
-            <b>Constituency</b><br>{{ politician.constituency.title() }}
-          </div>
-          {% endif %}
-          <div></div>
+          <div><b>State       </b><br><a href="/state/{{politician.state.replace(' ','-')}}">{{politician.state|title}}</a></div>
+          <div><b>Party </b><br><a href="/party/{{politician.party.replace(' ','-')}}">{{politician.party|title}}</a></div>
+          <div><b>Constituency</b><br>{{politician.constituency|title|default('-')}}</div>
         </div>
       </div>
 
@@ -40,6 +34,12 @@
           <!-- news -->
           <div style="text-align:center;"><img src="{{ url_for('static', filename='img/spinner.gif') }}"></div>
         </div>
+        
+        {% if politician.wiki_link !='undefined' %}
+        <div id="wiki_link"</div>
+          Please visit <a href="{{ politician.wiki_link }}">wiki</a> for more info.
+        </div>
+        {% endif %}
         
         <div class="row" id="articles-wrap">
           <!-- articles -->
@@ -151,10 +151,6 @@
 
         // no relevant news articles
         var html = '<div style="text-align:center;">Sorry, no relevant articles.';
-
-        {% if not politician.wiki_link == "undefined" %}
-        html += ' Visit <a href="{{ politician.wiki_link }}">wiki</a> for more info';
-        {% endif %}
 
         html += '</div>';
 
