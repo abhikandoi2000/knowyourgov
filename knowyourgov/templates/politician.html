@@ -12,6 +12,12 @@
 
         <h6 class="politician-name"></h6>
         <div id="personal">
+        {% if politician.gender_str() != "None" %}
+          <div>
+          <b>Gender</b>
+          {{ politician.gender_str() }}
+          </div>
+        {% endif %}
         </div>
       </div>
 

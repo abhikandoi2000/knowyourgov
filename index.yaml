@@ -12,6 +12,12 @@ indexes:
 
 - kind: Politician
   properties:
+  - name: party
+  - name: search_count
+    direction: desc
+
+- kind: Politician
+  properties:
   - name: state
   - name: search_count
     direction: desc

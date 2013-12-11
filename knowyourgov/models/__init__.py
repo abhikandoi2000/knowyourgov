@@ -16,6 +16,14 @@ class Politician(db.Model):
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()
   dob = db.StringProperty()
-  gender = db.IntegerProperty(default= 1) #True=1=Male
+  # gender: 0 - not known, 1 - male, 2 - female
+  gender = db.IntegerProperty(default= 0)
   def url_slug(self):
     return self.name.replace(' ','-').lower()
+  def gender_str(self):
+    if self.gender == 1:
+      return "Male"
+    elif self.gender == 2:
+      return "Female"
+    else:
+      return "None"
