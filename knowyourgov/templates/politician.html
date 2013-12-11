@@ -22,9 +22,13 @@
           <div>
             <i>{{ politician.position }}</i>
           </div>
-          <div><b>State       </b><br><a href="/state/{{politician.state.replace(' ','-')}}">{{politician.state|title}}</a></div>
-          <div><b>Party </b><br><a href="/party/{{politician.party.replace(' ','-')}}">{{politician.party|title}}</a></div>
+          {% if politician.state != "" %}
+          <div><b>State</b><br><a href="/state/{{politician.state.replace(' ','-')}}">{{politician.state|title}}</a></div>
+          {% endif %}
+          <div><b>Party</b><br><a href="/party/{{politician.party.replace(' ','-')}}">{{politician.party|title}}</a></div>
+          {% if politician.constituency != "" %}
           <div><b>Constituency</b><br>{{politician.constituency|title|default('-')}}</div>
+          {% endif %}
         </div>
       </div>
 

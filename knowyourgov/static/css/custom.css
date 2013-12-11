@@ -101,7 +101,6 @@ h6.politician-name {
 
 #politician-image {
   margin: auto;
-  min-height: 220px;
   width: 180px;
   background-image: url('/static/img/anon.jpg');
   background-size: cover;
