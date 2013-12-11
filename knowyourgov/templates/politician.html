@@ -29,6 +29,12 @@
           {% if politician.constituency != "" %}
           <div><b>Constituency</b><br>{{politician.constituency|title|default('-')}}</div>
           {% endif %}
+          {% if politician.gender_str() != "None" %}
+            <div><b>Gender</b><br>{{ politician.gender_str() }}</div>
+          {% endif %}
+          {% if politician.dob %}
+            <div><b>Born</b><br>{{ politician.dob }}</div>
+          {% endif %}
         </div>
       </div>
 
