@@ -215,7 +215,7 @@ def tweets_search(query):
   base_url = 'https://api.twitter.com/1.1/'
   search_url = 'search/tweets.json'
   verify_url = 'account/verify_credentials.json'
-  payload = {'q': query, 'count': '5', 'lang': 'en', 'result_type': 'mixed'}
+  payload = {'q': query, 'count': '5', 'lang': 'en', 'result_type': 'mixed', '+exclude': 'retweets'}
 
   # verify account credentials
   response = requests.get(base_url + verify_url, auth=oauth)
