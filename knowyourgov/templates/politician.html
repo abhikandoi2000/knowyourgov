@@ -107,6 +107,7 @@
     var newsSearch;
 
     function searchComplete(){
+
       // empty news section
       $('#news-wrap').html('');
 
@@ -168,6 +169,12 @@
         $('#news-wrap').html(html);
         
       } // end else
+
+      newsLoaded = true;
+      
+      if(tweetsLoaded == true)
+        setnimentAnalysis();
+
     }
 
     function onLoad() {

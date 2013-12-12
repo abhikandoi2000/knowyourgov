@@ -6,6 +6,77 @@ var toTitleCase = function(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+/**
+  * Flags used to perform sentiment analysis after the last loads
+  */
+var tweetsLoaded, newsLoaded = false;
+
+/**
+  *Performs Sentiment Analysis
+  *Variable `analysis_content`
+  */
+var sentimentAnalysis = function(){
+
+   $('#sentiment-wrap span').css('color','#2980B9');
+
+      if(analysis_content == '') {
+
+        $('#sentiment-wrap .progress').css('display','none');
+        $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
+
+      } else {
+
+        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
+          function(response) {
+
+            var entityFound = false;
+            for(index in response.entities) {
+              rKeywords = response.entities[index].text.toLowerCase().split(" ");
+              keywords = name.toLowerCase().split(" ");
+              if(rKeywords[rKeywords.length-1] == keywords[keywords.length-1]) {
+                // found entity for current politician
+                entityFound = true;
+
+                console.log(response.entities[index].sentiment.type);
+
+                $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
+                if(response.entities[index].sentiment.type == "neutral") {
+                  
+                  // neutral
+                  $('#sentiment-wrap .progress-bar').css('width','50%');
+
+                } else if(response.entities[index].sentiment.type == "positive") {
+                  
+                  $('#sentiment-wrap .progress-bar').css('width','75%');
+
+                } else if(response.entities[index].sentiment.type == "negative") {
+                  
+                  $('#sentiment-wrap .progress-bar').css('width','25%');
+
+                } else {
+                  
+                  $('#sentiment-wrap .progress-bar').css('width','50%');
+
+                }
+
+                // break immediately after entity (politician) is found
+                break;
+              }
+            }
+
+            // entity (politician) not found
+            if(!entityFound) {
+
+              $('#sentiment-wrap .progress').css('display','none');
+              $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
+
+            }
+
+          });
+
+      } // end else
+
+}
 
 showLoading('.tweets');
 
@@ -83,70 +154,22 @@ $(function() {
       }
 
       if(tweets.length == 0) {
+
         $('.tweets').append('Sorry, no relevant social activity.');
       }
     },
     error: function(xhr, error) {
+
+      tweetsLoaded = true;
       $('.tweets').append('Sorry, unable to fetch tweets.');
     },
     complete: function(xhr, status) {
-      $('#sentiment-wrap span').css('color','#2980B9');
-      // console.log('Request Sent');
 
-      if(analysis_content == '') {
+      tweetsLoaded = true;
+      
+      if(newsLoaded == true)
+        sentimentAnalysis();
 
-        $('#sentiment-wrap .progress').css('display','none');
-        $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
-
-      } else {
-        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
-          function(response) {
-            console.log(response);
-            var entityFound = false;
-            for(index in response.entities) {
-              rKeywords = response.entities[index].text.toLowerCase().split(" ");
-              keywords = name.toLowerCase().split(" ");
-              if(rKeywords[rKeywords.length-1] == keywords[keywords.length-1]) {
-                // found entity for current politician
-                entityFound = true;
-
-                console.log(response.entities[index].sentiment.type);
-
-                $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
-                if(response.entities[index].sentiment.type == "neutral") {
-                  
-                  // neutral
-                  $('#sentiment-wrap .progress-bar').css('width','50%');
-
-                } else if(response.entities[index].sentiment.type == "positive") {
-                  
-                  $('#sentiment-wrap .progress-bar').css('width','75%');
-
-                } else if(response.entities[index].sentiment.type == "negative") {
-                  
-                  $('#sentiment-wrap .progress-bar').css('width','25%');
-
-                } else {
-                  
-                  $('#sentiment-wrap .progress-bar').css('width','50%');
-
-                }
-
-                // break immediately after entity (politician) is found
-                break;
-              }
-            }
-
-            // entity (politician) not found
-            if(!entityFound) {
-
-              $('#sentiment-wrap .progress').css('display','none');
-              $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
-
-            }
-
-          });
-      } // end else
     }
   });
 
