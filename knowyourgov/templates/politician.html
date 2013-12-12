@@ -46,8 +46,9 @@
         </div>
         
         {% if politician.wiki_link !='undefined' %}
-        <div id="wiki_link"</div>
-          Please visit <a href="{{ politician.wiki_link }}">wiki</a> for more info.
+        <h6 class="demo-pane-title"> Resources </h6>
+        <div id="wiki_link">
+           <a href="{{ politician.wiki_link }}" target="_blank">Wikipedia Page</a>
         </div>
         {% endif %}
         
@@ -112,30 +113,29 @@
       var html = '';
       var res = newsSearch['results'];
 
-      // console.log(res);
 
       if(res.length > 0){
         // first news article
-        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">';
+        html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">';
         html += res[0].title + '</a></div><div class="news-desc">';
 
         // load image, only if present
-        html += (typeof res[0].image == "undefined" ? '' : '<img src="'+res[0].image.url+'" style="width:150px;float:right">');
+        html += (typeof res[0].image == "undefined" ? '' : '<div class="pull-right" stye="width:150px"><img src="'+res[0].image.url+'" style="width:150px"></div>');
 
-        html += res[0].content + '</div>';
+        html += res[0].content + '</div></div>';
 
         // update content for sentiment analysis
         analysis_content += res[0].title + res[0].content;
 
         // second news article if it exists
         if(res.length > 1) {
-          html += '<div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">';
+          html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">';
           html += res[1].title +'</a></div><div class="news-desc">';
 
-          // load image, only if present
-          html += (typeof res[1].image == "undefined" ? '' : '<img src="'+res[1].image.url+'" style="width:150px;float:right">');
+         // load image, only if present
+          html += (typeof res[1].image == "undefined" ? '' : '<div class="pull-right" stye="width:150px"><img src="'+res[1].image.url+'" style="width:150px"></div>');
 
-          html += res[1].content + '</div>';
+          html += res[1].content + '</div></div>';
 
           // update content for sentiment analysis
           analysis_content += res[1].title + res[1].content;
