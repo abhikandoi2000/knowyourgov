@@ -19,14 +19,17 @@ var sentimentAnalysis = function(){
 
    $('#sentiment-wrap span').css('color','#2980B9');
 
-      if(analysis_content == '') {
+      analysis_content_string = analysis_content.join(' ');
+      
+      console.log(analysis_content, analysis_content_string);
+      if(analysis_content_string == '') {
 
         $('#sentiment-wrap .progress').css('display','none');
         $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
 
       } else {
 
-        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content,
+        $.getJSON('https://access.alchemyapi.com/calls/html/HTMLGetRankedNamedEntities?apikey=448588726f2c108b2ddb6a6603d69cd4680361d8&outputMode=json&sentiment=1&jsonp=?&html=' + analysis_content_string,
           function(response) {
 
             var entityFound = false;
@@ -82,32 +85,6 @@ showLoading('.tweets');
 
 $(function() {
 
-  /**
-   * News Updates For Center Section
-   */
-    // google.load('search',1);  
-
-    // function onGLoad(){
-        
-    //   newsSearch = new google.search.NewsSearch();
-    //   newsSearch.setSearchCompleteCallback(this, searchComplete, null);
-
-    //   newsSearch.execute(name);
-    // }
-
-    // google.setOnLoadCallback(onGLoad);
-
-   // $.ajax({
-   //    url :'https://news.google.com/news/feeds?q=' +name+'&output=rss',
-   //    dataType : "xml"
-   // }).done(function(xml){
-   //    var html  = '';
-   //    console.log($(xml))
-   //    var e = $(xml).find('item').filter('first');
-   //    html += '<div><a href="' + e.find('link').text() + '" target="_blank"> ' + e.find('title').text() +'</a></div>';
-   //    html += '<div> ' + e.find('description').text()+ ' </div>';
-   //    $('#news-wrap').html(html);
-   // })
 
   /**
    * Fetch news articles from 'The Hindu'
@@ -131,8 +108,6 @@ $(function() {
     url: '/json/tweets/search/' + encodeURIComponent(name),
     success: function(data, status) {
       var tweets = data.statuses;
-      console.table(tweets);
-
       // remove spinner
       $('.tweets').html('');
 
@@ -150,7 +125,8 @@ $(function() {
         $('.tweets').append('<li><a href="https://twitter.com/'+ screen_name +'/status/' + id_str + '" target="_blank"> '+ status +' </a></li>');
 
         // append tweet for sentiment analysis
-        analysis_content += status;
+        analysis_content.push(status);
+
       }
 
       if(tweets.length == 0) {
