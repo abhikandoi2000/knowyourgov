@@ -17,8 +17,17 @@ class Politician(db.Model):
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()
   dob = db.StringProperty()
+  gender = db.IntegerProperty(default = 0)
   # gender: 0 - not known, 1 - male, 2 - female
-  gender = db.IntegerProperty(default= 0)
+  membership = db.StringProperty()
+  startofterm = db.StringProperty()
+  endofterm = db.StringProperty()
+  education = db.StringProperty()
+  debates = db.IntegerProperty(default= 0)
+  bills = db.IntegerProperty(default= 0)
+  questions = db.IntegerProperty(default= 0)
+  attendance = db.StringProperty()
+
   def url_slug(self):
     return self.name.replace(' ','-').lower()
   def gender_str(self):
