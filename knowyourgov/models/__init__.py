@@ -26,7 +26,7 @@ class Politician(db.Model):
   debates = db.IntegerProperty(default= 0)
   bills = db.IntegerProperty(default= 0)
   questions = db.IntegerProperty(default= 0)
-  attendance = db.StringProperty()
+  attendance = db.IntegerProperty(default= 0)
 
   def url_slug(self):
     return self.name.replace(' ','-').lower()

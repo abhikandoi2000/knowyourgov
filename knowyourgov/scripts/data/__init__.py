@@ -71,7 +71,7 @@ def update_data_from_csv2():
           if not row[13] == 'N/A':
             pol.questions = int(row[13])
           if not row[14] == 'N/A':
-            pol.attendance = row[14]
+            pol.attendance = int(row[14][:-1])
           pol.put()
           # break
         except Exception, e:
