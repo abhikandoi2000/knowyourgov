@@ -1,5 +1,5 @@
 import scraperconfig
-import urllib2, json, urllib
+import urllib2, json, urllib, re
 from bs4 import BeautifulSoup
 
 class Scraper:
@@ -91,9 +91,25 @@ class india60Scraper(Scraper):
 				link = politician.find('a')['href']
 				linksFile.write(link+"\n")
 
+	def getPoliticianData(self, url):
+		htmlResponse = urllib2.urlopen(url)
+		pol = {}
+		soup = BeautifulSoup(htmlResponse)
+		ele = soup.select('div.listtitle2 h1')
+		pol['constituency'] = ele[2].text[14:]
+
+		for li in soup.find('div', class_="wealth").find_all('li'):
+			divs = li.find_all('div')
+			attr = removeNonAlphanumeric(divs[0].text)
+			value = removeNonAlphanumeric(divs[1].text)
+			pol[attr] = value
+
+		return pol
+
+def removeNonAlphanumeric(string):
+	return re.sub(r'[^a-zA-Z0-9]','', string)
 
 scrapers = {}
 scrapers['hindu'] = HinduScraper()
 scrapers['toi'] = toiScraper()
 scrapers['india60'] = india60Scraper()
-
