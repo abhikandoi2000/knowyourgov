@@ -69,6 +69,31 @@ class toiScraper(Scraper):
 						for comment in comments:
 							article["comments"].append(comment.previousSibling.text)
 
+class india60Scraper(Scraper):
+	baseUrl = "http://india60.com/mps/list.php?page="
+	links = []
+
+	def getArticleLinks(self, search):
+		pass
+	def getArticles(self):
+		pass
+	def getArticleContent(self):
+		pass
+	def getPoliticianLinks(self):
+		page = 1
+		linksFile = open('india60links.txt', 'w')
+		while page < 12:
+			url = self.baseUrl + str(page)
+			page += 1
+			htmlResponse = urllib2.urlopen(url)
+			soup = BeautifulSoup(htmlResponse)
+			for politician in soup.find_all("ul", class_="mpinfo"):
+				link = politician.find('a')['href']
+				linksFile.write(link+"\n")
+
+
 scrapers = {}
 scrapers['hindu'] = HinduScraper()
 scrapers['toi'] = toiScraper()
+scrapers['india60'] = india60Scraper()
+
