@@ -100,6 +100,7 @@ def update_scrapeddata_in_db():
     pol = query[0]
     for key, value in polData['wealth'].iteritems():
       setattr(pol, key, value)
+    pol.official_link = polData['official_link']
     pol.put()
     x.append(polData)
     break

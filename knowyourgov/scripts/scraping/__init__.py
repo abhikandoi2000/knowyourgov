@@ -95,10 +95,13 @@ class india60Scraper(Scraper):
 		htmlResponse = urllib2.urlopen(url)
 		pol = {}
 		soup = BeautifulSoup(htmlResponse)
+
 		ele = soup.select('div.listtitle2 h1')
 		pol['constituency'] = ele[2].text[14:]
+		ele = soup.select('div.namegroup ul li a')
+		pol['official_link'] = ele[0]['href']
 		pol['wealth'] = {}
-		
+
 		for li in soup.find('div', class_="wealth").find_all('li'):
 			divs = li.find_all('div')
 			attr = camelCaseToUnderscore(removeNonAlphanumeric(divs[0].text))
