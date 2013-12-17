@@ -1,7 +1,16 @@
 from google.appengine.ext import db
 from knowyourgov.models import Politician
+from knowyourgov.scripts.scraping import scrapers
 import csv
 import json
+import logging
+
+
+def update_csvdata_in_db():
+  st = ""
+  st += update_data_from_csv()
+  st += update_data_from_csv2()
+  return st
 
 def update_data_from_csv():
   q = db.Query(Politician)
@@ -77,4 +86,22 @@ def update_data_from_csv2():
         except Exception, e:
           pass
   # return json.dumps(x)
-  return "Gender and DOB updated for %d entries." % (len(x))
+  return "Term details, education, debates, bills, questions and attendance updated for %d entries." % (len(x))
+
+def update_scrapeddata_in_db():
+  x = []
+  with open('datasets/india60links.txt') as f:
+    links = f.readlines()
+
+  for link in links:    
+    logging.info("Fetching data from "+link)
+    polData = scrapers['india60'].getPoliticianData(link)
+    query = db.GqlQuery("SELECT * FROM Politician WHERE constituency=\'"+polData['constituency'].lower()+"\'")
+    pol = query[0]
+    for key, value in polData['wealth'].iteritems():
+      setattr(pol, key, value)
+    pol.put()
+    x.append(polData)
+    break
+
+  return json.dumps(x)
