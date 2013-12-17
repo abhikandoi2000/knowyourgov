@@ -27,6 +27,17 @@ class Politician(db.Model):
   bills = db.IntegerProperty(default= 0)
   questions = db.IntegerProperty(default= 0)
   attendance = db.IntegerProperty(default= 0)
+  net_worth = db.IntegerProperty(default= 0)
+  cash = db.IntegerProperty(default= 0)
+  property_ = db.IntegerProperty(default= 0)
+  loans = db.IntegerProperty(default= 0)
+  jewellery = db.IntegerProperty(default= 0)
+  investments = db.IntegerProperty(default= 0)
+  other = db.IntegerProperty(default= 0)
+  official_link = db.StringProperty()
+
+  
+
 
   def url_slug(self):
     return self.name.replace(' ','-').lower()
