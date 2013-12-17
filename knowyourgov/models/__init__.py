@@ -29,7 +29,7 @@ class Politician(db.Model):
   attendance = db.IntegerProperty(default= 0)
   net_worth = db.IntegerProperty(default= 0)
   cash = db.IntegerProperty(default= 0)
-  property_ = db.IntegerProperty(default= 0)
+  property = db.IntegerProperty(default= 0)
   loans = db.IntegerProperty(default= 0)
   jewellery = db.IntegerProperty(default= 0)
   investments = db.IntegerProperty(default= 0)

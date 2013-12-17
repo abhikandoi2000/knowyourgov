@@ -97,17 +97,21 @@ class india60Scraper(Scraper):
 		soup = BeautifulSoup(htmlResponse)
 		ele = soup.select('div.listtitle2 h1')
 		pol['constituency'] = ele[2].text[14:]
-
+		pol['wealth'] = {}
+		
 		for li in soup.find('div', class_="wealth").find_all('li'):
 			divs = li.find_all('div')
-			attr = removeNonAlphanumeric(divs[0].text)
-			value = removeNonAlphanumeric(divs[1].text)
-			pol[attr] = value
+			attr = camelCaseToUnderscore(removeNonAlphanumeric(divs[0].text))
+			value = int(removeNonAlphanumeric(divs[1].text))
+			pol['wealth'][attr] = value
 
 		return pol
 
 def removeNonAlphanumeric(string):
 	return re.sub(r'[^a-zA-Z0-9]','', string)
+def camelCaseToUnderscore(string):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', string)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 scrapers = {}
 scrapers['hindu'] = HinduScraper()
