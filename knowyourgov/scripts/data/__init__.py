@@ -26,17 +26,14 @@ def update_data_from_csv():
           pol = list(pols)[0]
           x.append({
             'name': pol.name,
-            'dob' : row[6],
             'gender': row[2]
             })
           pol.gender = 2 if row[2] == 'Female' else 1
-          if not row[6] == 'NA':
-            pol.dob = row[6]
           pol.put()
         except Exception, e:
           pass
   # return json.dumps(x)
-  return "Gender and DOB updated for %d entries." % (len(x))
+  return "Gender updated for %d entries." % (len(x))
 
 def update_data_from_csv2():
   q = db.Query(Politician)
@@ -60,6 +57,7 @@ def update_data_from_csv2():
             'startofterm' : row[2],
             'endofterm' : row[3],
             'education' : row[9],
+            'age' : row[10],
             'debates' : row[11],
             'bills' : row[12],
             'questions' : row[13],
@@ -73,6 +71,8 @@ def update_data_from_csv2():
             pol.endofterm = row[3]
           if not row[9] == 'N/A':
             pol.education = row[9]
+          if not row[10] == 'N/A':
+            pol.age = int(row[10])
           if not row[11] == 'N/A':
             pol.debates = int(row[11])
           if not row[12] == 'N/A':
@@ -86,7 +86,7 @@ def update_data_from_csv2():
         except Exception, e:
           pass
   # return json.dumps(x)
-  return "Term details, education, debates, bills, questions and attendance updated for %d entries." % (len(x))
+  return "Age, term details, education, debates, bills, questions and attendance updated for %d entries." % (len(x))
 
 def update_scrapeddata_in_db():
   x = []

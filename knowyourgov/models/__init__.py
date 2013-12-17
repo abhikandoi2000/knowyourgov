@@ -16,7 +16,7 @@ class Politician(db.Model):
   wiki_link = db.StringProperty(required = True)
   search_count = db.IntegerProperty(default = 0)
   image_url = db.StringProperty()
-  dob = db.StringProperty()
+  age = db.IntegerProperty(default = 0)
   gender = db.IntegerProperty(default = 0)
   # gender: 0 - not known, 1 - male, 2 - female
   membership = db.StringProperty()
