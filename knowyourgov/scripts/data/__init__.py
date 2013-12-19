@@ -95,7 +95,10 @@ def update_scrapeddata_in_db():
 
   for link in links:    
     logging.info("Fetching data from "+link)
-    polData = scrapers['india60'].getPoliticianData(link)
+    try:
+      polData = scrapers['india60'].getPoliticianData(link)
+    except Exception, e:
+      return str(e)
     query = db.GqlQuery("SELECT * FROM Politician WHERE constituency=\'"+polData['constituency'].lower()+"\'")
     pol = query[0]
     for key, value in polData['wealth'].iteritems():

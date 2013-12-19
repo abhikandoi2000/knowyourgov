@@ -6,7 +6,11 @@ class Scraper:
 	articles = []
 	def getArticleLinks(self, search):
 		url = self.gcsUrl+'&q='+urllib.quote(search)
-		response = urllib2.urlopen(url)
+		try:
+			response = urllib2.urlopen(url)
+		except urllib2.URLError, e:
+			return
+
 		jsonResponse = json.loads(response.read())
 
 		for item in jsonResponse["items"]:
@@ -24,7 +28,10 @@ class HinduScraper(Scraper):
 
 	def addArticleContent(self):
 		for article in self.articles:
-			htmlResponse = urllib2.urlopen(article["url"])
+			try:
+				htmlResponse = urllib2.urlopen(article["url"])
+			except urllib2.URLError, e:
+				return
 			soup = BeautifulSoup(htmlResponse)
 
 			title = soup.find("h1", class_="detail-title").text
@@ -45,7 +52,10 @@ class toiScraper(Scraper):
 	def addArticleContent(self):
 		self.articles.pop(0)
 		for article in self.articles:
-			htmlResponse = urllib2.urlopen(article["url"])
+			try:
+				htmlResponse = urllib2.urlopen(article["url"])
+			except urllib2.URLError, e:
+				return
 			soup = BeautifulSoup(htmlResponse)
 			title = soup.find("h1", class_="multi-line-title-1")
 			if title:
@@ -85,14 +95,20 @@ class india60Scraper(Scraper):
 		while page < 12:
 			url = self.baseUrl + str(page)
 			page += 1
-			htmlResponse = urllib2.urlopen(url)
+			try:
+				htmlResponse = urllib2.urlopen(url)
+			except urllib2.URLError, e:
+				return
 			soup = BeautifulSoup(htmlResponse)
 			for politician in soup.find_all("ul", class_="mpinfo"):
 				link = politician.find('a')['href']
 				linksFile.write(link+"\n")
 
 	def getPoliticianData(self, url):
-		htmlResponse = urllib2.urlopen(url)
+		try:
+			htmlResponse = urllib2.urlopen(url)
+		except urllib2.URLError, e:
+			raise Exception(str(e))
 		pol = {}
 		soup = BeautifulSoup(htmlResponse)
 
