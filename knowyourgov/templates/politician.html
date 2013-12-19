@@ -4,6 +4,13 @@
     <meta property="og:image" content="{{ politician.image_url }}">
     <meta property="og:profile:first_name" content="{{ politician.first_name|title }}">
     <meta property="og:profile:last_name" content="{{ politician.last_name|title }}">
+
+    <!-- Begin ShareThis -->
+    <script type="text/javascript">var switchTo5x=false;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "70193771-68a8-4846-8f58-8705983d4738", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+    <!-- End ShareThis -->
+    
 {% endblock %}
 
 {% block content %}
@@ -35,6 +42,15 @@
           {% if politician.dob %}
             <div><b>Born</b><br>{{ politician.dob }}</div>
           {% endif %}
+        </div>
+
+        <h6> Share </h6>
+        <div class="share-wrap">
+          <span class='st_googleplus_large' displayText='Google +'></span>
+          <span class='st_facebook_large' displayText='Facebook'></span>
+          <span class='st_twitter_large' displayText='Tweet'></span>
+          <span class='st_linkedin_large' displayText='LinkedIn'></span>
+          <span class='st_sharethis_large' displayText='ShareThis'></span>
         </div>
       </div>
 
@@ -72,6 +88,23 @@
         
         <div class="row" id="articles-wrap">
           <!-- articles -->
+        </div>
+        <h6> Comments</h6>
+        <div class="comments-wrap">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'knowyourgovernment'; // required: replace example with your forum shortname
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <p class="palette-paragraph"><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></p>
         </div>
       </div>
 
