@@ -46,9 +46,27 @@
         </div>
         
         {% if politician.wiki_link !='undefined' %}
-        <h6 class="demo-pane-title"> Resources </h6>
-        <div id="wiki_link">
-           <a href="{{ politician.wiki_link }}" target="_blank">Wikipedia Page</a>
+        <h6 class="demo-pane-title"> Stats </h6>
+        <div class="row resources">
+          <!--<div class="col-md-6">
+            <div id="wiki_link">
+               
+            </div>
+          </div>-->
+          <div class="col-md-12">  
+          <ul class="stats-list">
+          {% if politician.education %}
+            <li> <strong> Education: </strong> {{ politician.education }} </li>
+          {%  endif %}
+          {% if politician.startofterm %}
+            <li> <strong> Term: </strong> {{ politician.startofterm }} {% if politician.endofterm %} - {{ politician.endofterm }}  {%  endif %} </li>
+          {%  endif %}
+           {% if politician.attendance %}
+            <li><strong> Attendance </strong> {{ politician.attendance }} % </li>
+          {%  endif %}
+            <li> <strong> Links: </strong> <a href="{{ politician.wiki_link }}" target="_blank">Wikipedia Page</a> </li>
+          </ul>
+          </div>
         </div>
         {% endif %}
         
@@ -71,13 +89,11 @@
           <div id="tweet-container">
             <ul class="tweets"></ul>
           </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div style="padding-top:25px;">
-          <form action="/search">
-            <div class="col-md-6 col-md-offset-2" style="padding:0 2px;">
+
+        <h6>Search</h6>
+        <div>
+         <form action="/search">
+            <div class="col-md-10 " style="padding:0 2px;">
               <div class="form-group">
                 <input type="text" placeholder="Search for politicians" class="form-control typeahead" id="q" name="q">
               </div>
@@ -86,6 +102,13 @@
                  <button type="submit" class="btn btn-primary"><span class="fui-search"></span></button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div style="padding-top:25px;">
+         
         </div>
       </div>
     </div>
