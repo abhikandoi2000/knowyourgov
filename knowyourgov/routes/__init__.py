@@ -243,10 +243,36 @@ def tweets_search(query):
 """
 @app.route('/updatedb/politicians')
 def update_all():
+  """
+  Method @insert_politicians_in_db
+  scripts/ __init__.py
+  Fields Inserted
+  -name
+  -party
+  -state
+  -constituency
+  -position
+  -wiki_link
+  -image_url
+  -search_count (Be Default 0 for everyone)
+  """
   return insert_politicians_in_db()
 
 @app.route('/updatedb/csvdata')
 def update_csvdata():
+  """
+  Method @update_csvdata_in_db
+  scripts/data/__init__.py
+  Fields Inserted
+  -Gender
+  -Age
+  -Term details
+  -Education
+  -Debates
+  -Bills
+  -Questions 
+  -Attendance
+  """
   return update_csvdata_in_db()
 
 @app.route('/updatedb/scrapeddata')
