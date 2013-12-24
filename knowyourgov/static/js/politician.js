@@ -83,6 +83,21 @@ var sentimentAnalysis = function(){
 
 showLoading('.tweets');
 
+var plotAttendance = function(percent){
+  var ctx = document.getElementById("attendanceChart").getContext("2d");
+
+  var data = [
+    { value: percent, color : '#F39C12' },
+    { value: 100 - percent, color : '#ECF0F1'}
+  ]
+
+  var options = {};
+
+  var attendanceChart = new Chart(ctx).Doughnut(data, options);
+
+
+}
+
 $(function() {
 
 
@@ -100,6 +115,18 @@ $(function() {
   //     }
   //   }
   // });
+
+  /**
+    * Checks whether attendance is available
+    */
+    if($('canvas#attendanceChart').length > 0){
+
+      var attendance = parseInt($('canvas#attendanceChart').data('attendance'));
+      
+      if(typeof attendance == "number" && attendance != 0){
+        plotAttendance(attendance);
+      }
+    }
 
   /**
    * Fetch and display tweets (if any)
