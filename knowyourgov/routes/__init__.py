@@ -246,7 +246,7 @@ def update_all():
   """
   Method @insert_politicians_in_db
   scripts/ __init__.py
-  Fields Inserted
+  Fields Updated
   -name
   -party
   -state
@@ -254,7 +254,7 @@ def update_all():
   -position
   -wiki_link
   -image_url
-  -search_count (Be Default 0 for everyone)
+  -search_count (Default is 0 for everyone)
   """
   return insert_politicians_in_db()
 
@@ -263,14 +263,14 @@ def update_csvdata():
   """
   Method @update_csvdata_in_db
   scripts/data/__init__.py
-  Fields Inserted
+  Fields Updated
   -Gender
   -Age
   -Term details
   -Education
   -Debates
   -Bills
-  -Questions 
+  -Questions
   -Attendance
   """
   return update_csvdata_in_db()

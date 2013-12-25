@@ -7,12 +7,30 @@ import logging
 
 
 def update_csvdata_in_db():
-  st = ""
-  st += update_data_from_csv()
-  st += update_data_from_csv2()
-  return st
+  """Updates details for Lok Sabha Members
 
-def update_data_from_csv():
+  Updates Gender, Age, term details, education, debates, bills, questions and attendance detail
+
+  Args:
+      None
+
+  Returns:
+      String specifying the number of data entries updated.
+  """
+  st = []
+  st.append(update_gender_from_csv())
+  st.append(update_misc_from_csv())
+  return ''.join(st)
+
+def update_gender_from_csv():
+  """Updates Gender detail for Lok Sabha Members
+
+  Args:
+      None
+
+  Returns:
+      A string specifying the number of database entries updated.
+  """
   q = db.Query(Politician)
   with open('datasets/members.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
@@ -35,7 +53,17 @@ def update_data_from_csv():
   # return json.dumps(x)
   return "Gender updated for %d entries." % (len(x))
 
-def update_data_from_csv2():
+def update_misc_from_csv():
+  """Updates miscellaneous details for Lok Sabha Members
+
+  Updates Age, term details, education, debates, bills, questions and attendance detail
+
+  Args:
+      None
+
+  Returns:
+      A string specifying the number of database entries updated.
+  """
   q = db.Query(Politician)
   with open('datasets/MPTrack-15.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
@@ -94,13 +122,15 @@ def update_scrapeddata_in_db():
     links = f.readlines()
 
   for link in links:    
-    logging.info("Fetching data from "+link)
+    logging.info("Fetching data from " + link)
     try:
       polData = scrapers['india60'].getPoliticianData(link)
     except Exception, e:
       return str(e)
-    query = db.GqlQuery("SELECT * FROM Politician WHERE constituency=\'"+polData['constituency'].lower()+"\'")
-    pol = query[0]
+    constituency = polData['constituency'].lower()
+    query = "SELECT * FROM Politician WHERE constituency=\'%s\'" % constituency
+    result = db.GqlQuery(query)
+    pol = result[0]
     for key, value in polData['wealth'].iteritems():
       setattr(pol, key, value)
     pol.official_link = polData['official_link']
