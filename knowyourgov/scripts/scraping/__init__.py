@@ -1,4 +1,5 @@
 import scraperconfig
+import requests
 import urllib2, json, urllib, re
 from bs4 import BeautifulSoup
 
@@ -105,9 +106,19 @@ class india60Scraper(Scraper):
 				linksFile.write(link+"\n")
 
 	def getPoliticianData(self, url):
+		"""Fetches wealth details for a politician from india60.com
+
+		Args:
+				url: Url for the profile of the politician
+
+		Returns:
+				pol: A dictionary object containing wealth
+				and other basic information about the politician
+		"""
 		try:
-			htmlResponse = urllib2.urlopen(url)
-		except urllib2.URLError, e:
+			# htmlResponse = urllib2.urlopen(url)
+			htmlResponse = requests.get(url).text
+		except Exception, e:
 			raise Exception(str(e))
 		pol = {}
 		soup = BeautifulSoup(htmlResponse)

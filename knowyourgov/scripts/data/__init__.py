@@ -119,23 +119,22 @@ def update_misc_from_csv():
 def update_scrapeddata_in_db():
   x = []
   with open('datasets/india60links.txt') as f:
-    links = f.readlines()
-
-  for link in links:    
-    logging.info("Fetching data from " + link)
-    try:
-      polData = scrapers['india60'].getPoliticianData(link)
-    except Exception, e:
-      return str(e)
-    constituency = polData['constituency'].lower()
-    query = "SELECT * FROM Politician WHERE constituency=\'%s\'" % constituency
-    result = db.GqlQuery(query)
-    pol = result[0]
-    for key, value in polData['wealth'].iteritems():
-      setattr(pol, key, value)
-    pol.official_link = polData['official_link']
-    pol.put()
-    x.append(polData)
-    break
+    for link in f:
+      link = link.strip()
+      logging.info("Fetching data from " + link)
+      try:
+        polData = scrapers['india60'].getPoliticianData(link)
+      except Exception, e:
+        return str(e)
+      constituency = polData['constituency'].lower()
+      query = "SELECT * FROM Politician WHERE constituency=\'%s\'" % constituency
+      result = list(db.GqlQuery(query))
+      if result:
+        pol = result[0]
+        for key, value in polData['wealth'].iteritems():
+          setattr(pol, key, value)
+        pol.official_link = polData['official_link']
+        pol.put()
+        x.append(polData)
 
   return json.dumps(x)
