@@ -1,6 +1,7 @@
 from flask import Flask, url_for, render_template, request, make_response, jsonify, json, Response, redirect
 import requests
 from requests_oauthlib import OAuth1
+from google.appengine.api import taskqueue
 
 from knowyourgov import app
 from knowyourgov.models import Politician
@@ -275,6 +276,11 @@ def update_csvdata():
   """
   return update_csvdata_in_db()
 
-@app.route('/updatedb/scrapeddata')
+@app.route('/updatedb/scrapeddata', methods=['POST'])
 def update_scrapeddata():
   return update_scrapeddata_in_db()
+
+@app.route('/enqueue/updatedb/scrapeddata')
+def enqueue_update_scrapeddata():
+  taskqueue.add(url='/updatedb/scrapeddata')
+  self.redirect('/')
