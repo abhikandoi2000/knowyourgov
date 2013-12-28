@@ -35,6 +35,11 @@ def currentlocation():
 """
 @app.route('/politicians/id/<name>')
 def politician_page(name):
+  #Checks for blank between in politician page and redirects, so as to have a unique page for every politician
+  if ' ' in name:  
+    name = name.replace(' ', '-')
+    return redirect('/politicians/id/'+ name)
+  
   name = name.lower().replace('-',' ')
   politicians = Politician.all()
   politicians.filter("name =", name)
