@@ -4,17 +4,23 @@ from math import ceil
 import logging
 
 
-def get_average(field):
+def get_averages(pol, fields):
 	pols = Politician.all()
+	pols.filter('position =', pol.position)
 	total = 0
 	count = 0
-	for pol in pols:
-		value = getattr(pol, field)
-		if value:
+	averages = {}
+	for field in fields:
+		for pol in pols:
+			value = getattr(pol, field)
 			total += getattr(pol, field)
 			count += 1
-			logging.info(value)
-	return total/count
+		if not count:
+			averages[field] = 0
+		else:
+			averages[field] = float(total)/count
+			averages[field] = ceil(100 * averages[field])/100
+	return averages
 
 def get_percentiles(pol, fields):
 	pols = Politician.all()
@@ -40,11 +46,17 @@ def get_percentiles(pol, fields):
 def get_stats(pol_name):
 	query = "SELECT * FROM Politician WHERE name=\'%s\'" %pol_name 
 	result = list(db.GqlQuery(query))
+	stats = {}
+	stats['percentiles'] = {}
 	if result:
 		pol = result[0]
 		fields = ['attendance', 'debates', 'questions', 'bills',]
 		if pol.position == 'Member of Parliament' and pol.startofterm == '18-May-09' and pol.endofterm == 'In office':
-			return get_percentiles(pol, fields)
+			stats['percentiles'] = get_percentiles(pol, fields)
+			stats['averages'] = get_averages(pol, fields)
+			for field in fields:
+				stats[field] = getattr(pol, field)
+			return stats
 		else:
 			return ''
 
@@ -56,4 +68,3 @@ def get_stats(pol_name):
 # 		pol = result[0]
 # 	    fields = ['attendance', 'debates', 'questions', 'bills']
 # 	    get_percentiles(pol, fields)
-
