@@ -7,9 +7,13 @@
       google.setOnLoadCallback(function()
         {
           var stats = {{pol_stats|tojson|safe}}
+          var wealth_stats = {{wealth_stats|tojson|safe}}
           var fields = {{fields|tojson|safe}}
-          var averages_arr = [], percentiles_arr = []
+          var wealth_fields = {{wealth_fields|tojson|safe}}
+
+          var averages_arr = [], percentiles_arr = [], wealth_arr = [];
           averages_arr.push(['Parameter', 'Politician', 'National Average'])
+          wealth_arr.push(['Parameter', 'Politician', 'National Average'])
           percentiles_arr.push(['Value', 'Percentile'])
           for(var key in fields)
           {
@@ -17,14 +21,25 @@
             var formatted_field = toTitleCase(field)
             averages_arr.push([formatted_field, stats[field], stats['averages'][field]])
             percentiles_arr.push([formatted_field, stats['percentiles'][field]])
-          } 
+          }
+          for(var key in wealth_fields) 
+          {
+            var field = wealth_fields[key]
+            var formatted_field = toTitleCase(field)
+            wealth_arr.push([formatted_field, wealth_stats[field], wealth_stats['averages'][field]])
+            percentiles_arr.push([formatted_field, wealth_stats['percentiles'][field]]) 
+          }
           var averages_data = google.visualization.arrayToDataTable(averages_arr);
+          var wealth_data = google.visualization.arrayToDataTable(wealth_arr);
           var percentiles_data = google.visualization.arrayToDataTable(percentiles_arr);
+
+          console.log(averages_arr, wealth_arr, percentiles_arr)
 
           var options = {
           };
 
           drawChart(averages_data, options, 'average_chart')
+          drawChart(wealth_data, options, 'wealth_chart')
           drawChart(percentiles_data, options, 'perc_chart')
 
         });
@@ -42,6 +57,7 @@
   </head>
   <body>
     <div id="average_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
+    <div id="wealth_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
     <div id="perc_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
 
   </body>

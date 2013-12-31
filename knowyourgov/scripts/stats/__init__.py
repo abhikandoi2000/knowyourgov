@@ -3,7 +3,8 @@ from knowyourgov.models import Politician
 from math import ceil
 import logging
   
-fields = ['attendance', 'debates', 'questions', 'bills', 'net_worth', 'cash', 'property']
+fields = ['attendance', 'debates', 'questions', 'bills']
+wealth_fields = ['net_worth', 'cash', 'property', 'other']
 def get_averages(pol, fields, filters):
 	pols = Politician.all()
 	pols.filter('position =', pol.position)

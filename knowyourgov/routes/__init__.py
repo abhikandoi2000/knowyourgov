@@ -97,8 +97,9 @@ def party(party):
 @app.route('/stats/politician/<name>', methods=['GET'])
 def pol_stats(name):
   name = name.lower().replace('-',' ')
-  pol_stats = stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}], stats.fields)
-  return render_template('stats.html', pol_stats = pol_stats, fields = stats.fields, name = name)
+  pol_stats = stats.get_stats(name, [], stats.fields)
+  wealth_stats = stats.get_stats(name, [], stats.wealth_fields)
+  return render_template('stats.html', pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.fields, wealth_fields = stats.wealth_fields, name = name)
 
 """
    ** Error Handlers **
