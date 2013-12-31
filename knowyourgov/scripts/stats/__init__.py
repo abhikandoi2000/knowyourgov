@@ -30,8 +30,11 @@ def get_percentiles(pol, fields):
 				total += 1 
 				if pol_value > value:
 					greater += 1
-		percentile[field] = 100 * float(greater)/float(total)
-		percentile[field] = ceil(100 * percentile[field])/100
+		if not total:
+			percentile[field] = 0
+		else:
+			percentile[field] = 100 * float(greater)/float(total)
+			percentile[field] = ceil(100 * percentile[field])/100
 	return percentile
 
 def get_stats(pol_name):
@@ -39,8 +42,12 @@ def get_stats(pol_name):
 	result = list(db.GqlQuery(query))
 	if result:
 		pol = result[0]
-		fields = ['attendance', 'debates', 'questions', 'bills']
-		return get_percentiles(pol, fields)
+		fields = ['attendance', 'debates', 'questions', 'bills',]
+		if pol.position == 'Member of Parliament' and pol.startofterm == '18-May-09' and pol.endofterm == 'In office':
+			return get_percentiles(pol, fields)
+		else:
+			return ''
+
 
 # def get_stats(pol_name):
 # 	query = "SELECT * FROM Politician WHERE name=\'%s\'" % pol_name
