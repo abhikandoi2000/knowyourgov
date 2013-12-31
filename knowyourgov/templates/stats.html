@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(function()
+        {
+          var stats = {{pol_stats|tojson|safe}}
+          var fields = {{fields|tojson|safe}}
+          var arr = [], arr2 = []
+          arr.push(['Parameter', 'Politician', 'National Average'])
+          arr2.push(['Value', 'Percentile'])
+          for(var key in fields)
+          {
+            var field = fields[key]
+            arr.push([field, stats[field], stats['averages'][field]])
+            arr2.push([field, stats['percentiles'][field]])
+          } 
+          var data = google.visualization.arrayToDataTable(arr);
+          var data2 = google.visualization.arrayToDataTable(arr2);
+
+          var options = {
+            title: 'Statistics for {{name}}',
+            hAxis: {title: 'Parameter', titleTextStyle: {color: 'red'}}
+          };
+
+          drawChart(data, options, 'chart_div')
+          drawChart(data2, options, 'chart_div2')
+
+        });
+
+      function drawChart(data, options, ele_id) {
+        var chart = new google.visualization.ColumnChart(document.getElementById(ele_id));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 600px; height: 500px; display:inline-block"></div>
+    <div id="chart_div2" style="width: 600px; height: 500px; display:inline-block"></div>
+
+  </body>
+</html>

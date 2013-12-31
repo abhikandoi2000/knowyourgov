@@ -2,8 +2,8 @@ from google.appengine.ext import db
 from knowyourgov.models import Politician
 from math import ceil
 import logging
-
-
+  
+fields = ['attendance', 'debates', 'questions', 'bills',]
 def get_averages(pol, fields, filters):
 	pols = Politician.all()
 	pols.filter('position =', pol.position)
@@ -47,14 +47,13 @@ def get_percentiles(pol, fields, filters):
 			percentile[field] = ceil(100 * percentile[field])/100
 	return percentile
 
-def get_stats(pol_name, filters):
+def get_stats(pol_name, filters, fields):
 	query = "SELECT * FROM Politician WHERE name=\'%s\'" %pol_name 
 	result = list(db.GqlQuery(query))
 	stats = {}
 	stats['percentiles'] = {}
 	if result:
 		pol = result[0]
-		fields = ['attendance', 'debates', 'questions', 'bills',]
 		if pol.position == 'Member of Parliament' and pol.startofterm == '18-May-09' and pol.endofterm == 'In office':
 			stats['percentiles'] = get_percentiles(pol, fields, filters)
 			stats['averages'] = get_averages(pol, fields, filters)

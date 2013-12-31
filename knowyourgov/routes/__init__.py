@@ -92,6 +92,14 @@ def party(party):
   pols.order('-search_count')
   return render_template('politician_list.html', politicians = pols, title=party)
 
+"""Initial page for stats for politicians
+"""
+@app.route('/stats/politician/<name>', methods=['GET'])
+def pol_stats(name):
+  name = name.lower().replace('-',' ')
+  pol_stats = stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}], stats.fields)
+  return render_template('stats.html', pol_stats = pol_stats, fields = stats.fields, name = name)
+
 """
    ** Error Handlers **
    404, 500 and other errors
@@ -244,9 +252,9 @@ def tweets_search(query):
    Format: JSON
 """
 @app.route('/json/stats/politician/<name>', methods=['GET'])
-def pol_stats(name):
+def pol_statsjson(name):
   name = name.lower().replace('-',' ')
-  return jsonify(stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}])) #Added filter for testing and debugging
+  return jsonify(stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}], stats.fields)) #Added filter for testing and debugging
 
 """
    **Database errands**
