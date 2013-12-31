@@ -246,29 +246,7 @@ def tweets_search(query):
 @app.route('/json/stats/politician/<name>', methods=['GET'])
 def pol_stats(name):
   name = name.lower().replace('-',' ')
-  # politicians = Politician.all()
-  # politicians.filter("name =", name)
-  # politician = list(politicians[:1])
-  # if politician:
-  #   politician = politicians[0]
-  # return politician.gender_str()
-  # return str(stats.get_average('attendance'))
-  return jsonify(stats.get_stats(name))
-  # # verify account credentials
-  # response = requests.get(base_url + verify_url, auth=oauth)
-  # if response.status_code == 200:
-  #   response = requests.get(base_url + search_url, params=payload, auth=oauth)
-
-  #   # create JSON response
-  #   resp = Response(
-  #     response=response.content,
-  #     status=200,
-  #     mimetype="application/json"
-  #   )
-    
-  #   return resp
-  # else:
-  #   return jsonify(error=str(response.content))
+  return jsonify(stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}])) #Added filter for testing and debugging
 
 """
    **Database errands**
