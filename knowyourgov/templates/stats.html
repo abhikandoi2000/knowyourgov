@@ -8,25 +8,24 @@
         {
           var stats = {{pol_stats|tojson|safe}}
           var fields = {{fields|tojson|safe}}
-          var arr = [], arr2 = []
-          arr.push(['Parameter', 'Politician', 'National Average'])
-          arr2.push(['Value', 'Percentile'])
+          var averages_arr = [], percentiles_arr = []
+          averages_arr.push(['Parameter', 'Politician', 'National Average'])
+          percentiles_arr.push(['Value', 'Percentile'])
           for(var key in fields)
           {
             var field = fields[key]
-            arr.push([field, stats[field], stats['averages'][field]])
-            arr2.push([field, stats['percentiles'][field]])
+            var formatted_field = toTitleCase(field)
+            averages_arr.push([formatted_field, stats[field], stats['averages'][field]])
+            percentiles_arr.push([formatted_field, stats['percentiles'][field]])
           } 
-          var data = google.visualization.arrayToDataTable(arr);
-          var data2 = google.visualization.arrayToDataTable(arr2);
+          var averages_data = google.visualization.arrayToDataTable(averages_arr);
+          var percentiles_data = google.visualization.arrayToDataTable(percentiles_arr);
 
           var options = {
-            title: 'Statistics for {{name}}',
-            hAxis: {title: 'Parameter', titleTextStyle: {color: 'red'}}
           };
 
-          drawChart(data, options, 'chart_div')
-          drawChart(data2, options, 'chart_div2')
+          drawChart(averages_data, options, 'average_chart')
+          drawChart(percentiles_data, options, 'perc_chart')
 
         });
 
@@ -34,11 +33,16 @@
         var chart = new google.visualization.ColumnChart(document.getElementById(ele_id));
         chart.draw(data, options);
       }
+      function toTitleCase(str)
+      {
+          str = str.replace('_', ' ')
+          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 600px; height: 500px; display:inline-block"></div>
-    <div id="chart_div2" style="width: 600px; height: 500px; display:inline-block"></div>
+    <div id="average_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
+    <div id="perc_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
 
   </body>
 </html>
