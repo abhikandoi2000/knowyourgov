@@ -155,8 +155,7 @@
         </script>
         <div>
           <div class="g-comments"
-              data-href="https://gcdc2013-know-your-gov.appspot.com/politicians/id/{{politician.name.replace(' ','-')}}"
-              data-width="600"
+              data-href="https://gcdc2013-know-your-gov.appspot.com/politicians/id/{{politician.name.replace(' ','-')}}"           
               data-first_party_property="BLOGGER"
               data-view_type="FILTERED_POSTMOD"> Loading...
           </div>
@@ -178,105 +177,5 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src= "{{ url_for('static', filename='js/Chart.min.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/politician.js')}}" ></script>
-    <script>
-      google.load('search', '1');
-
-    var newsSearch;
-
-    function searchComplete(){
-
-      // empty news section
-      $('#news-wrap').html('');
-
-      var html = '';
-      var res = newsSearch['results'];
-
-      // res.replace(/(<([^>]+)>)/ig,"");
-
-      if(res.length > 0){
-        // first news article
-        html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">';
-        html += res[0].title.replace(/(<([^>]+)>)/ig,"") + '</a></div><div class="news-desc">';
-
-        // load image, only if present
-        html += (typeof res[0].image == "undefined" ? '' : '<div class="pull-right" stye="width:150px"><img src="'+res[0].image.url+'" style="width:150px"></div>');
-
-        html += res[0].content.replace(/(<([^>]+)>)/ig,"") + '</div></div>';
-
-        // update content for sentiment analysis
-        analysis_content.push(res[0].title.replace(/(<([^>]+)>)/ig,""));
-        analysis_content.push(res[0].content.replace(/(<([^>]+)>)/ig,""));
-
-        // second news article if it exists
-        if(res.length > 1) {
-          html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">';
-          html += res[1].title.replace(/(<([^>]+)>)/ig,"") +'</a></div><div class="news-desc">';
-
-         // load image, only if present
-          html += (typeof res[1].image == "undefined" ? '' : '<div class="pull-right" stye="width:150px"><img src="'+res[1].image.url+'" style="width:150px"></div>');
-
-          html += res[1].content.replace(/(<([^>]+)>)/ig,"") + '</div></div>';
-
-         // update content for sentiment analysis
-        analysis_content.push(res[1].title.replace(/(<([^>]+)>)/ig,""));
-        analysis_content.push(res[1].content.replace(/(<([^>]+)>)/ig,""));
-
-        }
-
-        // archive(other) articles
-        for(var i = 2; i < res.length; ++i){
-
-          if(i != 0 && i != 1) {
-
-            html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title.replace(/(<([^>]+)>)/ig,"") +'</a></div>';
-
-            // update content for sentiment analysis
-            analysis_content.push(res[i].title.replace(/(<([^>]+)>)/ig,""));
-          }
-
-        }
-
-        // update news section
-        $('#news-wrap').html(html);
-
-      } else {
-
-        // no relevant news articles
-        var html = '<div style="text-align:center;">Sorry, no relevant articles.';
-
-        html += '</div>';
-
-        // update news section
-        $('#news-wrap').html(html);
-        
-      } // end else
-
-      newsLoaded = true;
-      
-      if(tweetsLoaded == true)
-        sentimentAnalysis();
-
-    }
-
-    function onLoad() {
-
-      // Create a News Search instance.
-      newsSearch = new google.search.NewsSearch();
-
-      // Set searchComplete as the callback function when a search is 
-      // complete.  The newsSearch object will have results in it.
-      newsSearch.setSearchCompleteCallback(this, searchComplete, null);
-
-      // Specify search quer(ies)
-      newsSearch.execute(name);
-
-      // Include the required Google branding
-      google.search.Search.getBranding('branding');
-    }
-
-    // Set a callback to call your code when the page loads
-    google.setOnLoadCallback(onLoad);
-
-    </script>
 {% endblock %}
 

@@ -11,6 +11,80 @@ var toTitleCase = function(str) {
   */
 var tweetsLoaded, newsLoaded = false;
 
+var formatNews = function(responseData){
+  
+  $('#news-wrap').html('');
+
+  var html = '';
+  var res = responseData.results;
+
+  // res.replace(/(<([^>]+)>)/ig,"");
+
+  if(res.length > 0){
+    // first news article
+    html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[0].url) +'" target="_blank">';
+    html += res[0].title.replace(/(<([^>]+)>)/ig,"") + '</a></div><div class="news-desc">';
+
+    // load image, only if present
+    html += (typeof res[0].image == "undefined" ? '' : '<div class="pull-right"><img src="'+res[0].image.tbUrl.replace(/^http:\/\//i, 'https://')+'"></div>');
+
+    html += res[0].content.replace(/(<([^>]+)>)/ig,"") + '</div></div>';
+
+    // update content for sentiment analysis
+    analysis_content.push(res[0].title.replace(/(<([^>]+)>)/ig,""));
+    analysis_content.push(res[0].content.replace(/(<([^>]+)>)/ig,""));
+
+    // second news article if it exists
+    if(res.length > 1) {
+      html += '<div><div class="news-title"><a href="'+ decodeURIComponent(res[1].url) +'" target="_blank">';
+      html += res[1].title.replace(/(<([^>]+)>)/ig,"") +'</a></div><div class="news-desc">';
+
+     // load image, only if present
+      html += (typeof res[1].image == "undefined" ? '' : '<div class="pull-right"><img src="'+res[1].image.tbUrl.replace(/^http:\/\//i, 'https://')+'"></div>');
+
+      html += res[1].content.replace(/(<([^>]+)>)/ig,"") + '</div></div>';
+
+     // update content for sentiment analysis
+    analysis_content.push(res[1].title.replace(/(<([^>]+)>)/ig,""));
+    analysis_content.push(res[1].content.replace(/(<([^>]+)>)/ig,""));
+
+    }
+
+    // archive(other) articles
+    for(var i = 2; i < res.length; ++i){
+
+      if(i != 0 && i != 1) {
+
+        html += '<div class="news-title"><a href="'+ decodeURIComponent(res[i].url) +'" target="_blank">'+ res[i].title.replace(/(<([^>]+)>)/ig,"") +'</a></div>';
+
+        // update content for sentiment analysis
+        analysis_content.push(res[i].title.replace(/(<([^>]+)>)/ig,""));
+      }
+
+    }
+
+    // update news section
+    $('#news-wrap').html(html);
+
+  } else {
+
+    // no relevant news articles
+    var html = '<div style="text-align:center;">Sorry, no relevant articles.';
+
+    html += '</div>';
+
+    // update news section
+    $('#news-wrap').html(html);
+    
+  } // end else
+
+  newsLoaded = true;
+  
+  if(tweetsLoaded == true)
+    sentimentAnalysis();
+
+}
+
 /**
   *Performs Sentiment Analysis
   *Variable `analysis_content`
@@ -116,6 +190,8 @@ $(function() {
   //   }
   // });
 
+  fetchNews(name, formatNews)
+
   /**
     * Checks whether attendance is available
     */
@@ -164,6 +240,7 @@ $(function() {
     error: function(xhr, error) {
 
       tweetsLoaded = true;
+      $('.tweets').html('');
       $('.tweets').append('Sorry, unable to fetch tweets.');
     },
     complete: function(xhr, status) {
