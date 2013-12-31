@@ -9,12 +9,11 @@ def get_averages(pol, fields, filters):
 	pols.filter('position =', pol.position)
 	for filter_ in filters:
 		pols.filter(filter_['property'], filter_['value'])
-	total = 0
-	count = 0
 	averages = {}
 	for field in fields:
+		total = 0
+		count = 0
 		for pol in pols:
-			value = getattr(pol, field)
 			total += getattr(pol, field)
 			count += 1
 		if not count:
