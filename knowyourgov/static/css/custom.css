@@ -206,10 +206,17 @@ div.news-desc {
   font-size:0.8em;
 }
 
+div.news-dec img{
+  margin: 10px;
+}
+
 div.news-title {
   margin-top:5px;
   font-size: 0.9em;
 }
+
+
+
 /**
   * Stats Page
 **/
@@ -249,7 +256,20 @@ p.lead {
   text-align:center;
   display:none;
 }
-
+/**
+  * Comments
+  */
+div.comments-wrap{
+  height: 400px;
+  overflow: hidden;
+  display:none;
+}
+#comments-toggle{
+  cursor: pointer;
+  color: #95A5A6;
+  font-size:0.63em;
+  margin-left: 20px;
+}
 /**
   * Footer
   */

@@ -18,6 +18,12 @@ var fetchNews = function(q, callback){
       callback(res.responseData);
     })    
 }
+/**
+	* Timeout for ajax calls
+	*/
+$.ajaxSetup({
+	timeout : 30 * 1000
+})
 
 $(function(){
   $('.typeahead').typeahead({

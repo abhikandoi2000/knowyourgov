@@ -9,18 +9,42 @@
 		<p class="lead" style="text-align:center">{{ title|title }}</p>
 	</div>
 </div>
+	{% for party in parties %}
+			{% if party.name %}
+<div class = "row">
+	<div class = "col-xs-4">
+			<img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name }}">
+			<ul>
+				<li> Wikipedia </li> 
+				<li> Official Website </li>
+			</ul>
+	</div>
+	<div class="col-xs-4">
+		<h6> News </h6>
 
+	</div>
+	<div class="col-xs-4 video-wrap">
+		<h6> Youtube </h6>
+	</div>
+</div>
+			{% endif %}
+	{% endfor %}
+<script>
+	function fadeIn(obj){
+		$(obj).fadeIn(1000);
+	}
+</script>
 <div class="row">
-  <p class="lead" style="text-align:center" id="res-title"> Results </p>
+  <p class="lead" style="text-align:center" id="res-title"> Elected Members </p>
   <div class="col-md-12 results">
 	<table class="table table-hover">
 		<thead>
-			<tr><th colspan="2">Name</th><th>Party</th><th>Constituency</th><th>State</th></tr>
+			<tr><th></th><th>Name</th><th>Party</th><th>Constituency</th><th>State</th></tr>
 		</thead>
 		<tbody>
 			{% for p in politicians %}
 			<tr>
-				<td><img src="{{p.image_url}}" width="64" onload="fadeIn(this)"></td>
+				<td><img src="{{p.image_url}}" width="64" height="64" onload="fadeIn(this)"></td>
 				<td><a href="/politicians/id/{{p.name.replace(' ','-')}}">{{ p.name|title }}</a></td>
 				<td><a href="/party/{{p.party.replace(' ','-')}}">{{p.party|title}}</a></td>
 				{% if p.constituency %}
@@ -48,11 +72,10 @@
 {% endblock %}
 {% block scripts %}
 <script>
-function fadeIn(obj){
-	$(obj).fadeIn(1000);
-}
+var title = "{{ parties[0].name }}",
+		ytube = "{{ parties[0].youtube }}".substring(24);
+
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt302Eg6wtngduThQ9jEmcGQfHmn1XNQg&sensor=true"></script>
-<script src= "{{ url_for('static', filename='js/currentlocation.js')}}" ></script>
+<script src= "{{ url_for('static', filename='js/party.js')}}" ></script>
 
 {% endblock %}

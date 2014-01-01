@@ -132,9 +132,11 @@
     </div>
     <div class="row">
       <div class="col-md-9 col-md-offset-3">
-          <h6> Comments</h6>
+
+        <h6> Comments  <a rel="comments-toggle" id="comments-toggle">Show</a> </h6> 
         <div class="comments-wrap">
          <!-- Disqus comment -->
+
           <!--<div id="disqus_thread"></div>
           <script type="text/javascript">
               /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -174,7 +176,6 @@
       // @global - content for sentiment analysis
       analysis_content = [];
     </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src= "{{ url_for('static', filename='js/Chart.min.js')}}" ></script>
     <script src= "{{ url_for('static', filename='js/politician.js')}}" ></script>
 {% endblock %}

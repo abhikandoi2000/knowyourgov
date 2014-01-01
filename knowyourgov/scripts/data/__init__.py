@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from knowyourgov.models import Politician
+from knowyourgov.models import Politician, Party
 from knowyourgov.scripts.scraping import scrapers
 import csv
 import json
@@ -138,3 +138,29 @@ def update_scrapeddata_in_db():
         x.append(polData)
 
   return json.dumps(x)
+
+def add_party_details_db():
+  """
+    Adds Details for Political Parties on *Party* Model 
+    Fields includes - Name, Abbreviation, Description, Link to Youtube Channel, Link to Logo
+  """
+  db.delete(Party.all())
+  #Temporarily adding details in function itself
+  name = ['Indian National Congress', 'Bharatiya Janta Party', 'Bahujan Samaj Party', 'Aam Aadmi Party']
+  abbr = ['INC', 'BJP', 'BSP', 'AAP']
+  description = ['Indian National Congress', 'Bharatiya Janta Party', 'Bahujan Samaj Party', 'Aam Admi Party']
+  ytube = ['https://www.youtube.com/indiacongress', 'https://www.youtube.com/user/BJP4India', 'https://www.youtube.com/user/bahujansamajparty', 'https://www.youtube.com/user/indiACor2010']
+  logo = ['https://www.gstatic.com/politics/e/img/in/parties/inc.png', 'https://www.gstatic.com/politics/e/img/in/parties/bjp.png', 'https://www.gstatic.com/politics/e/img/in/parties/bsp.png', 'https://www.gstatic.com/politics/e/img/in/parties/aap.png']
+
+  for index in range ( len(name) ):
+
+    party = Party(
+        name = name[index].lower(),
+        abbreviation = abbr[index].lower(),
+        description = description[index].lower(),
+        youtube = ytube[index].lower(),
+        logo = logo[index].lower()
+      )
+    party.put()
+
+  return "Updated Party Details for " + str(len(name)) + " parties"

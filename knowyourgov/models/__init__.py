@@ -36,9 +36,6 @@ class Politician(db.Model):
   other = db.IntegerProperty(default= 0)
   official_link = db.StringProperty()
 
-  
-
-
   def url_slug(self):
     return self.name.replace(' ','-').lower()
   def gender_str(self):
@@ -48,3 +45,10 @@ class Politician(db.Model):
       return "Female"
     else:
       return "None"
+
+class Party(db.Model):
+  name = db.StringProperty(required = True)
+  abbreviation = db.StringProperty()
+  description = db.TextProperty()
+  youtube = db.LinkProperty()
+  logo = db.LinkProperty()

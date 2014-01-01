@@ -253,4 +253,10 @@ $(function() {
     }
   });
 
+  $('#comments-toggle').on('click', function(e){
+    e.preventDefault();
+    var txt = ($(this).text() == 'Hide') ? 'Show' : 'Hide';
+    $(this).text(txt);
+    $('.comments-wrap').toggle();
+  })
 });

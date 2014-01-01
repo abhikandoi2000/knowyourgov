@@ -4,10 +4,11 @@ from requests_oauthlib import OAuth1
 from google.appengine.api import taskqueue
 
 from knowyourgov import app
-from knowyourgov.models import Politician
+from knowyourgov.models import Politician, Party
 from knowyourgov.scripts import insert_politicians_in_db
 from knowyourgov.scripts import stats
-from knowyourgov.scripts.data import update_csvdata_in_db, update_scrapeddata_in_db
+from knowyourgov.scripts.data import update_csvdata_in_db, update_scrapeddata_in_db, add_party_details_db
+>>>>>>> Added Model for party pages
 from knowyourgov.scripts.scraping import scrapers
 # import errors
 
@@ -90,7 +91,30 @@ def party(party):
   pols = Politician.all()
   pols.filter("party =", party)
   pols.order('-search_count')
-  return render_template('politician_list.html', politicians = pols, title=party)
+  parties = Party.all()
+  parties.filter("name =", party)
+  
+  """
+  channel = parties[0].youtube[24:]
+  app.logger.debug(channel)
+  #Configuring to fetch requests
+
+  payload = { 'alt' : 'jsonc' , 'max-results' : '3' , 'v' : '2' }
+  r  = requests.get('https://gdata.youtube.com/feeds/api/users/' + str(channel) + '/uploads')
+
+  vid = []
+
+  if r.status_code == 200 :
+    app.logger.debug(r.content())
+  
+    c = r.content()
+
+    for i in c.data.items : 
+      obj = { 'id' : c.data.items[i].id , 'title' : c.data.items[i].title }
+      vid.append(obj)
+  """
+
+  return render_template('party.html', politicians = pols, title=party, parties=parties)
 
 """Initial page for stats for politicians
 """
@@ -302,6 +326,10 @@ def update_csvdata():
 @app.route('/updatedb/scrapeddata', methods=['POST'])
 def update_scrapeddata():
   return update_scrapeddata_in_db()
+
+@app.route('/updatedb/partyinfo')
+def add_party_data():
+  return add_party_details_db()
 
 @app.route('/enqueue/updatedb/scrapeddata')
 def enqueue_update_scrapeddata():
