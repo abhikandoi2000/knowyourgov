@@ -257,6 +257,28 @@ p.lead {
   display:none;
 }
 /**
+  * Party Page
+  */
+.party-info{
+  padding-top: 2em;
+}
+.party-info ul{
+  list-style: none;
+  margin:20px;
+  padding:10px;
+}
+
+.party-info ul li{
+  font-size:0.82em;
+  padding-left: 10px;
+  border-bottom: 1px solid #BDC3C7;
+}
+a.channel-url{
+  color: #95A5A6;
+  font-size:0.63em;
+  margin-left: 20px;
+}
+/**
   * Comments
   */
 div.comments-wrap{

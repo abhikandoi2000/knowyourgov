@@ -146,20 +146,22 @@ def add_party_details_db():
   """
   db.delete(Party.all())
   #Temporarily adding details in function itself
-  name = ['Indian National Congress', 'Bharatiya Janta Party', 'Bahujan Samaj Party', 'Aam Aadmi Party']
+  name = ['Indian National Congress', 'Bharatiya Janata Party', 'Bahujan Samaj Party', 'Aam Aadmi Party']
   abbr = ['INC', 'BJP', 'BSP', 'AAP']
-  description = ['Indian National Congress', 'Bharatiya Janta Party', 'Bahujan Samaj Party', 'Aam Admi Party']
-  ytube = ['https://www.youtube.com/indiacongress', 'https://www.youtube.com/user/BJP4India', 'https://www.youtube.com/user/bahujansamajparty', 'https://www.youtube.com/user/indiACor2010']
+  ytube = ['indiacongress', 'BJP4India', 'bahujansamajparty', 'indiACor2010']
   logo = ['https://www.gstatic.com/politics/e/img/in/parties/inc.png', 'https://www.gstatic.com/politics/e/img/in/parties/bjp.png', 'https://www.gstatic.com/politics/e/img/in/parties/bsp.png', 'https://www.gstatic.com/politics/e/img/in/parties/aap.png']
+  wikipedia = ['http://en.wikipedia.org/wiki/Indian_National_Congress', 'http://en.wikipedia.org/wiki/Bharatiya_Janata_Party', 'http://en.wikipedia.org/wiki/Bahujan_Samaj_Party', 'http://en.wikipedia.org/wiki/Aam_Aadmi_Party']
+  official_website = ['http://www.aicc.org.in/', 'http://www.bjp.org/','http://www.bspindia.org/', 'http://www.aamaadmiparty.org/']
 
   for index in range ( len(name) ):
 
     party = Party(
         name = name[index].lower(),
         abbreviation = abbr[index].lower(),
-        description = description[index].lower(),
         youtube = ytube[index].lower(),
-        logo = logo[index].lower()
+        logo = logo[index].lower(),
+        wikipedia = wikipedia[index],
+        official_site = official_website[index]
       )
     party.put()
 

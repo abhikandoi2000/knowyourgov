@@ -49,6 +49,7 @@ class Politician(db.Model):
 class Party(db.Model):
   name = db.StringProperty(required = True)
   abbreviation = db.StringProperty()
-  description = db.TextProperty()
-  youtube = db.LinkProperty()
+  youtube = db.StringProperty()
   logo = db.LinkProperty()
+  wikipedia = db.LinkProperty()
+  official_site = db.LinkProperty()

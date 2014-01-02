@@ -12,19 +12,22 @@
 	{% for party in parties %}
 			{% if party.name %}
 <div class = "row">
-	<div class = "col-xs-4">
-			<img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name }}">
+	<div class = "col-md-3 party-info">
+			<p class="text-center"><img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name }}"></p>
 			<ul>
-				<li> Wikipedia </li> 
-				<li> Official Website </li>
+				<a href="{{ party.official_site }}"> <li> Official Website </li> </a>
+				<a href="{{ party.wikipedia }}"> <li> Wikipedia </li> </a>
 			</ul>
-	</div>
-	<div class="col-xs-4">
-		<h6> News </h6>
 
 	</div>
-	<div class="col-xs-4 video-wrap">
-		<h6> Youtube </h6>
+	<div class="col-md-5 party-news">
+		<h6> News </h6>
+		<div class="news-wrap"></div>
+	</div>
+	<div class="col-md-4 party-videos">
+		<h6> Youtube <a class="channel-url" href="https://www.youtube.com/users/{{ party.youtube }}">Official Channel </a></h6>
+		<div class="video-wrap">
+		</div>
 	</div>
 </div>
 			{% endif %}
@@ -73,7 +76,7 @@
 {% block scripts %}
 <script>
 var title = "{{ parties[0].name }}",
-		ytube = "{{ parties[0].youtube }}".substring(24);
+		ytube = "{{ parties[0].youtube }}";
 
 </script>
 <script src= "{{ url_for('static', filename='js/party.js')}}" ></script>
