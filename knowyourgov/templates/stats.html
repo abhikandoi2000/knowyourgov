@@ -1,5 +1,5 @@
-<html>
-  <head>
+{% extends "layout.html" %}
+  {% block head %}
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
@@ -54,11 +54,11 @@
           return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
       }
     </script>
-  </head>
-  <body>
+  {% endblock %}  
+  
+  {% block content %}
     <div id="average_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
     <div id="wealth_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
     <div id="perc_chart" style="width: 1200px; height: 500px; display:inline-block"></div>
-
-  </body>
-</html>
+  {% endblock %}
+ 
