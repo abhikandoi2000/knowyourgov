@@ -145,6 +145,12 @@ def pol_stats(name):
   wealth_stats = stats.get_stats(name, [], stats.wealth_fields)
   return render_template('stats.html', pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.fields, wealth_fields = stats.wealth_fields, name = name)
 
+@app.route('/stats/state/<state>', methods=['GET'])
+def state_stats(state):
+  state = state.lower().replace('-',' ')
+  state_stats = stats.get_state_stats(state)
+  return jsonify(state_stats)
+  
 """
    ** Error Handlers **
    404, 500 and other errors

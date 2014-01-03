@@ -5,6 +5,7 @@ import logging
   
 fields = ['attendance', 'debates', 'questions', 'bills']
 wealth_fields = ['net_worth', 'cash', 'property', 'other']
+state_fields = ['gender', 'age', 'party']
 
 def get_averages(pol, fields, filters):
 	pols = Politician.all()
@@ -69,3 +70,25 @@ def get_stats(pol_name, filters, fields):
 			return stats
 		else:
 			return ''
+
+def get_state_stats(state, filters = []):
+	pols = Politician.all()
+	pols.filter('state =', state)
+	for filter_ in filters:
+		pols.filter(filter_['property'], filter_['value'])
+	distribution = {}
+	for field in state_fields:
+		distribution[field] = get_distribution(pols, field)
+	logging.info(distribution)
+	return distribution
+
+def get_distribution(pols, field):
+	distribution = {}
+	for pol in pols:
+		value = getattr(pol, field)
+		if not value:
+			continue
+		if not(value in distribution.keys()):
+			distribution[value] = 0
+		distribution[value] +=1
+	return distribution
