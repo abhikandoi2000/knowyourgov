@@ -69,9 +69,7 @@ var formatNews = function(responseData){
   } else {
 
     // no relevant news articles
-    var html = '<div style="text-align:center;">Sorry, no relevant articles.';
-
-    html += '</div>';
+    var html = '<p class = "text-center grey">Sorry, no relevant articles.</p>';
 
     // update news section
     $('#news-wrap').html(html);
@@ -86,6 +84,61 @@ var formatNews = function(responseData){
 }
 
 /**
+  * No Relelvant Content Found, instead of leaving a blank middle section, we display other information we have
+  */
+
+var noContentFallback = function(){
+
+  $('#news-wrap').css('minHeight','0px');
+
+  var h = '<h6 class="demo-pane-title"> Videos </h6> <div id = "pol-videos" > </div> ';
+      h += '<h6 class="demo-pane-title"> Location </h6> <div id = "pol-location" > </div> ';
+  
+  $('.news').prepend(h);
+  showLoading('#pol-location', '#pol-videos');
+
+  //Loads Videos - Search Query - name + party name
+  $.getJSON('https://gdata.youtube.com/feeds/api/videos/?q='+ name + ' ' + party +'&alt=jsonc&max-results=2&v=2', function(d){
+      var j = d.data.items;
+      h = '';
+      $('#pol-videos').html('');
+      for(i in j){
+        h += '<p class="palette-paragraph text-center"><strong>' + j[i].title +'</strong> <br> <iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/'+ j[i].id +'?autoplay=0&autohide=1&controls=0&showinfo=0&theme=light" frameborder="0"/> </p>';      
+      }
+      $('#pol-videos').html(h)
+    })
+
+  //Search for lat - long and plot on Map
+
+  $.ajax({
+      url :'https://maps.googleapis.com/maps/api/geocode/json?address='+ constituency + ' ' + state +'&sensor=true',
+  }).done(function(response){
+
+      var l = response.results[0].geometry.location;
+
+      var lat = l.lat,
+          lng = l.lng;
+
+      var myLatlng = new google.maps.LatLng(lat, lng);
+      var mapOptions = {
+        zoom: 6,
+        center: myLatlng
+      }
+      var map = new google.maps.Map(document.getElementById("pol-location"), mapOptions);
+
+      $('#pol-location').css('height','200px')
+      // To add the marker to the map, use the 'map' property
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: name
+      });   
+       
+    });
+
+}
+
+/**
   *Performs Sentiment Analysis
   *Variable `analysis_content`
   */
@@ -95,11 +148,13 @@ var sentimentAnalysis = function(){
 
       analysis_content_string = analysis_content.join(' ');
       
-      console.log(analysis_content, analysis_content_string);
       if(analysis_content_string == '') {
 
+        noContentFallback();
+
         $('#sentiment-wrap .progress').css('display','none');
-        $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');
+        $('#sentiment-wrap .palette-paragraph').html('Not enough content is available for Sentiment Analysis');  
+
 
       } else {
 
@@ -114,7 +169,7 @@ var sentimentAnalysis = function(){
                 // found entity for current politician
                 entityFound = true;
 
-                console.log(response.entities[index].sentiment.type);
+                // console.log(response.entities[index].sentiment.type);
 
                 $('#sentiment-wrap .palette-paragraph').html(response.entities[index].sentiment.type.toUpperCase());
                 if(response.entities[index].sentiment.type == "neutral") {
@@ -233,15 +288,14 @@ $(function() {
       }
 
       if(tweets.length == 0) {
-
-        $('.tweets').append('Sorry, no relevant social activity.');
+        $('.tweets').append('<p class="text-center grey"> Sorry, no relevant social activity. </p>');
       }
     },
     error: function(xhr, error) {
 
       tweetsLoaded = true;
       $('.tweets').html('');
-      $('.tweets').append('Sorry, unable to fetch tweets.');
+      $('.tweets').append('<p class="text-center grey"> Sorry, unable to fetch tweets. </p>');
     },
     complete: function(xhr, status) {
 

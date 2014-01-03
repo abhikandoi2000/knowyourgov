@@ -1,8 +1,10 @@
 /***
   A common loader
 ****/
-function showLoading(e){
-  $(e).html('<center><img src="/static/img/spinner.gif"></center>')
+function showLoading(){
+  for( i in arguments ){
+    $(arguments[i]).html('<center><img src="/static/img/spinner.gif"></center>')
+  }
 }
 
 function capitalizeFirstLetter(string){

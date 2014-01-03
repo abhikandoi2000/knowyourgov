@@ -36,8 +36,8 @@
           {% if politician.constituency != "" %}
           <div><strong>Constituency</strong><br>{{politician.constituency|title|default('-')}}</div>
           {% endif %}
-          {% if politician.gender_str() != "None" %}
-            <div><strong>Gender</strong><br>{{ politician.gender_str() }}</div>
+          {% if politician.age %}
+            <div><strong>Age</strong><br>{{ politician.age }}</div>
           {% endif %}
           {% if politician.dob %}
             <div><strong>Born</strong><br>{{ politician.dob }}</div>
@@ -180,9 +180,17 @@
 {% endblock %}
 
 {% block scripts %}
+
+    <!-- For Plotting Location -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt302Eg6wtngduThQ9jEmcGQfHmn1XNQg&sensor=true"></script>
+
     <script>
-      // @global - name of politician
+      // @global - name of politician, party name, constituency,state 
       name = "{{ politician.name |title }}";
+      party = "{{ politician.party }}";
+      constituency = "{{ politician.constituency }}";
+      state = "{{ politician.state }}";
+
       // @global - content for sentiment analysis
       analysis_content = [];
     </script>

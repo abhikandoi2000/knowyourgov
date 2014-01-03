@@ -23,7 +23,12 @@ div.center {
   min-height: 200px !important;
  
 }
-
+/**
+  * Misc
+  */
+.grey{
+  color: #7f8c8d;
+}
 header {
   min-height : 50px;
   border-bottom: 2px solid #BBB39F;
