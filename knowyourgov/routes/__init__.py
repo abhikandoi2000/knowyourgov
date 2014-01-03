@@ -151,6 +151,11 @@ def state_stats(state):
   state_stats = stats.get_state_stats(state)
   return jsonify(state_stats)
   
+@app.route('/stats/party/<party>', methods=['GET'])
+def party_stats(party):
+  party = party.lower().replace('-',' ')
+  state_stats = stats.get_party_stats(party)
+  return jsonify(state_stats)
 """
    ** Error Handlers **
    404, 500 and other errors
