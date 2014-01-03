@@ -8,7 +8,6 @@ from knowyourgov.models import Politician, Party
 from knowyourgov.scripts import insert_politicians_in_db
 from knowyourgov.scripts import stats
 from knowyourgov.scripts.data import update_csvdata_in_db, update_scrapeddata_in_db, add_party_details_db
->>>>>>> Added Model for party pages
 from knowyourgov.scripts.scraping import scrapers
 # import errors
 
