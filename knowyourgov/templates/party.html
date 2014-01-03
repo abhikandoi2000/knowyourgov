@@ -37,19 +37,18 @@
 		$(obj).fadeIn(1000);
 	}
 </script>
+<p class="lead text-center"> Elected Members </p>
 <div class="row">
-  <p class="lead" style="text-align:center" id="res-title"> Elected Members </p>
   <div class="col-md-12 results">
 	<table class="table table-hover">
 		<thead>
-			<tr><th></th><th>Name</th><th>Party</th><th>Constituency</th><th>State</th></tr>
+			<tr><th></th><th>Name</th><th>Constituency</th><th>State</th></tr>
 		</thead>
 		<tbody>
 			{% for p in politicians %}
 			<tr>
 				<td><img src="{{p.image_url}}" width="64" height="64" onload="fadeIn(this)"></td>
 				<td><a href="/politicians/id/{{p.name.replace(' ','-')}}">{{ p.name|title }}</a></td>
-				<td><a href="/party/{{p.party.replace(' ','-')}}">{{p.party|title}}</a></td>
 				{% if p.constituency %}
 				<td>{{p.constituency|default('-')|title}}</td>
 				{% else %}

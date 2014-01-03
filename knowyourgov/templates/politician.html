@@ -30,18 +30,21 @@
             <i>{{ politician.position }}</i>
           </div>
           {% if politician.state != "" %}
-          <div><b>State</b><br><a href="/state/{{politician.state.replace(' ','-')}}">{{politician.state|title}}</a></div>
+          <div><strong>State</strong><br><a href="/state/{{politician.state.replace(' ','-')}}">{{politician.state|title}}</a></div>
           {% endif %}
-          <div><b>Party</b><br><a href="/party/{{politician.party.replace(' ','-')}}">{{politician.party|title}}</a></div>
+          <div><strong>Party</strong><br><a href="/party/{{politician.party.replace(' ','-')}}">{{politician.party|title}}</a></div>
           {% if politician.constituency != "" %}
-          <div><b>Constituency</b><br>{{politician.constituency|title|default('-')}}</div>
+          <div><strong>Constituency</strong><br>{{politician.constituency|title|default('-')}}</div>
           {% endif %}
           {% if politician.gender_str() != "None" %}
-            <div><b>Gender</b><br>{{ politician.gender_str() }}</div>
+            <div><strong>Gender</strong><br>{{ politician.gender_str() }}</div>
           {% endif %}
           {% if politician.dob %}
-            <div><b>Born</b><br>{{ politician.dob }}</div>
+            <div><strong>Born</strong><br>{{ politician.dob }}</div>
           {% endif %}
+          {% if politician.startofterm %}
+              <div><strong> Term: </strong> <p>{{ politician.startofterm }} {% if politician.endofterm %} - {{ politician.endofterm }}  {%  endif %}</p> </div>
+          {%  endif %}
         </div>
 
       </div>
@@ -86,10 +89,7 @@
             <div class="col-md-12">  
             <ul class="stats-list">
             {% if politician.education %}
-              <li> <strong> Education: </strong> {{ politician.education }} </li>
-            {%  endif %}
-            {% if politician.startofterm %}
-              <li> <strong> Term: </strong> {{ politician.startofterm }} {% if politician.endofterm %} - {{ politician.endofterm }}  {%  endif %} </li>
+              <li> <strong><img src="/static/img/education.png" alt="Education"> Education: </strong> {{ politician.education }} </li>
             {%  endif %}
             {% if politician.attendance %}
               <li>
@@ -100,8 +100,18 @@
               </center>  
               </li>
             {%  endif %}
-              <li> <strong> Links: </strong> <a href="{{ politician.wiki_link }}" target="_blank">Wikipedia Page</a> </li>
+              <li> <strong> Links: </strong> <a href="{{ politician.wiki_link }}" target="_blank">Wikipedia Page</a> {% if politician.official_link %} - <a href="{{ politician.official_link }}" target="_blank">Official Page</a>{% endif %} </li>
+              {% if politician.debates %}
+              <li> <strong> <img src="/static/img/debates.png" alt="Debates"> Debates: </strong> {{ politician.debates }} </li>
+              {% endif %}
+              {% if politician.questions %}
+              <li> <strong> <img src="/static/img/questions.png" alt="Questions"> Questions: </strong> {{ politician.questions }} </li>
+              {% endif %}
+              {% if net_worth != 0 %}
+              <li> <strong> Net Worth: </strong> <span style="color:#27AE60">  {{ net_worth }} <strong> &#8377; </strong></span> </li>
+              {% endif %}
             </ul>
+            <a href="/stats/politician/{{ politician.name }}" class="grey" title="More Stats">More</a>
             </div>
           </div>
           {% endif %}

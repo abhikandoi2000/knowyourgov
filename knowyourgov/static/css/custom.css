@@ -218,7 +218,7 @@ div.news-title {
 
 
 /**
-  * Stats Page
+  * Stats Section
 **/
 ul.stats-list{
   list-style: none;
@@ -227,8 +227,13 @@ ul.stats-list{
 }
 
 ul.stats-list li{
-  font-size:0.82em;
+  font-size:0.73em;
   border-bottom: 1px solid #BDC3C7;
+}
+
+.resources a.grey{
+  color: #7f8c8d;
+  font-size: 0.75em;
 }
 /**
  * Tags - Homepage
@@ -259,6 +264,11 @@ p.lead {
 /**
   * Party Page
   */
+.parties-wrap{
+  padding-top: 5em;
+  padding-bottom: 3em;
+}
+
 .party-info{
   padding-top: 2em;
 }

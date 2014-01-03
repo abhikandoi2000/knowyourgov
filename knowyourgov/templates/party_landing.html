@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<p class="lead text-center">National Political Parties</p>
+	<div class = "row parties-wrap">
+		{% for p in parties %}
+		<div class="col-xs-3">
+			<p class="text-center">
+				<img src = "{{ p.logo }}" alt = "{{ p.name|capitalize }}" title ="{{ p.name|capitalize }}">
+			</p>
+			<p class="text-center">
+				<a href="/party/{{ p.name }}" > {{ p.name|capitalize }} </a>
+			</p>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}

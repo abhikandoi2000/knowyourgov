@@ -50,12 +50,16 @@ def politician_page(name):
     # increment search count by one
     politician.search_count = politician.search_count + 1
     politician.put()
+    # Format Wealth 
+   
+    net_worth = '{:20,.0f}'.format(politician.net_worth)
+
     try:
       politician.first_name, politician.last_name = politician.name.split(' ')[0:2]
     except:
       politician.first_name = politician.name
       politician.last_name = ''
-    return render_template('politician.html', q = name, politician = politician, title = name)
+    return render_template('politician.html', q = name, politician = politician, title = name, net_worth= net_worth)
   else:
     return render_template('politician_notfound.html', q = name)
 
@@ -84,8 +88,21 @@ def state(state):
   pols.order('-search_count')
   return render_template('politician_list.html', politicians = pols, title="List of politicians in "+state)
 
+@app.route('/parties')
+def party_landing():
+  parties = Party.all()
+  return render_template('party_landing.html', parties = parties)
+
 @app.route('/party/<party>')
 def party(party):
+  if ' ' in party:  
+    party = party.replace(' ', '-')
+    return redirect('/party/'+ party)
+
+
+  if len(party) < 2:
+    return redirect('/parties')
+      
   party = party.lower().replace('-',' ')
   pols = Politician.all()
   pols.filter("party =", party)
@@ -119,6 +136,10 @@ def party(party):
 """
 @app.route('/stats/politician/<name>', methods=['GET'])
 def pol_stats(name):
+  if ' ' in name:  
+    name = name.replace(' ', '-')
+    return redirect('/stats/politician/'+ name)
+
   name = name.lower().replace('-',' ')
   pol_stats = stats.get_stats(name, [], stats.fields)
   wealth_stats = stats.get_stats(name, [], stats.wealth_fields)
@@ -334,3 +355,4 @@ def add_party_data():
 def enqueue_update_scrapeddata():
   taskqueue.add(url='/updatedb/scrapeddata')
   self.redirect('/')
+
