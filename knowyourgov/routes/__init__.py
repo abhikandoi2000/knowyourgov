@@ -141,9 +141,9 @@ def pol_stats(name):
     return redirect('/stats/politician/'+ name)
 
   name = name.lower().replace('-',' ')
-  pol_stats = stats.get_stats(name, [], stats.fields)
-  wealth_stats = stats.get_stats(name, [], stats.wealth_fields)
-  return render_template('stats.html', pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.fields, wealth_fields = stats.wealth_fields, name = name)
+  pol_stats = stats.get_stats(name, stats.pol_fields)
+  wealth_stats = stats.get_stats(name, stats.wealth_fields)
+  return render_template('stats.html', pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.pol_fields, wealth_fields = stats.wealth_fields, name = name)
 
 @app.route('/stats/state/<state>', methods=['GET'])
 def state_stats(state):
@@ -305,7 +305,7 @@ def tweets_search(query):
 @app.route('/json/stats/politician/<name>', methods=['GET'])
 def pol_statsjson(name):
   name = name.lower().replace('-',' ')
-  return jsonify(stats.get_stats(name, [{'property':'state =', 'value':'maharashtra'}], stats.fields)) #Added filter for testing and debugging
+  return jsonify(stats.get_stats(name, stats.pol_fields))
 
 """
    **Database errands**

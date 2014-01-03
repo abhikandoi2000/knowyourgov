@@ -3,15 +3,11 @@ from knowyourgov.models import Politician
 from math import ceil
 import logging
   
-fields = ['attendance', 'debates', 'questions', 'bills']
+pol_fields = ['attendance', 'debates', 'questions', 'bills']
 wealth_fields = ['net_worth', 'cash', 'property', 'other']
 state_fields = ['gender', 'age', 'party']
 
-def get_averages(pol, fields, filters):
-	pols = Politician.all()
-	pols.filter('position =', pol.position)
-	for filter_ in filters:
-		pols.filter(filter_['property'], filter_['value'])
+def get_averages(pols, fields):
 	averages = {}
 	total = {}
 	count = 0
@@ -29,11 +25,7 @@ def get_averages(pol, fields, filters):
 			averages[field] = ceil(100 * averages[field])/100
 	return averages
 
-def get_percentiles(pol, fields, filters):
-	pols = Politician.all()
-	pols.filter('position =', pol.position)
-	for filter_ in filters:
-		pols.filter(filter_['property'], filter_['value'])
+def get_percentiles(pol, pols, fields):
 	percentile = {}
 	greater = {}
 	total = 0
@@ -55,21 +47,23 @@ def get_percentiles(pol, fields, filters):
 			percentile[field] = ceil(100 * percentile[field])/100
 	return percentile
 
-def get_stats(pol_name, filters, fields):
-	query = "SELECT * FROM Politician WHERE name=\'%s\'" %pol_name 
-	result = list(db.GqlQuery(query))
+def get_stats(pol_name, fields, filters = []):
+	pols = Politician.all()
+	for filter_ in filters:
+		pols.filter(filter_['property'], filter_['value'])
+
 	stats = {}
-	stats['percentiles'] = {}
-	if result:
-		pol = result[0]
-		if pol.position == 'Member of Parliament' and pol.startofterm == '18-May-09' and pol.endofterm == 'In office':
-			stats['percentiles'] = get_percentiles(pol, fields, filters)
-			stats['averages'] = get_averages(pol, fields, filters)
-			for field in fields:
-				stats[field] = getattr(pol, field)
-			return stats
-		else:
-			return ''
+	pol = Politician.all().filter('name =', pol_name)[0]
+	pols.filter('position =', pol.position)
+
+	if pol.position == 'Member of Parliament' and pol.startofterm == '18-May-09' and pol.endofterm == 'In office':
+		stats['percentiles'] = get_percentiles(pol, pols, fields)
+		stats['averages'] = get_averages(pols, fields)
+		for field in fields:
+			stats[field] = getattr(pol, field)
+		return stats
+	else:
+		return ''
 
 def get_state_stats(state, filters = []):
 	pols = Politician.all()
