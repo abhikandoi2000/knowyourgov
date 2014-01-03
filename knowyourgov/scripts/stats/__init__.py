@@ -5,23 +5,47 @@ import logging
   
 fields = ['attendance', 'debates', 'questions', 'bills']
 wealth_fields = ['net_worth', 'cash', 'property', 'other']
+# def get_averages(pol, fields, filters):
+# 	pols = Politician.all()
+# 	pols.filter('position =', pol.position)
+# 	for filter_ in filters:
+# 		pols.filter(filter_['property'], filter_['value'])
+# 	averages = {}
+# 	for field in fields:
+# 		total = 0
+# 		count = 0
+# 		for pol in pols:
+# 			total += getattr(pol, field)
+# 			count += 1
+# 		if not count:
+# 			averages[field] = 0
+# 		else:
+# 			averages[field] = float(total)/count
+# 			averages[field] = ceil(100 * averages[field])/100
+# 		logging.info(averages)
+# 	return averages
+
 def get_averages(pol, fields, filters):
 	pols = Politician.all()
 	pols.filter('position =', pol.position)
 	for filter_ in filters:
 		pols.filter(filter_['property'], filter_['value'])
 	averages = {}
-	for field in fields:
-		total = 0
-		count = 0
-		for pol in pols:
-			total += getattr(pol, field)
-			count += 1
+	total = {}
+	count = 0
+	for pol in pols:
+		for field in fields:
+			if not (field in total.keys()):
+				total[field] = 0
+			total[field] += getattr(pol, field)
+		count += 1
+	for field in fields:	
 		if not count:
 			averages[field] = 0
 		else:
-			averages[field] = float(total)/count
+			averages[field] = float(total[field])/count
 			averages[field] = ceil(100 * averages[field])/100
+		logging.info(averages)
 	return averages
 
 def get_percentiles(pol, fields, filters):
