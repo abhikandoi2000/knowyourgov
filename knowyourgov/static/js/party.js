@@ -59,7 +59,8 @@ var formatNews = function(responseData){
 
 $(function(){
 
-	if(ytube != ""){
+
+	if(typeof ytube != "undefined"){
 		$.getJSON('https://gdata.youtube.com/feeds/api/users/' + ytube +'/uploads?alt=jsonc&max-results=2&v=2', function(d){
 			var j = d.data.items;
 			h = '';
@@ -71,6 +72,7 @@ $(function(){
 		})
 	}
 	
-	fetchNews(title, formatNews)
+  if(typeof title != "undefined")
+	 fetchNews(title, formatNews);
 
 })

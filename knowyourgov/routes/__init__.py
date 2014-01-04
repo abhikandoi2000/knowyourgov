@@ -107,17 +107,20 @@ def party(party):
     party = party.replace(' ', '-')
     return redirect('/party/'+ party)
 
-
-  if len(party) < 2:
-    return redirect('/parties')
-      
   party = party.lower().replace('-',' ')
   pols = Politician.all()
   pols.filter("party =", party)
   pols.order('-search_count')
+
   parties = Party.all()
   parties.filter("name =", party)
-  
+
+  app.logger.debug(parties.count())
+
+  if parties.count() == 0:
+    return render_template('party.html', politicians = pols, title=party)
+
+  app.logger.debug('2')
   """
   channel = parties[0].youtube[24:]
   app.logger.debug(channel)

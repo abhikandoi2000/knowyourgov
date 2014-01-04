@@ -9,8 +9,15 @@
 		<p class="lead" style="text-align:center">{{ title|title }}</p>
 	</div>
 </div>
-	{% for party in parties %}
-			{% if party.name %}
+
+{% if parties is defined %}
+	{% for party in parties %}		
+	<script>
+
+	var title = "{{ parties[0].name }}",
+			ytube = "{{ parties[0].youtube }}";
+
+	</script>
 <div class = "row">
 	<div class = "col-md-3 party-info">
 			<p class="text-center"><img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name }}"></p>
@@ -30,8 +37,9 @@
 		</div>
 	</div>
 </div>
-			{% endif %}
+			
 	{% endfor %}
+{% endif %}
 <script>
 	function fadeIn(obj){
 		$(obj).fadeIn(1000);
@@ -73,11 +81,7 @@
 
 {% endblock %}
 {% block scripts %}
-<script>
-var title = "{{ parties[0].name }}",
-		ytube = "{{ parties[0].youtube }}";
 
-</script>
 <script src= "{{ url_for('static', filename='js/party.js')}}" ></script>
 
 {% endblock %}
