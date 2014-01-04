@@ -4,14 +4,6 @@
     <meta property="og:image" content="{{ politician.image_url }}">
     <meta property="og:profile:first_name" content="{{ politician.first_name|title }}">
     <meta property="og:profile:last_name" content="{{ politician.last_name|title }}">
-
-    <!-- Begin ShareThis -->
-    <script type="text/javascript">var switchTo5x=false;</script>
-    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "70193771-68a8-4846-8f58-8705983d4738", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
-    <!-- End ShareThis -->
-    
-
 {% endblock %}
 
 {% block content %}
@@ -108,7 +100,7 @@
               {% if politician.questions %}
               <li> <strong> <img src="/static/img/questions.png" alt="Questions"> Questions: </strong> {{ politician.questions }} </li>
               {% endif %}
-              {% if net_worth != 0 %}
+              {% if politician.net_worth != 0 %}
               <li> <strong> Net Worth: </strong> <span style="color:#27AE60">  {{ net_worth }} <strong> &#8377; </strong></span> </li>
               {% endif %}
             </ul>
@@ -119,11 +111,16 @@
 
         <h6> Share </h6>
         <div class="share-wrap">
-          <span class='st_googleplus_large' displayText='Google +'></span>
-          <span class='st_facebook_large' displayText='Facebook'></span>
-          <span class='st_twitter_large' displayText='Tweet'></span>
-          <span class='st_linkedin_large' displayText='LinkedIn'></span>
-          <span class='st_sharethis_large' displayText='ShareThis'></span>
+
+          <a href="https://plus.google.com/share?url=https://gcdc2013-know-your-gov.appspot.com/politicians/id/{{ politician.name.replace(' ', '-') }}" onclick="javascript:window.open(this.href,
+          '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="/static/img/gplus-icon.png" alt="Share on Google+" target="_blank"></a>
+
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://gcdc2013-know-your-gov.appspot.com/politicians/id/{{ politician.name.replace(' ', '-') }}" target="_blank"><img src="/static/img/fb-icon.png" alt="Share on Facebook"></a>
+
+          <a href="https://twitter.com/share?url=https://gcdc2013-know-your-gov.appspot.com/politicians/id/{{ politician.name.replace(' ', '-') }}" class="twitter-share-button" data-lang="en" target="_blank">
+            <img src="/static/img/twitter-icon.png" alt="Share on Twitter">
+          </a>
+  
         </div>
 
         <h6>Search</h6>

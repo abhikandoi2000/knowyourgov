@@ -116,8 +116,9 @@ h6.politician-name {
 div#personal {
   font-size: 15px;
 }
-
-
+.share-wrap img{
+  margin-right: 10px;
+}
 /**
  * Sentiment Analysis
  */
