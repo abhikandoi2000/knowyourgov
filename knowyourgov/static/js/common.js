@@ -27,10 +27,19 @@ $.ajaxSetup({
 	timeout : 30 * 1000
 })
 
+/**
+ * Initializes typeahead for Politicians and Parties
+ */
 $(function(){
-  $('.typeahead').typeahead({
+  $('.typeahead').typeahead([
+  {
     name: 'politicians',
     prefetch: '/json/politicians/all'
-  });
+  },
+  {
+    name: 'parties',
+    prefetch: '/json/parties/all'
+  }
+  ]);
 
 });

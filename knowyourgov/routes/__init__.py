@@ -68,14 +68,22 @@ def politician_page(name):
 @app.route('/search', methods= ['POST', 'GET'] )
 def search():
  # query = request.form['q']
-  query = request.args.get('q').lower().replace('-',' ')
+  query = request.args.get('q').lower().replace('-', ' ')
   politicians = Politician.all()
   politicians.filter("name =", query)
   politician = list(politicians[:1])
   if politician:
     politician = politicians[0]
-    name = query.replace(' ','-')
-    return redirect('/politicians/id/'+name)
+    name = query.replace(' ', '-')
+    return redirect('/politicians/id/' + name)
+  elif True:
+    parties = Party.all()
+    parties.filter("name =", query)
+    party = list(parties[:1])
+    if party:
+      party = party[0]
+      name = query.lower().replace(' ', '-')
+      return redirect('/party/' + name)
   else:
     return render_template('politician_notfound.html', q = query)
 
@@ -86,7 +94,7 @@ def state(state):
   pols = Politician.all()
   pols.filter("state =", state)
   pols.order('-search_count')
-  return render_template('politician_list.html', politicians = pols, title="List of politicians in "+state)
+  return render_template('politician_list.html', politicians = pols, title="List of politicians in " + state)
 
 @app.route('/parties')
 def party_landing():
@@ -311,6 +319,33 @@ def tweets_search(query):
 def pol_statsjson(name):
   name = name.lower().replace('-',' ')
   return jsonify(stats.get_stats(name, stats.pol_fields))
+
+"""Array of datums for parties
+   Format: JSON
+"""
+@app.route('/json/parties/all', methods=['GET'])
+def all_parties():
+  result = Party.all()
+
+  parties = []
+
+  for party in result:
+    tokens = party.name.title().split(' ')
+    parti = {
+      'value': party.name.title(),
+      'tokens': tokens,
+    }
+
+    parties.append(parti)
+
+  # create JSON response
+  resp = Response(
+    response=json.dumps(parties),
+    status=200,
+    mimetype="application/json"
+  )
+
+  return resp
 
 """
    **Database errands**
