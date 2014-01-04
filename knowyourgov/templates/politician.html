@@ -104,7 +104,9 @@
               <li> <strong> Net Worth: </strong> <span style="color:#27AE60">  {{ net_worth }} <strong> &#8377; </strong></span> </li>
               {% endif %}
             </ul>
-            <a href="/stats/politician/{{ politician.name }}" class="grey" title="More Stats">More</a>
+             {% if politician.questions %}
+              <a href="/stats/politician/{{ politician.name }}" class="grey" title="More Stats">More</a>
+             {% endif %}
             </div>
           </div>
           {% endif %}
