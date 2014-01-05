@@ -98,10 +98,11 @@ def search():
 @app.route('/state/<state>')
 def state(state):
   state = state.lower().replace('-',' ')
+  state_stats = stats.get_state_stats(state)
   pols = Politician.all()
   pols.filter("state =", state)
   pols.order('-search_count')
-  return render_template('politician_list.html', politicians = pols, title="List of politicians in " + state)
+  return render_template('politician_list.html', politicians = pols, stats = state_stats, title="List of politicians in " + state)
 
 @app.route('/states')
 def state_landing():
@@ -109,12 +110,14 @@ def state_landing():
   for s in STATES:
     politicians = Politician.all()
     politicians.filter("state = ", s.lower())
-    state_stats = stats.get_state_stats(s.lower())
-    logging.info(state_stats)
+    politicians = list(politicians)
+    male_pols = [politician for politician in politicians if politician.gender == 1]
+    female_pols = [politician for politician in politicians if politician.gender == 2]
     state = {
       'name': s,
-      'pol_count': politicians.count(),
-      'stats': state_stats
+      'pol_count': len(politicians),
+      'male_pol_count': len(male_pols),
+      'female_pol_count': len(female_pols) 
     }
     states.append(state)
   return render_template('state_landing.html', states = states)
