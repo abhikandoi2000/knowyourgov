@@ -71,7 +71,7 @@ def politician_page(name):
 def search():
  # query = request.form['q']
   query = request.args.get('q')
-  if query in STATES:
+  if query.title() in STATES:
     state = query.lower().replace(' ', '-')
     return redirect('/state/' + state)
   query = query.lower().replace('-', ' ')
