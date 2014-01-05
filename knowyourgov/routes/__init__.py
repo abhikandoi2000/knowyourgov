@@ -134,6 +134,8 @@ def party(party):
     return redirect('/party/'+ party)
 
   party = party.lower().replace('-',' ')
+  party_stats = stats.get_party_stats(party)
+  logging.info(party_stats)
   pols = Politician.all()
   pols.filter("party =", party)
   pols.order('-search_count')
@@ -167,7 +169,7 @@ def party(party):
       vid.append(obj)
   """
 
-  return render_template('party.html', politicians = pols, title=party, parties=parties)
+  return render_template('party.html', politicians = pols, stats=party_stats, title=party, parties=parties)
 
 """Initial page for stats for politicians
 """

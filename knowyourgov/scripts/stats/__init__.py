@@ -6,7 +6,7 @@ import logging
 pol_fields = ['attendance', 'debates', 'questions', 'bills']
 wealth_fields = ['net_worth', 'cash', 'property', 'other']
 state_fields = ['gender', 'age', 'party']
-party_fields = ['gender', 'age', 'state']
+party_fields = ['gender', 'age']
 
 def get_averages(pols, fields):
 	averages = {}
