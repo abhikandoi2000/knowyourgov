@@ -20,7 +20,7 @@
 	</script>
 <div class = "row">
 	<div class = "col-md-3 party-info">
-			<p class="text-center"><img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name }}"></p>
+			<p class="text-center"><img src = "{{ party.logo }}" alt="{{ party.name }}" title="{{ party.name|capwords }}"></p>
 			<ul>
 				<a href="{{ party.official_site }}"> <li> Official Website </li> </a>
 				<a href="{{ party.wikipedia }}"> <li> Wikipedia </li> </a>

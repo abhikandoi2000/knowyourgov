@@ -11,7 +11,7 @@
     <div class="row pane3 content-wrap">
       <div class="col-md-3 info tile" id="info">
         {# Using img src is better for SEO #}
-        <div id="politician-image" title="{{ politician.name }}" alt="Image of {{politician.name}}">
+        <div id="politician-image" title="{{ politician.name|capwords }}" alt="Image of {{politician.name|capwords}}">
           <img src="/static/img/politicians/{{politician.image_url}}" width="180">
         </div>
 

@@ -5,12 +5,14 @@
 	<div class = "row parties-wrap">
 		{% for p in parties %}
 		<div class="col-xs-3">
-			<p class="text-center">
-				<img src = "{{ p.logo }}" alt = "{{ p.name|capitalize }}" title ="{{ p.name|capitalize }}">
-			</p>
-			<p class="text-center">
-				<a href="/party/{{ p.name }}" > {{ p.name|capitalize }} </a>
-			</p>
+			<a href="/party/{{ p.name }}">
+				<p class="text-center">
+					<img src = "{{ p.logo }}" alt = "{{ p.name|capwords }}" title ="{{ p.name|capwords }}">
+				</p>
+				<p class="text-center">
+					{{ p.name|capwords }}
+				</p>
+		    </a>
 		</div>
 		{% endfor %}
 	</div>
