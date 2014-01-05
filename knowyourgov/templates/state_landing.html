@@ -7,13 +7,49 @@
 		<div class="col-md-3 state-wrap">
 			<div class="state-aligned">
 				<h4><a href="/state/{{ state.name.lower().replace(' ', '-') }}" > {{ state.name.title() }} </a></h4>
-				<p class="text-center">
+				<p class="text-center" id="{{state.name.lower().replace(' ', '-').replace('&', '')}}">
 					Number of Politicians: {{ state.pol_count }}<br>
-					Male Politicians: {{ state.male_pol_count }}<br>
-					Female Politicians: {{ state.female_pol_count }}<br>
+					<!-- Male Politicians: {{ state.stats['gender']['Male'] }}<br> -->
+					<!-- Female Politicians: {{ state.stats['gender']['Female'] }}<br> -->
 				</p>
 			</div>
 		</div>
 		{% endfor %}
 	</div>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+	var stats = {}
+	{% for state in states %}
+		stats['{{state.name}}'] = {{state.stats|tojson|safe}}
+	{% endfor %}
+	console.log(stats)
+  	google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(function()
+    {
+		for(var state in stats)
+		{
+			var state_stats = stats[state];
+			for(var field in state_stats)
+			{
+				var field_stats = state_stats[field]
+				var arr = []
+				arr.push([field, 'Number'])
+				for(key in field_stats)
+					arr.push([key, field_stats[key]])
+				var chart_data = google.visualization.arrayToDataTable(arr);
+				state = $("<div/>").html(state).text(); //For decoding html entities
+				state = state.toLowerCase().replace(/\ /g, '-').replace('&','')
+				var id = state+'_'+field+'_chart'
+				var new_div = "<div id='"+id+"' class='chart-div'></div>"
+				console.log(new_div)
+				$("p#"+state).append(new_div)
+				drawChart(chart_data, {}, id)
+			}
+		}
+	})
+	function drawChart(data, options, ele_id) {
+        var chart = new google.visualization.PieChart(document.getElementById(ele_id));
+        chart.draw(data, options);
+    }
+	</script>
 {% endblock %}

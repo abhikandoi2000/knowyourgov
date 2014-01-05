@@ -295,6 +295,11 @@ p.lead {
   font-size: 15px;
 }
 
+.chart-div {
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+}
 /**
   * Party Page
   */
