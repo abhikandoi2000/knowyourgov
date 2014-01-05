@@ -59,7 +59,7 @@
 		<tbody>
 			{% for p in politicians %}
 			<tr>
-				<td><img src="/static/img/politicians/{{p.image_url}}" width="64" height="64" onload="fadeIn(this)"></td>
+				<td><img src="/static/img/politicians/{{p.image_url}}" width="64" height="64" onerror="this.onerror=null;this.src='/static/img/anon.jpg';" onload="fadeIn(this)"></td>
 				<td><a href="/politicians/id/{{p.name.replace(' ','-')}}">{{ p.name|title }}</a></td>
 				{% if p.constituency %}
 				<td>{{p.constituency|default('-')|title}}</td>
