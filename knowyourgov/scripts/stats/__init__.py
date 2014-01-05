@@ -89,10 +89,14 @@ def get_party_stats(party_name, filters = []):
 def get_distribution(pols, field):
 	distribution = {}
 	for pol in pols:
-		value = getattr(pol, field)
-		if not value:
+		key = getattr(pol, field)
+		if not key:
 			continue
-		if not(value in distribution.keys()):
-			distribution[value] = 0
-		distribution[value] +=1
+		if field == 'gender':
+			key = pol.gender_str()
+		if field == 'age':
+			key = str(key/10 *10)+'-'+str((key/10 + 1)*10 - 1)
+		if not(key in distribution.keys()):
+			distribution[key] = 0
+		distribution[key] +=1
 	return distribution
