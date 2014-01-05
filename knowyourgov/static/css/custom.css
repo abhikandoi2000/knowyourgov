@@ -272,6 +272,29 @@ p.lead {
   text-align:center;
   display:none;
 }
+
+/**
+ * States Page
+ */
+.states-wrap {
+  padding-top: 2em;
+  padding-bottom: 3em;
+}
+
+.state-wrap {
+  text-align: center;
+  height: 250px;
+  border: 1px solid #bbb;  
+}
+
+.state-aligned {
+  margin-top: 3em;
+}
+
+.states-wrap .text-center {
+  font-size: 15px;
+}
+
 /**
   * Party Page
   */

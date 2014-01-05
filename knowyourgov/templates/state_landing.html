@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<p class="lead text-center">Indian States</p>
+	<div class = "row states-wrap">
+		{% for state in states %}
+		<div class="col-md-3 state-wrap">
+			<div class="state-aligned">
+				<h4><a href="/state/{{ state.name.lower().replace(' ', '-') }}" > {{ state.name.title() }} </a></h4>
+				<p class="text-center">
+					Number of Politicians: {{ state.pol_count }}<br>
+					Male Politicians: {{ state.male_pol_count }}<br>
+					Female Politicians: {{ state.female_pol_count }}<br>
+				</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -102,6 +102,24 @@ def state(state):
   pols.order('-search_count')
   return render_template('politician_list.html', politicians = pols, title="List of politicians in " + state)
 
+@app.route('/states')
+def state_landing():
+  states = []
+  for s in STATES:
+    politicians = Politician.all()
+    politicians.filter("state = ", s.lower())
+    politicians = list(politicians)
+    male_pols = [politician for politician in politicians if politician.gender == 1]
+    female_pols = [politician for politician in politicians if politician.gender == 2]
+    state = {
+      'name': s,
+      'pol_count': len(politicians),
+      'male_pol_count': len(male_pols),
+      'female_pol_count': len(female_pols) 
+    }
+    states.append(state)
+  return render_template('state_landing.html', states = states)
+
 @app.route('/parties')
 def party_landing():
   parties = Party.all()
