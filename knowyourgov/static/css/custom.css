@@ -258,8 +258,14 @@ div.tagsinput a {
  */
 
 p.lead {
+  font-weight: 400;
   margin-bottom: 0px !important;
   margin-top: 20px !important;
+}
+
+.tech-stack {
+  width: 30%;
+  margin: 0 auto;
 }
 
 #res-title {
