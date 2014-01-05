@@ -11,6 +11,8 @@ from knowyourgov.scripts.data import update_csvdata_in_db, update_scrapeddata_in
 from knowyourgov.scripts.scraping import scrapers
 # import errors
 
+STATES = ['Haryana', 'Punjab', 'Goa', 'Chhattisgarh', 'Kerala', 'Daman and Diu', 'Bihar', 'Tamil Nadu', 'Chandigarh', 'Jammu and Kashmir', 'Dadra and Nagar Haveli', 'Jharkhand', 'Meghalaya', 'Delhi', 'Assam', 'Madhya Pradesh', 'Lakshadweep', 'Manipur', 'Rajasthan', 'Sikkim', 'West Bengal', 'Andhra Pradesh', 'Himachal Pradesh', 'Nagaland', 'Gujarat', 'Arunachal Pradesh', 'Maharashtra', 'Tripura', 'Uttarakhand', 'Puducherry', 'Karnataka', 'Jammu & Kashmir', 'Mizoram', 'Odisha', 'Uttar Pradesh', 'Andaman and Nicobar Islands']
+
 """Home page
 """
 @app.route('/')
@@ -68,7 +70,11 @@ def politician_page(name):
 @app.route('/search', methods= ['POST', 'GET'] )
 def search():
  # query = request.form['q']
-  query = request.args.get('q').lower().replace('-', ' ')
+  query = request.args.get('q')
+  if query in STATES:
+    state = query.lower().replace(' ', '-')
+    return redirect('/state/' + state)
+  query = query.lower().replace('-', ' ')
   politicians = Politician.all()
   politicians.filter("name =", query)
   politician = list(politicians[:1])
@@ -76,7 +82,7 @@ def search():
     politician = politicians[0]
     name = query.replace(' ', '-')
     return redirect('/politicians/id/' + name)
-  elif True:
+  else:
     parties = Party.all()
     parties.filter("name =", query)
     party = list(parties[:1])
@@ -84,8 +90,8 @@ def search():
       party = party[0]
       name = query.lower().replace(' ', '-')
       return redirect('/party/' + name)
-  else:
-    return render_template('politician_notfound.html', q = query)
+    else:
+      return render_template('politician_notfound.html', q = query)
 
 
 @app.route('/state/<state>')
@@ -344,6 +350,31 @@ def all_parties():
   # create JSON response
   resp = Response(
     response=json.dumps(parties),
+    status=200,
+    mimetype="application/json"
+  )
+
+  return resp
+
+"""Array of datums for states
+   Format: JSON
+"""
+@app.route('/json/states/all')
+def all_states():
+  datums = []
+
+  for state in STATES:
+    tokens = state.title().split(' ')
+    stat = {
+      'value': state.title(),
+      'tokens': tokens,
+    }
+
+    datums.append(stat)
+
+  # create JSON response
+  resp = Response(
+    response=json.dumps(datums),
     status=200,
     mimetype="application/json"
   )

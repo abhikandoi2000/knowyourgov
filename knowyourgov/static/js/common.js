@@ -39,6 +39,10 @@ $(function(){
   {
     name: 'parties',
     prefetch: '/json/parties/all'
+  },
+  {
+    name: 'states',
+    prefetch: '/json/states/all'
   }
   ]);
 
