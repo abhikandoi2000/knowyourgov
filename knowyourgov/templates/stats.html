@@ -33,8 +33,6 @@
           var wealth_data = google.visualization.arrayToDataTable(wealth_arr);
           var percentiles_data = google.visualization.arrayToDataTable(percentiles_arr);
 
-          console.log(averages_arr, wealth_arr, percentiles_arr)
-
           drawChart(averages_data, {'title':'Parliamentary Stats'}, 'average_chart')
           drawChart(wealth_data, {'title':'Wealth Stats'}, 'wealth_chart')
           drawChart(percentiles_data, {'title':'Percentiles'}, 'perc_chart')

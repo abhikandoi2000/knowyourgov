@@ -22,8 +22,8 @@ var getState = function(city){
   }).done(function(response){
     // 1 - locality, 2 - Admin[2], 3 - Admin[1], 4 - Country
     var res = response['results'][0]['address_components'];
-        console.log(response)
-        console.log(res)
+        // console.log(response)
+        // console.log(res)
         state = res[res.length - 2].long_name;
         country = res[res.length - 1].long_name;
 
@@ -72,7 +72,7 @@ var searchState = function(state){
     
     }
   });
-  console.log(state);
+  // console.log(state);
 }
 /***
   Used for Custom Search

@@ -9,7 +9,6 @@ from knowyourgov.scripts import insert_politicians_in_db
 from knowyourgov.scripts import stats
 from knowyourgov.scripts.data import update_csvdata_in_db, update_scrapeddata_in_db, add_party_details_db
 from knowyourgov.scripts.scraping import scrapers
-import logging
 # import errors
 
 STATES = ['Haryana', 'Punjab', 'Goa', 'Chhattisgarh', 'Kerala', 'Daman and Diu', 'Bihar', 'Tamil Nadu', 'Chandigarh', 'Jammu and Kashmir', 'Dadra and Nagar Haveli', 'Jharkhand', 'Meghalaya', 'Delhi', 'Assam', 'Madhya Pradesh', 'Lakshadweep', 'Manipur', 'Rajasthan', 'Sikkim', 'West Bengal', 'Andhra Pradesh', 'Himachal Pradesh', 'Nagaland', 'Gujarat', 'Arunachal Pradesh', 'Maharashtra', 'Tripura', 'Uttarakhand', 'Puducherry', 'Karnataka', 'Jammu & Kashmir', 'Mizoram', 'Odisha', 'Uttar Pradesh', 'Andaman and Nicobar Islands']
@@ -135,7 +134,6 @@ def party(party):
 
   party = party.lower().replace('-',' ')
   party_stats = stats.get_party_stats(party)
-  logging.info(party_stats)
   pols = Politician.all()
   pols.filter("party =", party)
   pols.order('-search_count')

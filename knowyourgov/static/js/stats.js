@@ -10,7 +10,6 @@ function plotStats(stats)
 		var chart_data = google.visualization.arrayToDataTable(arr);
 		var id = field+'_chart'
 		var new_div = "<div id='"+id+"' class='chart-div'></div>"
-		console.log(new_div)
 		$("div#stats").append(new_div)
 		drawChart(chart_data, {'title':toTitleCase(field)+' Distribution'}, id)
 	}

@@ -84,7 +84,7 @@ function signinCallback(authResult) {
     var request = gapi.client.plus.people.get( {'userId' : 'me'} );
 
     request.execute(function(profile){
-      console.log(profile.name.givenName, profile.placesLived)
+      // console.log(profile.name.givenName, profile.placesLived)
     });
 
     // Update the app to reflect a signed in user
