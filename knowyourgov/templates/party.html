@@ -77,7 +77,10 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/stats.js')}}"></script>
 
 <script type="text/javascript">
-	var stats = {{stats|tojson|safe}}
+	var stats = {}
+	{% if stats is defined %}
+		stats = {{stats|tojson|safe}}
+	{% endif %}
 	google.load("visualization", "1", {packages:["corechart"]});
 	google.setOnLoadCallback(function()
 	{
