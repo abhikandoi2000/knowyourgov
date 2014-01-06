@@ -178,11 +178,16 @@ def pol_stats(name):
   if ' ' in name:  
     name = name.replace(' ', '-')
     return redirect('/stats/politician/'+ name)
-
+    
   name = name.lower().replace('-',' ')
+  politicians = Politician.all()
+  politicians.filter("name =", name)
+  politician = list(politicians[:1])
+  if politician:
+    politician = politicians[0]
   pol_stats = stats.get_stats(name, stats.pol_fields)
   wealth_stats = stats.get_stats(name, stats.wealth_fields)
-  return render_template('stats.html', pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.pol_fields, wealth_fields = stats.wealth_fields, name = name)
+  return render_template('stats.html', politician = politician, pol_stats = pol_stats, wealth_stats = wealth_stats, fields = stats.pol_fields, wealth_fields = stats.wealth_fields, name = name)
 
 @app.route('/stats/state/<state>', methods=['GET'])
 def state_stats(state):

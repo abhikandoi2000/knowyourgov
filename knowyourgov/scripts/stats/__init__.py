@@ -3,7 +3,7 @@ from knowyourgov.models import Politician
 from math import ceil
 import logging
   
-pol_fields = ['attendance', 'debates', 'questions', 'bills']
+pol_fields = ['attendance', 'debates', 'questions']
 wealth_fields = ['net_worth', 'cash', 'property', 'other']
 state_fields = ['gender', 'age', 'party']
 party_fields = ['gender', 'age']
