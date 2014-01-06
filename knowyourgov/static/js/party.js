@@ -66,7 +66,7 @@ $(function(){
 			h = '';
 			$('.video-wrap').html('');
 			for(i in j){
-				h += '<p class="palette-paragraph">' + j[i].title +' </p><iframe id="ytplayer" type="text/html" src="http://www.youtube.com/embed/'+ j[i].id +'?autoplay=0&autohide=1&controls=0&showinfo=0&theme=light" frameborder="0"/>';			
+				h += '<p class="palette-paragraph">' + j[i].title +' </p><iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/'+ j[i].id +'?autoplay=0&autohide=1&controls=0&showinfo=0&theme=light" frameborder="0"/>';			
 			}
 			$('.video-wrap').html(h)
 		})
