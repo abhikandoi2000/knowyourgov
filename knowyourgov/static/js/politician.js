@@ -287,7 +287,7 @@ $(function() {
 
       }
 
-      if(tweets.length == 0) {
+      if(typeof tweets == "undefined" || tweets.length == 0) {
         $('.tweets').append('<p class="text-center grey"> Sorry, no relevant social activity. </p>');
       }
     },
