@@ -263,11 +263,6 @@ p.lead {
   margin-top: 20px !important;
 }
 
-.tech-stack {
-  width: 30%;
-  margin: 0 auto;
-}
-
 #res-title {
   text-align:center;
   display:none;
@@ -353,6 +348,26 @@ div.footer div a{
 }
 div.footer div ul.nav{
   margin-left: 25%;
+}
+/**
+  * About Page
+  */
+
+div.about-wrap p.lead{
+  margin-top: 60px !important;
+}
+ul.techstack-list{
+  list-style:none;
+  padding:0px;
+  margin:0px;
+}
+ul.techstack-list li{
+  line-height: 3em;
+}
+ul.techstack-list img{
+  height:32px;
+  width:32px;
+  margin: 5px;
 }
 /**
   * Google+ Style Scrollbar

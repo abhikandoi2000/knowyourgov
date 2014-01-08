@@ -6,40 +6,88 @@
 {% endblock %}
 
 {% block content %}
-	<div class = "about-wrap col-md-12 text-center">
+	<div class = "about-wrap col-md-8 col-xs-offset-2 text-center">
 		<p class="lead"> About </p>
 		<p>
 			Know Your Government is an attempt to raise awareness about political leaders in India in common person. 
 		</p>
 		<p class="lead"> Our Information Base </p>
 		<p>
-			We database currently has information of elected Members of Parliaments and Chief Ministers of different States
-		</p>
-		<p> 
-			For Collecting Information & Stats we referred to : <a href="http://164.100.47.132/LssNew/lss.htm">Lok Sabha Portal</a> - <a href="http://india60.com/mps/"> India 60 </a> - <a href="http://myneta.info"> My Neta Info </a>
+			Our database currently has information of elected Members of Parliaments and Chief Ministers of different States
+		<br>
+		<span style="font-size:0.75em">	For Collecting Information & Stats we referred to : <a href="http://164.100.47.132/LssNew/lss.htm">Lok Sabha Portal</a> - <a href="http://india60.com/mps/"> India 60 </a> - <a href="http://myneta.info"> My Neta Info </a></span>
 		<p class="lead">How to Use It?</p>
-		<p>
-			You can go ahead and type the name of a the politican or you can use location services to track leaders nearby your location. In location service, you can, enter the name of your region / connect this application with Google+ to help us track your past locations / Share your current location if your browser supports geolocation 
+
+		<strong> Search </strong>
+
+		<p> <img src="/static/img/about-search.png" > </p>
+
+		<p style="font-size:0.75em">
+			Our search box maps a partially entered name to the existing ones we have in our database. The search feature may also be used for searching for a party or for politicians of a state.
 		</p>
+
+		<strong> Location-wise search </strong>
+
+		<p> <img src="/static/img/about-location.png" border="1"> </p>
+
+		<p style="font-size:0.75em">
+			<a href="/getlocation"> Location service </a> lets you discover leaders by three different modes. You can search for a location / Detect your current location / Import location data from Google+ (<a href="https://plus.google.com/111205793019369355994/posts/iAwfbRCpQrm">Sample</a> )
+		</p>
+
+		<p style="font-size:0.75em"> You can now also discover through different politicial parties. Check out all of them <a href="/parties">here</a> </p>
+
 		<p class="lead">Politician Information</p>
 		<p>
-			On a politican's page, you can view basic information about him/her, updates about their activities from twitter, recent news updates involving them and finally a sentiment analysis. Sentiment analysis is done on weighted factors involving updates from social circles, news articles from national dailies(currently TOI and Hindu) and Reader comments on those Websites
-			<br>
-			Currently we have data only for major politicians elected in power.
+			Effort has been made to summarise all relevant information we could gather from relevant sources and display on this page.
 		</p>
-		<p class="lead"> Tech Stack </p>
+
+		<strong> Background </strong>
+
+		<p> <img src="/static/img/about-background.png"> </p>
+
+		<p style="font-size:0.75em">
+			The background information column includes State, Party and a relevant profile picture. Additionally, if available, the age and Constituency of the candidate is shown.
+		</p>
+
+		<strong> Stats </strong>
+
+		<p> <img src="/static/img/about-stats.png"> </p>
+
+		<p style="font-size:0.75em">
+			We display statistics of attendance in parliament , education, number of debates participated in, number of questions asked and the net worth as declared on the official lok sabha / rajya sabha website. The <strong>More</strong> link provides with comparison of individual stats with those of national averages
+		</p>
+
+		<strong> Updates & content </strong>
+
+		<p style="font-size:0.75em">
+			Relevant recent news and updates from twitter for a politician are displayed in center. Incase, no releavnt information is found, we look for relevant videos. 
+		</p>
+
+		<strong> Sentiment Analysis </strong>
+
+		<p> <img src="/static/img/about-sentiment.png"> </p>
+
+		<p style="font-size:0.75em">
+		We perform Sentiment Analysis of the content we fetch from news sources and social media using NLP algorithms of Alchemy Sentiment API
+		</p>
+
+		<p class="lead"> How We Do it?</p>
+		<p><i> Our Tech Stack </i></p>
 		<div class="row">
 			<div class="tech-stack">
-				<ul>
-					<li> Google App Engine </li>
-					<li> Google Data Store </li>
-					<li> Flask, Jinja2 </li>
-					<li> Google Maps API </li>
-					<li> Google+ Signin </li>
-					<li> Google News API </li>
-					<li> Twitter API </li>
-					<li> Alchemy Sentiment API </li>
-					<li> Google Custom Search API </li>
+				<ul class="techstack-list">
+
+					<li><img src="/static/img/about-icon-gappengine.png"> Google App Engine </li>
+					<li><img src="/static/img/about-icon-gdatastore.png"> Google Data Store </li>
+					<li><img src="/static/img/about-icon-flask.png"> Flask, Jinja2 </li>
+					<li><img src="/static/img/about-icon-gmaps.png"> Google Maps API </li>
+					<li><img src="/static/img/about-icon-gplus.png"> Google+ Signin </li>
+					<li><img src="/static/img/gnews.png">Google News API </li>
+					<li><img src="/static/img/about-icon-youtube.png"> Youtube API </li>
+					<li><img src="/static/img/about-icon-googlespeech.gif"> Google Speech API </li>
+					<li><img src="/static/img/twitter-icon.png">Twitter API </li>
+					<li><img src="/static/img/about-icon-alchemy.png"> Alchemy Sentiment </li>
+					<li> Google Translate toolkit, Google+ Comments </li>
 				</ul>
 			</div>
 		</div>
