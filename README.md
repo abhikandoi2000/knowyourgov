@@ -1,9 +1,13 @@
-# know your government
+![Know Your Government](https://gcdc2013-know-your-gov.appspot.com/static/img/logo.png)
 
-Know your Government, entry for Google Cloud Developer Challenge
+Know Your Government is an attempt to raise awareness about political leaders in India in common person. [Read more about the application](https://gcdc2013-know-your-gov.appspot.com/about)
 
-#Deploy URL
+This application was submitted for Google Cloud Developer Challenge and was amongone of the [finalists](http://www.google.com/events/gcdc2013/finalists.html) for India region
+
+#Application Deploy URL
 [https://gcdc2013-know-your-gov.appspot.com/](https://gcdc2013-know-your-gov.appspot.com/)
+
+We know it's a bit long ;)
 
 # Tech Stack
 
@@ -16,7 +20,7 @@ Know your Government, entry for Google Cloud Developer Challenge
 * Google News API
 * Twitter API
 * Alchemy Sentiment API
-* Google Custom Search API
+* Youtube API
 
 # Development
 
@@ -29,6 +33,10 @@ Know your Government, entry for Google Cloud Developer Challenge
 
 # Populating the datastore
 
-A `GET` request to `/updatedb/politicians` will populate the database.
+A `GET` request to `/updatedb/politicians` will populate the politician database.
+
+A `GET` request to `/updatedb/csvdata` will add additional information about the politician from different sources.
+
+A `GET` request to `/updatedb/partyinfo` will add information about major national political parties.
 
 *Make sure that the website is up and running before you do so.*
